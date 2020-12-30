@@ -1,20 +1,16 @@
 package com;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "student", schema = "officehoursmangementsystem", catalog = "")
+@Table(name = "student", schema = "officehoursmangementsystem")
 public class StudentEntity {
     private String studentId;
     private String studentName;
     private String studentNumber;
     private String studentEmail;
     private String studentPassword;
-    private Collection<AppointmentEntity> appointmentsByStudentId;
-    private Collection<CoursetostudentsEntity> coursetostudentsByStudentId;
-    private Collection<MessageEntity> messagesByStudentId;
 
     @Id
     @Column(name = "StudentId")
@@ -77,32 +73,5 @@ public class StudentEntity {
     @Override
     public int hashCode() {
         return Objects.hash(studentId, studentName, studentNumber, studentEmail, studentPassword);
-    }
-
-    @OneToMany(mappedBy = "studentByStudentId")
-    public Collection<AppointmentEntity> getAppointmentsByStudentId() {
-        return appointmentsByStudentId;
-    }
-
-    public void setAppointmentsByStudentId(Collection<AppointmentEntity> appointmentsByStudentId) {
-        this.appointmentsByStudentId = appointmentsByStudentId;
-    }
-
-    @OneToMany(mappedBy = "studentByStudentId")
-    public Collection<CoursetostudentsEntity> getCoursetostudentsByStudentId() {
-        return coursetostudentsByStudentId;
-    }
-
-    public void setCoursetostudentsByStudentId(Collection<CoursetostudentsEntity> coursetostudentsByStudentId) {
-        this.coursetostudentsByStudentId = coursetostudentsByStudentId;
-    }
-
-    @OneToMany(mappedBy = "studentByStudentId")
-    public Collection<MessageEntity> getMessagesByStudentId() {
-        return messagesByStudentId;
-    }
-
-    public void setMessagesByStudentId(Collection<MessageEntity> messagesByStudentId) {
-        this.messagesByStudentId = messagesByStudentId;
     }
 }

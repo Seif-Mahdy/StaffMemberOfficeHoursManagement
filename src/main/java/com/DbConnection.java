@@ -1,4 +1,4 @@
-package com.example.StaffMemberOfficeHoursManagement;
+package com;
 
 import java.io.PrintWriter;
 import java.sql.Connection;

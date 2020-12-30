@@ -6,16 +6,16 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class CoursetostaffEntityPK implements Serializable {
-    private int courseId;
+    private Integer courseId;
     private String staffId;
 
     @Column(name = "CourseId")
     @Id
-    public int getCourseId() {
+    public Integer getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(int courseId) {
+    public void setCourseId(Integer courseId) {
         this.courseId = courseId;
     }
 
@@ -34,7 +34,7 @@ public class CoursetostaffEntityPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CoursetostaffEntityPK that = (CoursetostaffEntityPK) o;
-        return courseId == that.courseId && Objects.equals(staffId, that.staffId);
+        return Objects.equals(courseId, that.courseId) && Objects.equals(staffId, that.staffId);
     }
 
     @Override
