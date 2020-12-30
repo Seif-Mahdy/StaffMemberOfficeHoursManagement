@@ -1,24 +1,21 @@
 package com;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "course", schema = "officehoursmangementsystem", catalog = "")
+@Table(name = "course", schema = "officehoursmangementsystem")
 public class CourseEntity {
-    private int courseId;
+    private Integer courseId;
     private String courseName;
-    private Collection<CoursetostaffEntity> coursetostaffsByCourseId;
-    private Collection<CoursetostudentsEntity> coursetostudentsByCourseId;
 
     @Id
     @Column(name = "CourseId")
-    public int getCourseId() {
+    public Integer getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(int courseId) {
+    public void setCourseId(Integer courseId) {
         this.courseId = courseId;
     }
 
@@ -37,29 +34,11 @@ public class CourseEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CourseEntity that = (CourseEntity) o;
-        return courseId == that.courseId && Objects.equals(courseName, that.courseName);
+        return Objects.equals(courseId, that.courseId) && Objects.equals(courseName, that.courseName);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(courseId, courseName);
-    }
-
-    @OneToMany(mappedBy = "courseByCourseId")
-    public Collection<CoursetostaffEntity> getCoursetostaffsByCourseId() {
-        return coursetostaffsByCourseId;
-    }
-
-    public void setCoursetostaffsByCourseId(Collection<CoursetostaffEntity> coursetostaffsByCourseId) {
-        this.coursetostaffsByCourseId = coursetostaffsByCourseId;
-    }
-
-    @OneToMany(mappedBy = "courseByCourseId")
-    public Collection<CoursetostudentsEntity> getCoursetostudentsByCourseId() {
-        return coursetostudentsByCourseId;
-    }
-
-    public void setCoursetostudentsByCourseId(Collection<CoursetostudentsEntity> coursetostudentsByCourseId) {
-        this.coursetostudentsByCourseId = coursetostudentsByCourseId;
     }
 }

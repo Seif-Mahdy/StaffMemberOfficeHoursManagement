@@ -2,26 +2,24 @@ package com;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "officehour", schema = "officehoursmangementsystem", catalog = "")
+@Table(name = "officehour", schema = "officehoursmangementsystem")
 public class OfficehourEntity {
-    private int id;
+    private Integer id;
     private Date fromDate;
     private Date toDate;
-    private byte isOffline;
+    private Byte isOffline;
     private String location;
-    private Collection<AppointmentEntity> appointmentsById;
 
     @Id
     @Column(name = "ID")
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -47,11 +45,11 @@ public class OfficehourEntity {
 
     @Basic
     @Column(name = "IsOffline")
-    public byte getIsOffline() {
+    public Byte getIsOffline() {
         return isOffline;
     }
 
-    public void setIsOffline(byte isOffline) {
+    public void setIsOffline(Byte isOffline) {
         this.isOffline = isOffline;
     }
 
@@ -70,20 +68,11 @@ public class OfficehourEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OfficehourEntity that = (OfficehourEntity) o;
-        return id == that.id && isOffline == that.isOffline && Objects.equals(fromDate, that.fromDate) && Objects.equals(toDate, that.toDate) && Objects.equals(location, that.location);
+        return Objects.equals(id, that.id) && Objects.equals(fromDate, that.fromDate) && Objects.equals(toDate, that.toDate) && Objects.equals(isOffline, that.isOffline) && Objects.equals(location, that.location);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, fromDate, toDate, isOffline, location);
-    }
-
-    @OneToMany(mappedBy = "officehourByOfficeHourId")
-    public Collection<AppointmentEntity> getAppointmentsById() {
-        return appointmentsById;
-    }
-
-    public void setAppointmentsById(Collection<AppointmentEntity> appointmentsById) {
-        this.appointmentsById = appointmentsById;
     }
 }

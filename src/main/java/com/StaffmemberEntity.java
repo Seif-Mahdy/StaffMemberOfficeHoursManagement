@@ -1,11 +1,10 @@
 package com;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "staffmember", schema = "officehoursmangementsystem", catalog = "")
+@Table(name = "staffmember", schema = "officehoursmangementsystem")
 public class StaffmemberEntity {
     private String staffId;
     private String staffName;
@@ -13,9 +12,6 @@ public class StaffmemberEntity {
     private String staffemail;
     private String staffPassword;
     private Byte staffRole;
-    private Collection<AppointmentEntity> appointmentsByStaffId;
-    private Collection<CoursetostaffEntity> coursetostaffsByStaffId;
-    private Collection<MessageEntity> messagesByStaffId;
 
     @Id
     @Column(name = "StaffId")
@@ -88,32 +84,5 @@ public class StaffmemberEntity {
     @Override
     public int hashCode() {
         return Objects.hash(staffId, staffName, staffNumber, staffemail, staffPassword, staffRole);
-    }
-
-    @OneToMany(mappedBy = "staffmemberByStaffId")
-    public Collection<AppointmentEntity> getAppointmentsByStaffId() {
-        return appointmentsByStaffId;
-    }
-
-    public void setAppointmentsByStaffId(Collection<AppointmentEntity> appointmentsByStaffId) {
-        this.appointmentsByStaffId = appointmentsByStaffId;
-    }
-
-    @OneToMany(mappedBy = "staffmemberByStaffId")
-    public Collection<CoursetostaffEntity> getCoursetostaffsByStaffId() {
-        return coursetostaffsByStaffId;
-    }
-
-    public void setCoursetostaffsByStaffId(Collection<CoursetostaffEntity> coursetostaffsByStaffId) {
-        this.coursetostaffsByStaffId = coursetostaffsByStaffId;
-    }
-
-    @OneToMany(mappedBy = "staffmemberByStaffId")
-    public Collection<MessageEntity> getMessagesByStaffId() {
-        return messagesByStaffId;
-    }
-
-    public void setMessagesByStaffId(Collection<MessageEntity> messagesByStaffId) {
-        this.messagesByStaffId = messagesByStaffId;
     }
 }
