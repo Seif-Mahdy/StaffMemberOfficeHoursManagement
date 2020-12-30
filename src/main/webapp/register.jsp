@@ -7,6 +7,7 @@
 --%>
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.io.PrintWriter" %>
+<%@ page import="com.example.StaffMemberOfficeHoursManagement.DbConnection" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
