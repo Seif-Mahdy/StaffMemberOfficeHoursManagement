@@ -21,7 +21,6 @@
 </head>
 <body style="width: 100%;height: 100%;position: fixed">
 <%
-    Connection connection = DbConnection.getConnection();
 
 %>
 <div class="container-fluid d-flex justify-content-center align-items-center"

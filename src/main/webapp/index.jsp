@@ -19,7 +19,6 @@
             crossorigin="anonymous"></script>
 </head>
 <body style="width: 100%;height: 100%;position: fixed">
-<% Connection con = DbConnection.getConnection();
     System.out.println(con);%>
 <div class="container-fluid d-flex justify-content-center align-items-center"
      style="height: 100%;background-color:gainsboro">
