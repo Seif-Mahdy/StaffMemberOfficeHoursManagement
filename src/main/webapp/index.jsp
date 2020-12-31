@@ -24,7 +24,7 @@
 <div class="container-fluid d-flex justify-content-center align-items-center"
      style="height: 100%;background-color:gainsboro">
     <div class="w-50 shadow p-5 bg-light rounded">
-        <form action="" method="POST">
+        <form action="Login" method="POST">
             <p class="text-danger" id="validation_error"></p>
             <div class="mb-3">
                 <label for="exampleInputID" class="form-label">User ID</label>
@@ -37,13 +37,13 @@
             <label class="mb-3">Login As:</label>
             <div class="mb-5 d-flex flex-column">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="login-type" id="flexRadioDefault1">
+                    <input class="form-check-input" type="radio" name="login-type" id="flexRadioDefault1" value="student">
                     <label class="form-check-label" for="flexRadioDefault1">
                         Student
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="login-type" id="flexRadioDefault2">
+                    <input class="form-check-input" type="radio" name="login-type" id="flexRadioDefault2" value="staff">
                     <label class="form-check-label" for="flexRadioDefault2">
                         Staff Member
                     </label>
