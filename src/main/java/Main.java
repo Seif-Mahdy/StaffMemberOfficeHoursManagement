@@ -1,47 +1,41 @@
-import org.hibernate.HibernateException;
-import org.hibernate.Metamodel;
-import org.hibernate.query.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-
-import javax.persistence.metamodel.EntityType;
-
-import java.util.Map;
+import com.*;
 
 public class Main {
-    private static final SessionFactory ourSessionFactory;
-
-    static {
-        try {
-            Configuration configuration = new Configuration();
-            configuration.configure();
-
-            ourSessionFactory = configuration.buildSessionFactory();
-        } catch (Throwable ex) {
-            throw new ExceptionInInitializerError(ex);
-        }
-    }
-
-    public static Session getSession() throws HibernateException {
-        return ourSessionFactory.openSession();
-    }
-
     public static void main(final String[] args) throws Exception {
-        final Session session = getSession();
-        try {
-            System.out.println("querying all the managed entities...");
-            final Metamodel metamodel = session.getSessionFactory().getMetamodel();
-            for (EntityType<?> entityType : metamodel.getEntities()) {
-                final String entityName = entityType.getName();
-                final Query query = session.createQuery("from " + entityName);
-                System.out.println("executing: " + query.getQueryString());
-                for (Object o : query.list()) {
-                    System.out.println("  " + o);
-                }
-            }
-        } finally {
-            session.close();
-        }
+
+
+        StudentEntity student = new StudentEntity();
+        student.setStudentName("Abdelrhman hosny awad");
+        student.setStudentId("20170144");
+        student.setStudentPassword("A01018236359");
+        student.setStudentEmail("body.hosny111@gmail.com");
+        student.setStudentNumber("01018236359");
+        System.out.println(StudentCrud.addStudent(student));
+/*
+        StudentEntity student2 ;
+        student2=StudentCrud.findStudent("20170144");
+        System.out.println(student2.getStudentName());
+        StudentCrud.updateStudentById("20170144","StudentNumber","01018236358");
+        System.out.println(student2.getStudentNumber());
+
+        StaffmemberEntity staff= new StaffmemberEntity();
+        staff.setStaffId("20170000");
+        staff.setStaffemail("hello.com");
+        staff.setStaffName("elramly");
+        staff.setStaffNumber("0101010");
+        staff.setStaffRole((byte) 1);
+        staff.setStaffPassword("1111");
+        System.out.println(StaffMemberCrud.addStaff(staff));
+
+        CourseEntity course= new CourseEntity();
+        course.setCourseName("Cs");
+        CourseCrud.addCourse(course);*/
+//        CoursetostaffEntity recored = new CoursetostaffEntity();
+//        recored.setCourseId(1);
+//        recored.setStaffId("20170000");
+//        System.out.println(CourseToStaffCrud.add(recored));
+
+
     }
+
 }

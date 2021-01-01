@@ -4,10 +4,11 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url">jdbc:mysql://localhost:3306/officehoursmangementsystem</property>
+        <property name="connection.url">jdbc:mysql://localhost:3308/officehoursmangementsystem</property>
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="connection.username">root</property>
         <property name="connection.password">root</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
         <mapping class="com.AppointmentEntity"/>
         <mapping class="com.CourseEntity"/>
         <mapping class="com.CoursetostaffEntity"/>
@@ -16,10 +17,7 @@
         <mapping class="com.OfficehourEntity"/>
         <mapping class="com.StaffmemberEntity"/>
         <mapping class="com.StudentEntity"/>
-        <!-- <property name="connection.username"/> -->
-        <!-- <property name="connection.password"/> -->
-
         <!-- DB schema will be updated if needed -->
-        <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
+
     </session-factory>
 </hibernate-configuration>

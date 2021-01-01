@@ -5,9 +5,7 @@
   Time: 3:32 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.io.PrintWriter" %>
-<%@ page import="com.DbConnection" %>
+
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>

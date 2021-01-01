@@ -11,6 +11,8 @@ public class CourseEntity {
 
     @Id
     @Column(name = "CourseId")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+
     public Integer getCourseId() {
         return courseId;
     }

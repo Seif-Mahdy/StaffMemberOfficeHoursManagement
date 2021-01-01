@@ -5,7 +5,7 @@ function validateLogin(id, password, login_type) {
             $('#validation_error').html(xhttp.responseText.toUpperCase())
         }
     }
-    xhttp.open("POST", "validation-servlet", true);
+    xhttp.open("POST", "Login", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("id=" + id + "&password=" + password + "&login_type=" + login_type);
 }
@@ -18,7 +18,7 @@ function validateRegister(userName, userID, email, phoneNumber, registerType) {
             $('#registrationErrors').append('<li class="text-danger">' + xhttp.responseText.toUpperCase() + '</li>')
         }
     }
-    xhttp.open("POST", "validation-servlet", true);
+    xhttp.open("POST", "Register", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("userName=" + userName + "&userID=" + userID + "&email=" + email + "&phoneNumber=" + phoneNumber + "&registerType=" + registerType);
 }
@@ -97,6 +97,7 @@ function loadRegisterData() {
     }
 }
 
+/*
 grecaptcha.ready(function () {
     // do request for recaptcha token
     // response is promise with passed token
@@ -105,4 +106,4 @@ grecaptcha.ready(function () {
             // add token value to form
             document.getElementById('g-recaptcha-response').value = token;
         });
-});
+});*/
