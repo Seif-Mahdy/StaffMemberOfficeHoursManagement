@@ -33,12 +33,12 @@
             </ul>
 <%--            <p class="text-danger" id="registration-errors"></p>--%>
             <div class="mb-3">
-                <label for="exampleInputUserName" class="form-label">User name</label>
-                <input type="text" class="form-control" id="exampleInputUserName" name="UserName" required>
+                <label for="exampleInputUserName" class="form-label">Full name</label>
+                <input type="text" class="form-control" id="exampleInputUserName" name="userName" required>
             </div>
             <div class="mb-3">
                 <label for="exampleInputUserID" class="form-label">User ID</label>
-                <input type="text" class="form-control" id="exampleInputUserID" name="UserID" required>
+                <input type="text" class="form-control" id="exampleInputUserID" name="userID" required>
             </div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email address</label>
@@ -54,7 +54,7 @@
             </div>
             <div class="input-group mb-5 visually-hidden" id="register-type">
                 <label class="input-group-text" for="inputGroupSelect02">Register as</label>
-                <select class="form-select" id="inputGroupSelect02" name="register_type" disabled>
+                <select class="form-select" id="inputGroupSelect02" name="registerType" disabled>
                     <option value="Doctor">Doctor</option>
                     <option value="TA">TA</option>
                 </select>

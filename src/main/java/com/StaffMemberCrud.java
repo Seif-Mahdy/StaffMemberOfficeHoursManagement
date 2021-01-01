@@ -92,7 +92,7 @@ public class StaffMemberCrud {
                 }
                 else if(attributeRequired.equals("StudentEmail"))
                 {
-                    staff.setStaffemail(changedValue);
+                    staff.setStaffEmail(changedValue);
                 }
                 else if(attributeRequired.equals("StudentPassword"))
                 {

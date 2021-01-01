@@ -19,7 +19,6 @@ public class Login extends HttpServlet {
         String password = request.getParameter("password");
         if (type.equals("Student")) {
             StudentEntity student = StudentCrud.findStudent(request.getParameter("id"));
-            System.out.println(student.getStudentId());
             if (student != null) {
                 if (password.equals(student.getStudentPassword())) {
                     //Redirect to student profile

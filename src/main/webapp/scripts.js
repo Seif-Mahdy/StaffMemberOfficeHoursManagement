@@ -15,7 +15,11 @@ function validateRegister(userName, userID, email, phoneNumber, registerType) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            $('#registrationErrors').append('<li class="text-danger">' + xhttp.responseText.toUpperCase() + '</li>')
+            if (xhttp.responseText == 'success') {
+                window.location.href = 'index.jsp'
+            } else {
+                $('#registrationErrors').append('<li class="text-danger">' + xhttp.responseText.toUpperCase() + '</li>')
+            }
         }
     }
     xhttp.open("POST", "Register", true);

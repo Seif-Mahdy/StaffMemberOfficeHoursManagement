@@ -13,7 +13,6 @@ public class StudentCrud {
             Session session = sessionObj.openSession();
             session.beginTransaction();
             student = session.find(StudentEntity.class, studentId);
-
             session.getTransaction().commit();
             session.close();
 
