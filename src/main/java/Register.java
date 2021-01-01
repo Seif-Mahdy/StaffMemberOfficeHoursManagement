@@ -23,7 +23,7 @@ public class Register extends HttpServlet {
 
         System.out.println("registerType: " + registerType);
 
-        if (registerType != null) {
+        if (!registerType.equals("null")) {
             System.out.println("staff");
             StaffmemberEntity staff = StaffMemberCrud.findStaffMember(userID);
             if (staff == null) {
