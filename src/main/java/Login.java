@@ -22,7 +22,7 @@ public class Login extends HttpServlet {
             if (student != null) {
                 if (password.equals(student.getStudentPassword())) {
                     //Redirect to student profile
-                    System.out.println("hello student");
+                    out.print("success");
                 } else {
                     out.print("Incorrect password!");
                 }

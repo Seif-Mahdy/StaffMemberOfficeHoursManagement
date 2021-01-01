@@ -43,7 +43,13 @@
                 </select>
             </div>
             <div class="d-flex justify-content-between align-items-center">
-                <button type="submit" class="btn btn-primary" onclick="loadLoginData()">login</button>
+                <div class="d-flex flex-row align-items-center">
+                    <button type="submit" class="btn btn-primary" onclick="loadLoginData()" id="login-btn">login</button>
+                    <div class="spinner-border text-primary spinner-border-sm ms-4 visually-hidden" role="status"
+                         id="spinner">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
                 <a href="register.jsp">Don't have an account?</a>
             </div>
 

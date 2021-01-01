@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 public class StudentCrud {
+    //TODO:implement find student by email and by phone number
     public static StudentEntity findStudent(String studentId) {
         StudentEntity student = null;
         SessionFactory sessionObj = HybernateUtil.getSessionFactory();
@@ -37,8 +38,6 @@ public class StudentCrud {
             isInsert = true;
         } catch (HibernateException e) {
             e.printStackTrace();
-        } finally {
-            sessionObj.close();
         }
         return isInsert;
     }
@@ -58,8 +57,6 @@ public class StudentCrud {
 
         } catch (HibernateException e) {
             e.printStackTrace();
-        } finally {
-            sessionObj.close();
         }
 
         return isDeleted;
@@ -100,8 +97,6 @@ public class StudentCrud {
         } catch (HibernateException e) {
             e.printStackTrace();
 
-        } finally {
-            sessionObj.close();
         }
 
         return isUpdated;

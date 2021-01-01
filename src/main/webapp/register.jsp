@@ -31,7 +31,7 @@
             <ul id="registrationErrors">
 
             </ul>
-<%--            <p class="text-danger" id="registration-errors"></p>--%>
+            <%--            <p class="text-danger" id="registration-errors"></p>--%>
             <div class="mb-3">
                 <label for="exampleInputUserName" class="form-label">Full name</label>
                 <input type="text" class="form-control" id="exampleInputUserName" name="userName" required>
@@ -50,7 +50,8 @@
             </div>
             <div class="mb-5">
                 <label for="exampleInputSSN" class="form-label">SSN</label>
-                <input type="text" class="form-control" id="exampleInputSSN" name="ssn" oninput="showRegistrationType()" required>
+                <input type="text" class="form-control" id="exampleInputSSN" name="ssn" oninput="showRegistrationType()"
+                       required>
             </div>
             <div class="input-group mb-5 visually-hidden" id="register-type">
                 <label class="input-group-text" for="inputGroupSelect02">Register as</label>
@@ -62,7 +63,13 @@
             <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
             <input type="hidden" name="action" value="validate_captcha">
             <div class="d-flex justify-content-between align-items-center">
-                <button type="submit" class="btn btn-primary" onclick="loadRegisterData()">Register</button>
+                <div class="d-flex flex-row align-items-center">
+                    <button type="submit" class="btn btn-primary" id="register-btn" onclick="loadRegisterData()">Register</button>
+                    <div class="spinner-border text-primary spinner-border-sm ms-4 visually-hidden" role="status" id="spinner">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+
                 <a href="index.jsp">Already a user?</a>
             </div>
 

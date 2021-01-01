@@ -2,7 +2,12 @@ function validateLogin(id, password, login_type) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            $('#validation_error').html(xhttp.responseText.toUpperCase())
+            $("#login-btn").prop('disabled', false)
+            $("#spinner").addClass("visually-hidden")
+            if (xhttp.responseText == "success") {
+            } else {
+                $('#validation_error').html(xhttp.responseText.toUpperCase())
+            }
         }
     }
     xhttp.open("POST", "Login", true);
@@ -15,6 +20,8 @@ function validateRegister(userName, userID, email, phoneNumber, registerType) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
+            $("#register-btn").prop('disabled', false);
+            $("#spinner").addClass("visually-hidden")
             if (xhttp.responseText == 'success') {
                 window.location.href = 'index.jsp'
             } else {
@@ -38,6 +45,8 @@ function loadLoginData() {
         if (id.length > 8 || id.length < 8) {
             $('#validation_error').html('User ID must be exactly 8 digits!')
         } else {
+            $("#login-btn").prop('disabled', true)
+            $("#spinner").removeClass("visually-hidden")
             validateLogin(id, password, loginType)
         }
     } else {
@@ -89,6 +98,8 @@ function loadRegisterData() {
             error_msg.push("SSN must be exactly 14 digits!")
         }
         if (error_msg.length == 0) {
+            $("#register-btn").prop('disabled', true);
+            $("#spinner").removeClass("visually-hidden")
             validateRegister(userName, userID, email, phoneNumber, registerType)
         } else {
             for (var i = 0; i < error_msg.length; i++) {

@@ -13,6 +13,7 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "/Register", value = "/Register")
 public class Register extends HttpServlet {
+    //TODO:captcha validation
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         String userName = request.getParameter("userName");
@@ -36,7 +37,7 @@ public class Register extends HttpServlet {
                 staff.setStaffRole(registerType);
                 boolean done = StaffMemberCrud.addStaff(staff);
                 if (done) {
-                    response.sendRedirect("index.jsp");
+                    out.print("success");
                 }
             } else {
                 out.print("There is already an account associated with these credentials!");
