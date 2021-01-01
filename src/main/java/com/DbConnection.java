@@ -1,11 +1,12 @@
 package com;
 
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+    import java.io.PrintWriter;
+    import java.sql.Connection;
+    import java.sql.DriverManager;
+    import java.sql.SQLException;
 
 public class DbConnection {
+
     public static Connection getConnection() {
         String url = "jdbc:mysql://localhost:3308/officehoursmangementsystem";
         String pass = "root";

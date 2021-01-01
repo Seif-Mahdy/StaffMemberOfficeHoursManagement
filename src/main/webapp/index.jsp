@@ -19,39 +19,32 @@
             crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"
             integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="scripts.js"></script>
 </head>
 <body style="width: 100%;height: 100%;position: fixed">
 <div class="container-fluid d-flex justify-content-center align-items-center"
      style="height: 100%;background-color:gainsboro">
     <div class="w-50 shadow p-5 bg-light rounded">
-        <form action="" method="POST">
+        <form action="#" method="POST" id="login-form">
             <p class="text-danger" id="validation_error"></p>
             <div class="mb-3">
                 <label for="exampleInputID" class="form-label">User ID</label>
                 <input type="text" class="form-control" id="exampleInputID" name="id" required>
             </div>
-            <div class="mb-3">
+            <div class="mb-5">
                 <label for="exampleInputPassword1" class="form-label">Password</label>
                 <input type="password" class="form-control" id="exampleInputPassword1" name="password" required>
             </div>
-            <label class="mb-3">Login As:</label>
-            <div class="mb-5 d-flex flex-column">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="login-type" id="flexRadioDefault1">
-                    <label class="form-check-label" for="flexRadioDefault1">
-                        Student
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="login-type" id="flexRadioDefault2">
-                    <label class="form-check-label" for="flexRadioDefault2">
-                        Staff Member
-                    </label>
-                </div>
+            <div class="input-group mb-5">
+                <label class="input-group-text" for="inputGroupSelect01">Login as</label>
+                <select class="form-select" id="inputGroupSelect01" name="login_type">
+                    <option value="Student">Student</option>
+                    <option value="Staff member">Staff member</option>
+                </select>
             </div>
             <div class="d-flex justify-content-between align-items-center">
-                <button type="submit" class="btn btn-primary">login</button>
-                <a href="register.jsp">don't have an account?</a>
+                <button type="submit" class="btn btn-primary" onclick="loadLoginData()">login</button>
+                <a href="register.jsp">Don't have an account?</a>
             </div>
 
         </form>
