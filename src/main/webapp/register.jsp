@@ -5,7 +5,7 @@
   Time: 3:32 PM
   To change this template use File | Settings | File Templates.
 --%>
-
+<%@ page import="java.io.PrintWriter" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -18,9 +18,8 @@
             crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"
             integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-    <%--    <script src="https://www.google.com/recaptcha/api.js"></script>--%>
-    <script src="https://www.google.com/recaptcha/api.js?render=6LfJ5xsaAAAAAJb6TdCdY5PQiY_Zh3CSKkuWHHfq"></script>
     <script src="scripts.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
 <body style="width: 100%;height: 100%;position: fixed">
 
@@ -28,10 +27,7 @@
      style="height: 100%;background-color:gainsboro">
     <div class="w-50 shadow p-5 bg-light rounded">
         <form action="#" method="POST" id="register-form">
-            <ul id="registrationErrors">
-
-            </ul>
-            <%--            <p class="text-danger" id="registration-errors"></p>--%>
+            <ul id="registrationErrors"></ul>
             <div class="mb-3">
                 <label for="exampleInputUserName" class="form-label">Full name</label>
                 <input type="text" class="form-control" id="exampleInputUserName" name="userName" required>
@@ -60,12 +56,17 @@
                     <option value="TA">TA</option>
                 </select>
             </div>
-            <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
-            <input type="hidden" name="action" value="validate_captcha">
+            <div class="g-recaptcha"
+                 data-sitekey="6LcIIR0aAAAAAA7Ebm5naPBBBBJh5DwBxBHN8dda"></div>
+            <input type="hidden" name="recaptchaResponse" value="" id="recaptchaResponse">
+
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex flex-row align-items-center">
-                    <button type="submit" class="btn btn-primary" id="register-btn" onclick="loadRegisterData()">Register</button>
-                    <div class="spinner-border text-primary spinner-border-sm ms-4 visually-hidden" role="status" id="spinner">
+                    <button type="submit" class="btn btn-primary" id="register-btn" onclick="loadRegisterData()">
+                        Register
+                    </button>
+                    <div class="spinner-border text-primary spinner-border-sm ms-4 visually-hidden" role="status"
+                         id="spinner">
                         <span class="visually-hidden">Loading...</span>
                     </div>
                 </div>

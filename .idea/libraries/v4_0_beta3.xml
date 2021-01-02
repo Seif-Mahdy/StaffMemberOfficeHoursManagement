@@ -1,0 +1,41 @@
+<component name="libraryTable">
+  <library name="v4.0.beta3">
+    <CLASSES>
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7/javadoc/botdetect-4.0.beta3.7-javadoc" />
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7/javadoc/botdetect-jsf12-4.0.beta3.7-javadoc" />
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7/javadoc/botdetect-jsf20-4.0.beta3.7-javadoc" />
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7/javadoc/botdetect-jsp20-4.0.beta3.7-javadoc" />
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7/javadoc/botdetect-servlet-4.0.beta3.7-javadoc" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7/examples/s_api-captcha-angular-servlet/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7/examples/s_api-captcha-angularjs-servlet/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7/examples/s_api-captcha-jquery-servlet/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7/examples/s_api-captcha-react-servlet/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7/examples/t_api-captcha-jsf1.2-api_basics-facelets/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7/examples/t_api-captcha-jsf1.2-api_basics-jsp_view/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7/examples/t_api-captcha-jsf1.2-api_basics-validator_tag/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7/examples/t_api-captcha-jsf1.2-login-form/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7/examples/t_api-captcha-jsf2.0-api_basics-facelets/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7/examples/t_api-captcha-jsf2.0-api_basics-jsp_view/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7/examples/t_api-captcha-jsf2.0-api_basics-validator_tag/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7/examples/t_api-captcha-jsf2.0-login-form/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7/examples/t_api-captcha-jsp2-api_basics-captcha_tag/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7/examples/t_api-captcha-jsp2-contact_form-jquery/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7/examples/t_api-captcha-jsp2-contact_form/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7/examples/t_api-captcha-jsp2-login-form/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7/examples/t_api-captcha-primefaces6.0-faces.validator/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7/examples/t_api-captcha-spring4-spring_security/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7/examples/t_api-captcha-spring5-api_basics/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7/examples/t_api-captcha-spring5-contact_form/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7/examples/t_api-captcha-struts2-api_basics/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7/examples/t_api-captcha-struts2-contact_form/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7/examples/t_api-captcha~conf_via-dynamic_config/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7/examples/t_api-captcha~demo/src/main/java" />
+    </SOURCES>
+    <jarDirectory url="file://$USER_HOME$/Downloads/Compressed/bdc-java-free/v4.0.beta3.7" recursive="false" />
+  </library>
+</component>

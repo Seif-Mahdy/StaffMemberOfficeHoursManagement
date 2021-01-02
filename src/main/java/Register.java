@@ -21,11 +21,12 @@ public class Register extends HttpServlet {
         String email = request.getParameter("email");
         String phoneNumber = request.getParameter("phoneNumber");
         String registerType = request.getParameter("registerType");
+        String captchaToken = request.getParameter("recaptchaResponse");
 
-        System.out.println("registerType: " + registerType);
+        System.out.println("captchaToken " + captchaToken);
 
         if (!registerType.equals("null")) {
-            System.out.println("staff");
+
             StaffmemberEntity staff = StaffMemberCrud.findStaffMember(userID);
             if (staff == null) {
                 staff = new StaffmemberEntity();
@@ -43,7 +44,7 @@ public class Register extends HttpServlet {
                 out.print("There is already an account associated with these credentials!");
             }
         } else {
-            System.out.println("student");
+
             StudentEntity student = StudentCrud.findStudent(userID);
             if (student == null) {
                 student = new StudentEntity();
