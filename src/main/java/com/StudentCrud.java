@@ -4,7 +4,44 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.util.List;
+
 public class StudentCrud {
+    public static List<StudentEntity> finStudentByAtt(String attribute, String attributeValue)
+    {
+        StudentEntity student = null;
+        SessionFactory sessionObj = HybernateUtil.getSessionFactory();
+        List<StudentEntity> results = null;
+
+        try  {
+            Session session = sessionObj.openSession();
+            session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+
+            CriteriaQuery<StudentEntity> criteria = builder.createQuery(StudentEntity.class);
+             Root<StudentEntity> root= criteria.from(StudentEntity.class);
+             criteria.select(root).where(builder.like(root.get(attribute),attributeValue));
+             TypedQuery<StudentEntity> query=session.createQuery(criteria);
+             results = query.getResultList();
+
+
+
+
+            session.getTransaction().commit();
+            session.close();
+
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+
+
+        return results;
+
+    }
     public static StudentEntity findStudent(String studentId) {
         StudentEntity student = null;
         SessionFactory sessionObj = HybernateUtil.getSessionFactory();

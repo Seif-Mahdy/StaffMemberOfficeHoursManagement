@@ -4,8 +4,44 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-public class StaffMemberCrud {
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.util.List;
 
+public class StaffMemberCrud {
+    public static List<StaffmemberEntity> findStaffByAtt(String attribute, String attributeValue)
+    {
+        StaffmemberEntity staff = null;
+        SessionFactory sessionObj = HybernateUtil.getSessionFactory();
+        List<StaffmemberEntity> results = null;
+
+        try  {
+            Session session = sessionObj.openSession();
+            session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+
+            CriteriaQuery<StaffmemberEntity> criteria = builder.createQuery(StaffmemberEntity.class);
+            Root<StaffmemberEntity> root= criteria.from(StaffmemberEntity.class);
+            criteria.select(root).where(builder.like(root.get(attribute),attributeValue));
+            TypedQuery<StaffmemberEntity> query=session.createQuery(criteria);
+            results = query.getResultList();
+
+
+
+
+            session.getTransaction().commit();
+            session.close();
+
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+
+
+        return results;
+
+    }
         public static StaffmemberEntity findStaffMember(String stafftId) {
             StaffmemberEntity staff = null;
             SessionFactory sessionObj = HybernateUtil.getSessionFactory();

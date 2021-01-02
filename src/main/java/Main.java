@@ -1,4 +1,9 @@
 import com.*;
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+import java.util.List;
 
 public class Main {
     public static void main(final String[] args) throws Exception {
@@ -30,10 +35,16 @@ public class Main {
         CourseEntity course= new CourseEntity();
         course.setCourseName("Cs");
         CourseCrud.addCourse(course);*/
-        CoursetostaffEntity recored = new CoursetostaffEntity();
+        /*CoursetostaffEntity recored = new CoursetostaffEntity();
         recored.setCourseId(1);
         recored.setStaffId("20170000");
-        System.out.println( CourseToStaffCrud.add(recored));
+        System.out.println( CourseToStaffCrud.add(recored));*/
+
+
+     List<StudentEntity> student;
+    student=StudentCrud.finStudentByAtt("studentEmail","body.hosny111@gmail.com");
+        System.out.println(student.get(0).getStudentId());
+
 
 
 
