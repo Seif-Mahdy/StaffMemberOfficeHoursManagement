@@ -14,7 +14,7 @@ public class HybernateUtil {
             sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 
         } catch (Throwable th) {
-            System.err.println("Enitial SessionFactory creation failed" + th);
+            System.err.println("Initial SessionFactory creation failed" + th);
             throw new ExceptionInInitializerError(th);
         }
     }
@@ -22,8 +22,9 @@ public class HybernateUtil {
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
-    public static void closeSessionFactory()
-    {sessionFactory.close();
+
+    public static void closeSessionFactory() {
+        sessionFactory.close();
 
     }
 

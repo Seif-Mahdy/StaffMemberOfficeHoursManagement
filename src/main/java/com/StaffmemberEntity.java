@@ -9,9 +9,9 @@ public class StaffmemberEntity {
     private String staffId;
     private String staffName;
     private String staffNumber;
-    private String staffemail;
+    private String staffEmail;
     private String staffPassword;
-    private Byte staffRole;
+    private String staffRole;
 
     @Id
     @Column(name = "StaffId")
@@ -45,12 +45,12 @@ public class StaffmemberEntity {
 
     @Basic
     @Column(name = "Staffemail")
-    public String getStaffemail() {
-        return staffemail;
+    public String getStaffEmail() {
+        return staffEmail;
     }
 
-    public void setStaffemail(String staffemail) {
-        this.staffemail = staffemail;
+    public void setStaffEmail(String staffemail) {
+        this.staffEmail = staffemail;
     }
 
     @Basic
@@ -65,11 +65,11 @@ public class StaffmemberEntity {
 
     @Basic
     @Column(name = "StaffRole")
-    public Byte getStaffRole() {
+    public String getStaffRole() {
         return staffRole;
     }
 
-    public void setStaffRole(Byte staffRole) {
+    public void setStaffRole(String staffRole) {
         this.staffRole = staffRole;
     }
 
@@ -78,11 +78,11 @@ public class StaffmemberEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StaffmemberEntity that = (StaffmemberEntity) o;
-        return Objects.equals(staffId, that.staffId) && Objects.equals(staffName, that.staffName) && Objects.equals(staffNumber, that.staffNumber) && Objects.equals(staffemail, that.staffemail) && Objects.equals(staffPassword, that.staffPassword) && Objects.equals(staffRole, that.staffRole);
+        return Objects.equals(staffId, that.staffId) && Objects.equals(staffName, that.staffName) && Objects.equals(staffNumber, that.staffNumber) && Objects.equals(staffEmail, that.staffEmail) && Objects.equals(staffPassword, that.staffPassword) && Objects.equals(staffRole, that.staffRole);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(staffId, staffName, staffNumber, staffemail, staffPassword, staffRole);
+        return Objects.hash(staffId, staffName, staffNumber, staffEmail, staffPassword, staffRole);
     }
 }

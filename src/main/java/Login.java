@@ -9,25 +9,37 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
-@WebServlet("/Login")
+@WebServlet(name = "/Login", value = "/Login")
 public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String type = request.getParameter("login-type");
-        if (type.equals("student")) {
-
+        PrintWriter out = response.getWriter();
+        String type = request.getParameter("login_type");
+        String password = request.getParameter("password");
+        if (type.equals("Student")) {
             StudentEntity student = StudentCrud.findStudent(request.getParameter("id"));
             if (student != null) {
-                System.out.println("hello student");
+                if (password.equals(student.getStudentPassword())) {
+                    //Redirect to student profile
+                    out.print("success");
+                } else {
+                    out.print("Incorrect password!");
+                }
             } else {
-                System.out.println("you are not welcome student");
+                out.print("There is no account matching these credientils!");
             }
-        } else if (type.equals("staff")) {
+        } else if (type.equals("Staff member")) {
             StaffmemberEntity staff = StaffMemberCrud.findStaffMember(request.getParameter("id"));
             if (staff != null) {
-                System.out.println("hello staff");
+                if (password.equals(staff.getStaffPassword())) {
+                    //Redirect to staff profile
+                    System.out.println("hello staff");
+                } else {
+                    out.print("Incorrect password!");
+                }
             } else {
-                System.out.println("you are not welcome staff");
+                out.print("There is no account matching these credientils!");
             }
         }
     }
