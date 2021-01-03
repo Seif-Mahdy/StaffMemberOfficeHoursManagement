@@ -7,6 +7,7 @@
 --%>
 <%@ page import="java.sql.Connection" %>
 <%@ page import="com.DbConnection" %>
+<%@ page import="java.io.PrintWriter" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -22,8 +23,22 @@
     <script src="scripts.js"></script>
 </head>
 <body style="width: 100%;height: 100%;position: fixed">
-<div class="container-fluid d-flex justify-content-center align-items-center"
+<div class="container-fluid d-flex flex-column justify-content-center align-items-center"
      style="height: 100%;background-color:gainsboro">
+    <%
+        if (request.getSession().getAttribute("success") != null) {
+    %>
+    <div class="alert alert-success" role="alert">
+        <%--        <%--%>
+        <%--            PrintWriter writer = response.getWriter();--%>
+        <%--            writer.print();--%>
+        <%--        %>--%>
+        <%= request.getSession().getAttribute("success")%>
+    </div>
+    <%
+            request.getSession().removeAttribute("success");
+        }
+    %>
     <div class="w-50 shadow p-5 bg-light rounded">
         <form action="#" method="POST" id="login-form">
             <p class="text-danger" id="validation_error"></p>
@@ -44,7 +59,8 @@
             </div>
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex flex-row align-items-center">
-                    <button type="submit" class="btn btn-primary" onclick="loadLoginData()" id="login-btn">login</button>
+                    <button type="submit" class="btn btn-primary" onclick="loadLoginData()" id="login-btn">login
+                    </button>
                     <div class="spinner-border text-primary spinner-border-sm ms-4 visually-hidden" role="status"
                          id="spinner">
                         <span class="visually-hidden">Loading...</span>

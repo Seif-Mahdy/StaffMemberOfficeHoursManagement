@@ -55,6 +55,7 @@ public class Register extends HttpServlet {
                 student.setStudentPassword("123456789");
                 boolean done = StudentCrud.addStudent(student);
                 if (done) {
+                    request.getSession().setAttribute("success","Account created successfully!");
                     out.print("success");
                 }
             } else {

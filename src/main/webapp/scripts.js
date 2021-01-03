@@ -5,6 +5,8 @@ function validateLogin(id, password, login_type) {
             $("#login-btn").prop('disabled', false)
             $("#spinner").addClass("visually-hidden")
             if (xhttp.responseText == "success") {
+                //TODO:we need to figure out how to send the id of the logged-in user to the home page
+                window.location.href = 'home.jsp'
             } else {
                 $('#validation_error').html(xhttp.responseText.toUpperCase())
             }
@@ -32,6 +34,25 @@ function validateRegister(userName, userID, email, phoneNumber, registerType, ca
     xhttp.open("POST", "Register", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("userName=" + userName + "&userID=" + userID + "&email=" + email + "&phoneNumber=" + phoneNumber + "&registerType=" + registerType + "&captchaToken=" + captchaToken);
+}
+
+function validateUpdateProfile(userName, email, password, phoneNumber) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            $("#login-btn").prop('disabled', false)
+            $("#spinner").addClass("visually-hidden")
+            if (xhttp.responseText == "success") {
+                window.location.href = 'profile.jsp'
+            } else {
+                $('#updateProfileErrors').html(xhttp.responseText.toUpperCase())
+            }
+        }
+    }
+    //TODO:create servlet to validate update profile data
+    // xhttp.open("POST", "Login", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("userName" + username + "&password=" + password + "&email=" + email + "&phoneNumber=" + phoneNumber);
 }
 
 function loadLoginData() {
@@ -80,45 +101,65 @@ function loadRegisterData() {
             e.preventDefault()
         }
     )
-    grecaptcha.ready(function () {
-        grecaptcha.execute('6LcIIR0aAAAAAA7Ebm5naPBBBBJh5DwBxBHN8dda', {action: 'register'}).then(function (token) {
-            // console.log(token)
-            $('#recaptchaResponse').val(token);
+    // grecaptcha.ready(function () {
+    //     grecaptcha.execute('6LcIIR0aAAAAAA7Ebm5naPBBBBJh5DwBxBHN8dda', {action: 'register'}).then(function (token) {
+    //         // console.log(token)
+    //         $('#recaptchaResponse').val(token);
+    //
+    //
+    //     });
+    // });
+    var userName = $('#exampleInputUserName').val()
+    var userID = $('#exampleInputUserID').val()
+    var email = $('#exampleInputEmail1').val()
+    var phoneNumber = $('#exampleInputPhoneNumber').val()
+    var ssn = $('#exampleInputSSN').val()
+    var registerType = $('#inputGroupSelect02').is(':disabled') == false ? $('#inputGroupSelect02').val() : null
+    var captchaToken = $('#recaptchaResponse').val()
 
-            var userName = $('#exampleInputUserName').val()
-            var userID = $('#exampleInputUserID').val()
-            var email = $('#exampleInputEmail1').val()
-            var phoneNumber = $('#exampleInputPhoneNumber').val()
-            var ssn = $('#exampleInputSSN').val()
-            var registerType = $('#inputGroupSelect02').is(':disabled') == false ? $('#inputGroupSelect02').val() : null
-            var captchaToken = $('#recaptchaResponse').val()
-            console.log(captchaToken)
-            if (userName != "" && userID != "" && email != "" && phoneNumber != "" && ssn != "" && captchaToken != "") {
-                var error_msg = []
-                if (userID.length > 8 || userID.length < 8) {
-                    error_msg.push("User ID must be exactly 8 digits!")
-                }
-                if (phoneNumber.length > 11 || phoneNumber.length < 11) {
-                    error_msg.push("Phone number must be exactly 11 digits!")
-                }
-                if (ssn.length > 14 || ssn.length < 14) {
-                    error_msg.push("SSN must be exactly 14 digits!")
-                }
-                if (error_msg.length == 0) {
-                    $("#register-btn").prop('disabled', true);
-                    $("#spinner").removeClass("visually-hidden")
-                    validateRegister(userName, userID, email, phoneNumber, registerType, captchaToken)
-                } else {
-                    for (var i = 0; i < error_msg.length; i++) {
-                        $('#registrationErrors').append('<li class="text-danger">' + error_msg[i] + '</li>')
-                    }
-                }
-
-            } else {
-                $('#registrationErrors').append('<li class="text-danger">Data fields cannot be empty!</li>')
+    if (userName != "" && userID != "" && email != "" && phoneNumber != "" && ssn != "" && captchaToken != "") {
+        var error_msg = []
+        if (userID.length > 8 || userID.length < 8) {
+            error_msg.push("User ID must be exactly 8 digits!")
+        }
+        if (phoneNumber.length > 11 || phoneNumber.length < 11) {
+            error_msg.push("Phone number must be exactly 11 digits!")
+        }
+        if (ssn.length > 14 || ssn.length < 14) {
+            error_msg.push("SSN must be exactly 14 digits!")
+        }
+        if (error_msg.length == 0) {
+            $("#register-btn").prop('disabled', true);
+            $("#spinner").removeClass("visually-hidden")
+            $('#register-form').find('input,textarea').val('')
+            validateRegister(userName, userID, email, phoneNumber, registerType, captchaToken)
+        } else {
+            for (var i = 0; i < error_msg.length; i++) {
+                $('#registrationErrors').append('<li class="text-danger">' + error_msg[i] + '</li>')
             }
-        });
-    });
+        }
+
+    } else {
+        $('#registrationErrors').append('<li class="text-danger">Data fields cannot be empty!</li>')
+    }
 }
 
+function loadProfileData() {
+    $('#updateProfileErrors').empty()
+    $('#profileDataForm').submit(function (e) {
+        e.preventDefault();
+    })
+    var userName = $('#exampleInputName').val()
+    var email = $('#exampleInputEmail').val()
+    var phoneNumber = $('#exampleInputPhoneNumber').val()
+    var password = $('#exampleInputPassword').val()
+
+    if (userName != "" && email != "" && phoneNumber != "" && password != "") {
+        if (phoneNumber.length != 11) {
+            $('#updateProfileErrors').append('<li class="text-danger">Phone number must be exactly 11 digits!</li>')
+        }
+    } else {
+        $('#updateProfileErrors').append('<li class="text-danger">Data fields cannot be empty!</li>')
+    }
+}
 

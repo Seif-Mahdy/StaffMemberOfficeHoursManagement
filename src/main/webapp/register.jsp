@@ -56,9 +56,9 @@
                     <option value="TA">TA</option>
                 </select>
             </div>
-            <div class="g-recaptcha"
-                 data-sitekey="6LcIIR0aAAAAAA7Ebm5naPBBBBJh5DwBxBHN8dda"></div>
-            <input type="hidden" name="recaptchaResponse" value="" id="recaptchaResponse">
+<%--            <div class="g-recaptcha"--%>
+<%--                 data-sitekey="6LcIIR0aAAAAAA7Ebm5naPBBBBJh5DwBxBHN8dda"></div>--%>
+<%--            <input type="hidden" name="recaptchaResponse" value="" id="recaptchaResponse">--%>
 
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex flex-row align-items-center">

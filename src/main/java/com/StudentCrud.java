@@ -18,6 +18,7 @@ public class StudentCrud {
             session.close();
 
         } catch (HibernateException e) {
+            System.out.println(e);
             e.printStackTrace();
         }
 
@@ -37,6 +38,7 @@ public class StudentCrud {
             session.close();
             isInsert = true;
         } catch (HibernateException e) {
+            System.out.println(e);
             e.printStackTrace();
         }
         return isInsert;
