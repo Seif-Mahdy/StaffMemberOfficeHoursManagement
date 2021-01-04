@@ -1,7 +1,4 @@
-import com.StaffMemberCrud;
-import com.StaffmemberEntity;
-import com.StudentCrud;
-import com.StudentEntity;
+import com.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +11,7 @@ import java.io.PrintWriter;
 @WebServlet(name = "/Register", value = "/Register")
 public class Register extends HttpServlet {
     //TODO:captcha validation
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         PrintWriter out = response.getWriter();
         String userName = request.getParameter("userName");
         String userID = request.getParameter("userID");
@@ -38,6 +35,7 @@ public class Register extends HttpServlet {
                 staff.setStaffRole(registerType);
                 boolean done = StaffMemberCrud.addStaff(staff);
                 if (done) {
+                    RegisterationMail.sendMail(email);
                     out.print("success");
                 }
             } else {
@@ -55,7 +53,9 @@ public class Register extends HttpServlet {
                 student.setStudentPassword("123456789");
                 boolean done = StudentCrud.addStudent(student);
                 if (done) {
+                    ///TODO check the purpose of this attribute
                     request.getSession().setAttribute("success","Account created successfully!");
+                    RegisterationMail.sendMail(email);
                     out.print("success");
                 }
             } else {
@@ -64,7 +64,5 @@ public class Register extends HttpServlet {
         }
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    }
 }
