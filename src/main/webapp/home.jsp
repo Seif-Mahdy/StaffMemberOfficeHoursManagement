@@ -19,6 +19,12 @@
     <script src="scripts.js"></script>
 </head>
 <body>
+<%
+if(request.getSession().getAttribute("id")==null)
+{
+    response.sendRedirect("index.jsp");
+}
+%>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid d-flex align-items-center">
         <a class="navbar-brand" href="home.jsp">

@@ -103,7 +103,7 @@ public class StaffMemberCrud {
             return isDeleted;
         }
 
-        public static Boolean updateStaffById(String staffId,String attributeRequired,String changedValue)
+        private static Boolean updateStaffById(String staffId,String attributeRequired,String changedValue)
         {
             SessionFactory sessionObj = HybernateUtil.getSessionFactory();
             boolean isUpdated = false;
@@ -148,4 +148,23 @@ public class StaffMemberCrud {
 
             return isUpdated;
         }
+    public static boolean updateStaff(StaffmemberEntity updatedStaff)
+    {
+        SessionFactory sessionObj = HybernateUtil.getSessionFactory();
+        boolean isInsert = false;
+
+        try {
+            Session session = sessionObj.openSession();
+            session.beginTransaction();
+            session.saveOrUpdate(updatedStaff);
+            session.getTransaction().commit();
+            session.close();
+            isInsert = true;
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }finally {
+            sessionObj.close();
+        }
+        return isInsert;
+    }
 }

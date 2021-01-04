@@ -5,7 +5,7 @@ function validateLogin(id, password, login_type) {
             $("#login-btn").prop('disabled', false)
             $("#spinner").addClass("visually-hidden")
             if (xhttp.responseText == "success") {
-                //TODO:we need to figure out how to send the id of the logged-in user to the home page
+
                 window.location.href = 'home.jsp'
             } else {
                 $('#validation_error').html(xhttp.responseText.toUpperCase())
@@ -49,10 +49,10 @@ function validateUpdateProfile(userName, email, password, phoneNumber) {
             }
         }
     }
-    //TODO:create servlet to validate update profile data
-    // xhttp.open("POST", "Login", true);
+
+    xhttp.open("POST", "UpdateProfile", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send("userName" + username + "&password=" + password + "&email=" + email + "&phoneNumber=" + phoneNumber);
+    xhttp.send("userName" + userName + "&password=" + password + "&email=" + email + "&phoneNumber=" + phoneNumber);
 }
 
 function loadLoginData() {

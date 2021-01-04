@@ -23,6 +23,13 @@
     <script src="scripts.js"></script>
 </head>
 <body style="width: 100%;height: 100%;position: fixed">
+
+<%
+if(request.getSession().getAttribute("id")!=null)
+{
+    response.sendRedirect("home.jsp");
+}
+%>
 <div class="container-fluid d-flex flex-column justify-content-center align-items-center"
      style="height: 100%;background-color:gainsboro">
     <%

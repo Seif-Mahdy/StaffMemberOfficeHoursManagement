@@ -1,11 +1,14 @@
-<%--
+<%@ page import="com.StudentEntity" %>
+<%@ page import="com.StudentCrud" %>
+<%@ page import="com.StaffmemberEntity" %>
+<%@ page import="com.StaffMemberCrud" %><%--
   Created by IntelliJ IDEA.
   User: seifa
   Date: 1/3/2021
   Time: 2:01 AM
   To change this template use File | Settings | File Templates.
 --%>
-<%-- TODO:retrieve data of the user from database and display it here--%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -20,6 +23,41 @@
     <script src="scripts.js"></script>
 </head>
 <body>
+<%
+    String number="";
+    String password="";
+    String email="";
+    String name="";
+    if(request.getSession().getAttribute("id")==null)
+    {
+        response.sendRedirect("index.jsp");
+    }
+    else{
+        String loginType=request.getSession().getAttribute("loginType").toString();
+
+         if(loginType.equals("student"))
+         {
+            StudentEntity student= StudentCrud.findStudent(request.getSession().getAttribute("id").toString());
+             number=student.getStudentNumber();
+             password=student.getStudentPassword();
+             email=student.getStudentEmail();
+             name=student.getStudentName();
+
+         }
+         else if(loginType.equals("staff"))
+         {
+             StaffmemberEntity staff = StaffMemberCrud.findStaffMember(request.getSession().getAttribute("id").toString());
+             number=staff.getStaffNumber();
+             password=staff.getStaffPassword();
+             email=staff.getStaffEmail();
+             name=staff.getStaffName();
+         }
+
+    }
+
+%>
+
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid d-flex align-items-center">
         <a class="navbar-brand" href="home.jsp">
@@ -47,19 +85,19 @@
     <form id="profileDataForm">
         <div class="mb-3">
             <label for="exampleInputName" class="form-label">Full name</label>
-            <input type="text" class="form-control" id="exampleInputName" value="type user name here" required>
+            <input type="text" class="form-control" id="exampleInputName" value="<%= name %>" required>
         </div>
         <div class="mb-3">
             <label for="exampleInputEmail" class="form-label">Email</label>
-            <input type="text" class="form-control" id="exampleInputEmail" value="type user email here" required>
+            <input type="text" class="form-control" id="exampleInputEmail" value="<%=email%>" required>
         </div>
         <div class="mb-3">
             <label for="exampleInputPhoneNumber" class="form-label">Phone number</label>
-            <input type="text" class="form-control" id="exampleInputPhoneNumber" value="type user phone number here" required>
+            <input type="text" class="form-control" id="exampleInputPhoneNumber" value="<%=number%>" required>
         </div>
         <div class="mb-3">
             <label for="exampleInputPassword" class="form-label">Password</label>
-            <input type="text" class="form-control" id="exampleInputPassword" value="type user password here" required>
+            <input type="text" class="form-control" id="exampleInputPassword" value="<%=password%>" required>
         </div>
 
         <button type="submit" class="btn btn-primary float-end" onclick="loadProfileData()">update</button>
