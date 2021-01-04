@@ -48,29 +48,29 @@ public class Main {
 
      List<StudentEntity> student;
     student=StudentCrud.finStudentByAtt("studentEmail","body.hosny111@gmail.com");
-        System.out.println(student.get(0).getStudentId());
-        String to = "11410120170144@stud.cu.edu.eg  ";//change accordingly
-        String from = "body.hosny111@gmail.com"; //change accordingly
+        System.out.println(student.get(0).getStudentId());*/
+        String to = "seifalaa143@gmail.com";//change accordingly
+        String from = "officeHoursMangmentSystem@gmail.com"; //change accordingly
         String host = "smtp.gmail.com";//or IP address
 
         //Get the session object
         Properties properties = System.getProperties();
         properties.setProperty("mail.smtp.host", host);
-        properties.put("mail.smtp.auth","true");
+        properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.port", "465");
         properties.put("mail.smtp.ssl.enable", "true");
         Session session = Session.getDefaultInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("body.hosny111@gmail.com","A01018236359");
+                return new PasswordAuthentication("officeHoursMangmentSystem@gmail.com", "Office1212");
             }
         });
 
         //compose the message
-        try{
+        try {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(from));
-            message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
             message.setSubject("Ping");
             message.setText("Hello, this is example of sending email  ");
 
@@ -78,14 +78,13 @@ public class Main {
             Transport.send(message);
             System.out.println("message sent successfully....");
 
-        }catch (MessagingException mex) {mex.printStackTrace();}
-*/
-    }
-
-
-
-
+        } catch (MessagingException mex) {
+            mex.printStackTrace();
+        }
 
     }
+
+
+}
 
 

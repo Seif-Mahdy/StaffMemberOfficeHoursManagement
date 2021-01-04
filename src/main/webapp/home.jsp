@@ -20,10 +20,9 @@
 </head>
 <body>
 <%
-if(request.getSession().getAttribute("id")==null)
-{
-    response.sendRedirect("index.jsp");
-}
+    if (request.getSession().getAttribute("id") == null) {
+        response.sendRedirect("index.jsp");
+    }
 %>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid d-flex align-items-center">
@@ -43,6 +42,13 @@ if(request.getSession().getAttribute("id")==null)
                     <a class="nav-link" href="profile.jsp">Profile</a>
                 </li>
             </ul>
+            <div>
+                <div class="spinner-border text-primary spinner-border-sm visually-hidden" role="status"
+                     id="spinner1">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <button class="btn btn-primary ms-4" onclick="logout()" id="logout-btn">Logout</button>
+            </div>
         </div>
     </div>
 </nav>

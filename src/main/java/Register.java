@@ -20,8 +20,8 @@ public class Register extends HttpServlet {
         String registerType = request.getParameter("registerType");
         String captchaToken = request.getParameter("recaptchaResponse");
 
-        System.out.println("captchaToken " + captchaToken);
-
+        //System.out.println("captchaToken " + captchaToken);
+        //TODO:add phone number and email validation
         if (!registerType.equals("null")) {
 
             StaffmemberEntity staff = StaffMemberCrud.findStaffMember(userID);
@@ -35,6 +35,7 @@ public class Register extends HttpServlet {
                 staff.setStaffRole(registerType);
                 boolean done = StaffMemberCrud.addStaff(staff);
                 if (done) {
+                    request.getSession().setAttribute("success", "Account created successfully!");
                     RegisterationMail.sendMail(email);
                     out.print("success");
                 }
@@ -52,10 +53,13 @@ public class Register extends HttpServlet {
                 student.setStudentNumber(phoneNumber);
                 student.setStudentPassword("123456789");
                 boolean done = StudentCrud.addStudent(student);
+                System.out.println("3aaaaa");
                 if (done) {
-                    ///TODO check the purpose of this attribute
-                    request.getSession().setAttribute("success","Account created successfully!");
-                    RegisterationMail.sendMail(email);
+                    request.getSession().setAttribute("success", "Account created successfully!");
+                    //TODO:solve this exception javax.mail.MessagingException in the next line
+
+                    boolean isSent = RegisterationMail.sendMail(email);
+                    System.out.println(isSent);
                     out.print("success");
                 }
             } else {

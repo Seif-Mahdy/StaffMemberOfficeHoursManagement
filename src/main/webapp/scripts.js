@@ -5,7 +5,6 @@ function validateLogin(id, password, login_type) {
             $("#login-btn").prop('disabled', false)
             $("#spinner").addClass("visually-hidden")
             if (xhttp.responseText == "success") {
-
                 window.location.href = 'home.jsp'
             } else {
                 $('#validation_error').html(xhttp.responseText.toUpperCase())
@@ -40,7 +39,7 @@ function validateUpdateProfile(userName, email, password, phoneNumber) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            $("#login-btn").prop('disabled', false)
+            $("#update-btn").prop('disabled', false)
             $("#spinner").addClass("visually-hidden")
             if (xhttp.responseText == "success") {
                 window.location.href = 'profile.jsp'
@@ -52,7 +51,7 @@ function validateUpdateProfile(userName, email, password, phoneNumber) {
 
     xhttp.open("POST", "UpdateProfile", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send("userName" + userName + "&password=" + password + "&email=" + email + "&phoneNumber=" + phoneNumber);
+    xhttp.send("userName=" + userName + "&password=" + password + "&email=" + email + "&phoneNumber=" + phoneNumber);
 }
 
 function loadLoginData() {
@@ -129,7 +128,7 @@ function loadRegisterData() {
             error_msg.push("SSN must be exactly 14 digits!")
         }
         if (error_msg.length == 0) {
-            $("#register-btn").prop('disabled', true);
+            $("#register-btn").prop('disabled', true)
             $("#spinner").removeClass("visually-hidden")
             $('#register-form').find('input,textarea').val('')
             validateRegister(userName, userID, email, phoneNumber, registerType, captchaToken)
@@ -158,8 +157,27 @@ function loadProfileData() {
         if (phoneNumber.length != 11) {
             $('#updateProfileErrors').append('<li class="text-danger">Phone number must be exactly 11 digits!</li>')
         }
+        $("#update-btn").prop('disabled', true)
+        $("#spinner").removeClass("visually-hidden")
+        validateUpdateProfile(userName, email, password, phoneNumber)
+
     } else {
         $('#updateProfileErrors').append('<li class="text-danger">Data fields cannot be empty!</li>')
     }
+}
+
+function logout() {
+    $('#logout-btn').prop('disabled','true')
+    $('#spinner1').removeClass('visually-hidden')
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            if (xhttp.responseText == 'success') {
+                window.location.href = 'index.jsp'
+            }
+        }
+    }
+    xhttp.open("GET", "Logout", true);
+    xhttp.send();
 }
 

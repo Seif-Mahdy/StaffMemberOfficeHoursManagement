@@ -23,35 +23,31 @@
     <script src="scripts.js"></script>
 </head>
 <body>
+<%--TODO: solve EntityManagerFactory is cloed exception at line 38--%>
 <%
-    String number="";
-    String password="";
-    String email="";
-    String name="";
-    if(request.getSession().getAttribute("id")==null)
-    {
+    String number = "";
+    String password = "";
+    String email = "";
+    String name = "";
+    if (request.getSession().getAttribute("id") == null) {
         response.sendRedirect("index.jsp");
-    }
-    else{
-        String loginType=request.getSession().getAttribute("loginType").toString();
+    } else {
+        String loginType = request.getSession().getAttribute("loginType").toString();
 
-         if(loginType.equals("student"))
-         {
-            StudentEntity student= StudentCrud.findStudent(request.getSession().getAttribute("id").toString());
-             number=student.getStudentNumber();
-             password=student.getStudentPassword();
-             email=student.getStudentEmail();
-             name=student.getStudentName();
+        if (loginType.equals("student")) {
+            StudentEntity student = StudentCrud.findStudent(request.getSession().getAttribute("id").toString());
+            number = student.getStudentNumber();
+            password = student.getStudentPassword();
+            email = student.getStudentEmail();
+            name = student.getStudentName();
 
-         }
-         else if(loginType.equals("staff"))
-         {
-             StaffmemberEntity staff = StaffMemberCrud.findStaffMember(request.getSession().getAttribute("id").toString());
-             number=staff.getStaffNumber();
-             password=staff.getStaffPassword();
-             email=staff.getStaffEmail();
-             name=staff.getStaffName();
-         }
+        } else if (loginType.equals("staff")) {
+            StaffmemberEntity staff = StaffMemberCrud.findStaffMember(request.getSession().getAttribute("id").toString());
+            number = staff.getStaffNumber();
+            password = staff.getStaffPassword();
+            email = staff.getStaffEmail();
+            name = staff.getStaffName();
+        }
 
     }
 
@@ -76,6 +72,13 @@
                     <a class="nav-link" href="profile.jsp">Profile</a>
                 </li>
             </ul>
+            <div>
+                <div class="spinner-border text-primary spinner-border-sm visually-hidden" role="status"
+                     id="spinner1">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <button class="btn btn-primary ms-4" onclick="logout()" id="logout-btn">Logout</button>
+            </div>
         </div>
     </div>
 </nav>
@@ -99,8 +102,14 @@
             <label for="exampleInputPassword" class="form-label">Password</label>
             <input type="text" class="form-control" id="exampleInputPassword" value="<%=password%>" required>
         </div>
-
-        <button type="submit" class="btn btn-primary float-end" onclick="loadProfileData()">update</button>
+        <div class="d-flex flex-row float-end align-items-center">
+            <div class="spinner-border text-primary spinner-border-sm visually-hidden" role="status"
+                 id="spinner">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <button type="submit" class="btn btn-primary ms-4" onclick="loadProfileData()" id="update-btn">update
+            </button>
+        </div>
     </form>
 </div>
 </body>
