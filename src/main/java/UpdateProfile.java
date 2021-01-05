@@ -14,7 +14,6 @@ import java.util.List;
 
 @WebServlet(name = "UpdateProfile", value = "/UpdateProfile")
 public class UpdateProfile extends HttpServlet {
-    //TODO: add phone number validation
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         String username = request.getParameter("userName");
@@ -40,9 +39,21 @@ public class UpdateProfile extends HttpServlet {
                 }
 
             }
+            if(!student.getStudentNumber().equals(phoneNumber))
+            {
+                List<StudentEntity> students=StudentCrud.findStudentByAtt("studentNumber",phoneNumber);
+                if(students.size()>0)
+                {
+                    out.print("This number has been taken!");
+
+                }
+                else
+                {
+                    student.setStudentNumber(phoneNumber);
+                }
+            }
             student.setStudentPassword(password);
             student.setStudentName(username);
-            student.setStudentNumber(phoneNumber);
             StudentCrud.updateStudent(student);
 
 

@@ -1,13 +1,12 @@
 package com;
 
 import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import javax.mail.internet.*;
 import java.util.Properties;
+
 
 public class RegisterationMail {
     public static boolean sendMail(String mail) {
-        System.out.println("inside");
         //change accordingly
         String from = "officeHoursMangmentSystem@gmail.com"; //change accordingly
         String host = "smtp.gmail.com";//or IP address
@@ -41,7 +40,6 @@ public class RegisterationMail {
 
         } catch (MessagingException mex) {
 
-            System.out.println("i'm here");
             mex.printStackTrace();
         }
         return isSent;

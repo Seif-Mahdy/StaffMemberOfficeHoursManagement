@@ -46,8 +46,6 @@ public class CourseToStudentCrud {
             isInsert = true;
         } catch (HibernateException e) {
             e.printStackTrace();
-        }finally {
-            sessionObj.close();
         }
         return isInsert;
     }
@@ -70,8 +68,6 @@ public class CourseToStudentCrud {
 
         } catch (HibernateException e) {
             e.printStackTrace();
-        }finally {
-            sessionObj.close();
         }
 
         return isDeleted;

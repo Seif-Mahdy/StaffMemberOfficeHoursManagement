@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 
 import javax.mail.*;
 import javax.mail.internet.*;
+import java.util.List;
 import java.util.Properties;
 
 import javax.activation.*;
@@ -48,7 +49,7 @@ public class Main {
 
      List<StudentEntity> student;
     student=StudentCrud.finStudentByAtt("studentEmail","body.hosny111@gmail.com");
-        System.out.println(student.get(0).getStudentId());*/
+        System.out.println(student.get(0).getStudentId());
         String to = "seifalaa143@gmail.com";//change accordingly
         String from = "officeHoursMangmentSystem@gmail.com"; //change accordingly
         String host = "smtp.gmail.com";//or IP address
@@ -80,8 +81,14 @@ public class Main {
 
         } catch (MessagingException mex) {
             mex.printStackTrace();
+        }*/
+        System.out.println(StudentCrud.findStudent("20170144"));
+        System.out.println(StudentCrud.findStudent("20210144"));
+        List<StudentEntity>students =StudentCrud.selectAllStudents();
+        for(int i=0;i<students.size();i++)
+        {
+            System.out.println(students.get(i).getStudentId());
         }
-
     }
 
 

@@ -38,8 +38,6 @@ public class MessageCrud {
             isInsert = true;
         } catch (HibernateException e) {
             e.printStackTrace();
-        }finally {
-            sessionObj.close();
         }
         return isInsert;
     }
@@ -59,8 +57,6 @@ public class MessageCrud {
 
         } catch (HibernateException e) {
             e.printStackTrace();
-        }finally {
-            sessionObj.close();
         }
 
         return isDeleted;
@@ -90,8 +86,6 @@ public class MessageCrud {
         } catch (HibernateException e) {
             e.printStackTrace();
 
-        }finally {
-            sessionObj.close();
         }
 
         return isUpdated;

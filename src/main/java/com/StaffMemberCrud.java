@@ -75,8 +75,6 @@ public class StaffMemberCrud {
                 isInsert = true;
             } catch (HibernateException e) {
                 e.printStackTrace();
-            }finally {
-                sessionObj.close();
             }
             return isInsert;
         }
@@ -96,8 +94,6 @@ public class StaffMemberCrud {
 
             } catch (HibernateException e) {
                 e.printStackTrace();
-            }finally {
-                sessionObj.close();
             }
 
             return isDeleted;
@@ -142,8 +138,6 @@ public class StaffMemberCrud {
             } catch (HibernateException e) {
                 e.printStackTrace();
 
-            }finally {
-                sessionObj.close();
             }
 
             return isUpdated;
@@ -162,9 +156,32 @@ public class StaffMemberCrud {
             isInsert = true;
         } catch (HibernateException e) {
             e.printStackTrace();
-        }finally {
-            sessionObj.close();
         }
         return isInsert;
+    }
+    public static List<StaffmemberEntity> selectAllStaff() {
+        List<StaffmemberEntity>staffs = null;
+        SessionFactory sessionObj = HybernateUtil.getSessionFactory();
+
+        try  {
+            Session session = sessionObj.openSession();
+            session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+
+            CriteriaQuery<StaffmemberEntity> criteria = builder.createQuery(StaffmemberEntity.class);
+            Root<StaffmemberEntity> root = criteria.from(StaffmemberEntity.class);
+            TypedQuery<StaffmemberEntity> query = session.createQuery(criteria);
+            staffs = query.getResultList();
+
+
+            session.getTransaction().commit();
+            session.close();
+
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+
+
+        return staffs;
     }
 }

@@ -38,8 +38,6 @@ public class AppointmentCrud {
             isInsert = true;
         } catch (HibernateException e) {
             e.printStackTrace();
-        }finally {
-            sessionObj.close();
         }
         return isInsert;
     }
@@ -59,8 +57,6 @@ public class AppointmentCrud {
 
         } catch (HibernateException e) {
             e.printStackTrace();
-        }finally {
-            sessionObj.close();
         }
 
         return isDeleted;

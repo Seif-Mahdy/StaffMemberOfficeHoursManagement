@@ -23,7 +23,6 @@
     <script src="scripts.js"></script>
 </head>
 <body>
-<%--TODO: solve EntityManagerFactory is cloed exception at line 38--%>
 <%
     String number = "";
     String password = "";
