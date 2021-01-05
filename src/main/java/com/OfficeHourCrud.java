@@ -137,5 +137,32 @@ public class OfficeHourCrud {
 
         return officeHours;
     }
+    public static List<OfficehourEntity> selectStaffOfficeHour(String staffId) {
+        List<OfficehourEntity>officeHours = null;
+        SessionFactory sessionObj = HybernateUtil.getSessionFactory();
+
+        try  {
+            Session session = sessionObj.openSession();
+            session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+
+            CriteriaQuery<OfficehourEntity> criteria = builder.createQuery(OfficehourEntity.class);
+            Root<OfficehourEntity> root = criteria.from(OfficehourEntity.class);
+            criteria.where(builder.equal(root.get("StaffId"),staffId));
+            TypedQuery<OfficehourEntity> query = session.createQuery(criteria);
+            officeHours = query.getResultList();
+
+
+            session.getTransaction().commit();
+            session.close();
+
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+
+
+        return officeHours;
+    }
+
 
 }

@@ -1128,108 +1128,121 @@ StudentId</ColNames>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="336" parent="291" name="PRIMARY">
+    <column id="336" parent="291" name="StaffId">
+      <Position>6</Position>
+      <DataType>varchar(8)|0s</DataType>
+    </column>
+    <index id="337" parent="291" name="officehour_staffmember_StaffId_fk">
+      <ColNames>StaffId</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="338" parent="291" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="337" parent="292" name="StaffId">
+    <foreign-key id="339" parent="291" name="officehour_staffmember_StaffId_fk">
+      <ColNames>StaffId</ColNames>
+      <RefTableName>staffmember</RefTableName>
+      <RefColNames>StaffId</RefColNames>
+    </foreign-key>
+    <column id="340" parent="292" name="StaffId">
       <Position>1</Position>
       <DataType>varchar(8)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="338" parent="292" name="StaffName">
+    <column id="341" parent="292" name="StaffName">
       <Position>2</Position>
       <DataType>varchar(40)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="339" parent="292" name="StaffNumber">
+    <column id="342" parent="292" name="StaffNumber">
       <Position>3</Position>
       <DataType>varchar(11)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="340" parent="292" name="Staffemail">
+    <column id="343" parent="292" name="Staffemail">
       <Position>4</Position>
       <DataType>varchar(40)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="341" parent="292" name="StaffPassword">
+    <column id="344" parent="292" name="StaffPassword">
       <Position>5</Position>
       <DataType>varchar(80)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="342" parent="292" name="StaffRole">
+    <column id="345" parent="292" name="StaffRole">
       <Position>6</Position>
       <DataType>tinyint(1)|0s</DataType>
     </column>
-    <index id="343" parent="292" name="StaffNumber">
+    <index id="346" parent="292" name="StaffNumber">
       <ColNames>StaffNumber</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="344" parent="292" name="Staffemail">
+    <index id="347" parent="292" name="Staffemail">
       <ColNames>Staffemail</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="345" parent="292" name="PRIMARY">
+    <key id="348" parent="292" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>StaffId</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="346" parent="292" name="StaffNumber">
+    <key id="349" parent="292" name="StaffNumber">
       <ColNames>StaffNumber</ColNames>
       <UnderlyingIndexName>StaffNumber</UnderlyingIndexName>
     </key>
-    <key id="347" parent="292" name="Staffemail">
+    <key id="350" parent="292" name="Staffemail">
       <ColNames>Staffemail</ColNames>
       <UnderlyingIndexName>Staffemail</UnderlyingIndexName>
     </key>
-    <column id="348" parent="293" name="StudentId">
+    <column id="351" parent="293" name="StudentId">
       <Position>1</Position>
       <DataType>varchar(8)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="349" parent="293" name="StudentName">
+    <column id="352" parent="293" name="StudentName">
       <Position>2</Position>
       <DataType>varchar(40)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="350" parent="293" name="StudentNumber">
+    <column id="353" parent="293" name="StudentNumber">
       <Position>3</Position>
       <DataType>varchar(11)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="351" parent="293" name="StudentEmail">
+    <column id="354" parent="293" name="StudentEmail">
       <Position>4</Position>
       <DataType>varchar(40)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="352" parent="293" name="StudentPassword">
+    <column id="355" parent="293" name="StudentPassword">
       <Position>5</Position>
       <DataType>varchar(80)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="353" parent="293" name="StudentNumber">
+    <index id="356" parent="293" name="StudentNumber">
       <ColNames>StudentNumber</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="354" parent="293" name="StudentEmail">
+    <index id="357" parent="293" name="StudentEmail">
       <ColNames>StudentEmail</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="355" parent="293" name="PRIMARY">
+    <key id="358" parent="293" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>StudentId</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="356" parent="293" name="StudentNumber">
+    <key id="359" parent="293" name="StudentNumber">
       <ColNames>StudentNumber</ColNames>
       <UnderlyingIndexName>StudentNumber</UnderlyingIndexName>
     </key>
-    <key id="357" parent="293" name="StudentEmail">
+    <key id="360" parent="293" name="StudentEmail">
       <ColNames>StudentEmail</ColNames>
       <UnderlyingIndexName>StudentEmail</UnderlyingIndexName>
     </key>

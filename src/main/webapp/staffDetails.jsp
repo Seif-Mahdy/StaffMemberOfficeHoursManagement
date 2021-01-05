@@ -1,4 +1,8 @@
-<%--
+<%@ page import="com.StaffmemberEntity" %>
+<%@ page import="com.StaffMemberCrud" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.OfficehourEntity" %>
+<%@ page import="com.OfficeHourCrud" %><%--
   Created by IntelliJ IDEA.
   User: seif
   Date: 1/5/21
@@ -70,7 +74,14 @@
         <div class="card-header fw-bold">
             Office hours
         </div>
-        <!--TODO: load all the office hours of a certain staff member here-->
+        <!--TODO: get the email of the selected staff -->
+
+        <% String selectedStaffEmail=null;
+            StaffmemberEntity staff = StaffMemberCrud.findStaffByAtt("staffEmail",selectedStaffEmail).get(0));
+            List<OfficehourEntity>slots= OfficeHourCrud.selectStaffOfficeHour(staff.getStaffId());
+            ;
+
+        %>
         <div class="card-body">
             <table id="example2" class="cell-border hover" style="width:100%">
                 <thead>

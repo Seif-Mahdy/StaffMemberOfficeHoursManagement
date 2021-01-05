@@ -59,6 +59,7 @@ public class CourseCrud {
 
 
 
+
     public static boolean addCourse(CourseEntity inputCourse) {
             SessionFactory sessionObj = HybernateUtil.getSessionFactory();
             boolean isInsert = false;
@@ -125,6 +126,34 @@ public class CourseCrud {
 
             return isUpdated;
         }
+    public static List<CourseEntity> findCourseByAtt(String attribute, String attributeValue) {
+        CourseEntity course = null;
+        SessionFactory sessionObj = HybernateUtil.getSessionFactory();
+        List<CourseEntity> results = null;
+
+        try {
+            Session session = sessionObj.openSession();
+            session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+
+            CriteriaQuery<CourseEntity> criteria = builder.createQuery(CourseEntity.class);
+            Root<CourseEntity> root = criteria.from(CourseEntity.class);
+            criteria.select(root).where(builder.like(root.get(attribute), attributeValue));
+            TypedQuery<CourseEntity> query = session.createQuery(criteria);
+            results = query.getResultList();
+
+
+            session.getTransaction().commit();
+            session.close();
+
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+
+
+        return results;
+
+    }
 
     }
 

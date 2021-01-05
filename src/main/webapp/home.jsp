@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.util.List" %>
+<%@ page import="com.*" %><%--
   Created by IntelliJ IDEA.
   User: seifa
   Date: 1/3/2021
@@ -78,7 +79,7 @@
 
         </div>
     </div>
-    <!--TODO: load all the courses here -->
+    <% List<CourseEntity> courses = CourseCrud.selectAllCourses(); %>
     <div class="card mb-5">
         <div class="card-header fw-bold">
             Subjects
@@ -96,27 +97,30 @@
                 </tr>
                 </thead>
                 <tbody>
+                <%  for (int i=0;i<courses.size();i++){%>
                 <tr>
-                    <td>Math</td>
+                    <td><%= courses.get(i).getCourseName() %></td>
                     <%--                    <td>System Architect</td>--%>
                     <%--                    <td>Edinburgh</td>--%>
                     <%--                    <td>61</td>--%>
                     <%--                    <td>2011/04/25</td>--%>
                     <%--                    <td>$320,800</td>--%>
                 </tr>
-                <tr>
-                    <td>Algorithms</td>
-                    <%--                    <td>Accountant</td>--%>
-                    <%--                    <td>Tokyo</td>--%>
-                    <%--                    <td>63</td>--%>
-                    <%--                    <td>2011/07/25</td>--%>
-                    <%--                    <td>$170,750</td>--%>
-                </tr>
+                <% } %>
+
                 </tbody>
             </table>
         </div>
     </div>
-    <!--TODO: create a function that takes a course and return all the staff members to be displayed here when user clicks the subject-->
+    <!-- TODO: get the cource name -->
+    <%  int courseId=CourseCrud.findCourseByAtt("CourseName","course").get(0).getCourseId();
+        List<String>staffIds= CourseToStaffCrud.selectAllStaffForCourse(courseId);
+       List<StaffmemberEntity>staffs=null;
+        for(int i=0;i<staffIds.size();i++)
+        {
+            staffs.add(StaffMemberCrud.findStaffMember(staffIds.get(i)));
+        };
+    %>
     <div class="card mb-5">
         <div class="card-header fw-bold">
             Staff members teaching X
