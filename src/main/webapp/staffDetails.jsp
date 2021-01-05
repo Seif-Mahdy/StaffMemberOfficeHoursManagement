@@ -70,6 +70,7 @@
         <div class="card-header fw-bold">
             Office hours
         </div>
+        <!--TODO: load all the office hours of a certain staff member here-->
         <div class="card-body">
             <table id="example2" class="cell-border hover" style="width:100%">
                 <thead>

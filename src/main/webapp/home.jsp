@@ -23,6 +23,7 @@
     <%--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">--%>
 </head>
 <body>
+
 <%
     if (request.getSession().getAttribute("id") == null) {
         response.sendRedirect("index.jsp");
@@ -77,6 +78,7 @@
 
         </div>
     </div>
+    <!--TODO: load all the courses here -->
     <div class="card mb-5">
         <div class="card-header fw-bold">
             Subjects
@@ -114,6 +116,7 @@
             </table>
         </div>
     </div>
+    <!--TODO: create a function that takes a course and return all the staff members to be displayed here when user clicks the subject-->
     <div class="card mb-5">
         <div class="card-header fw-bold">
             Staff members teaching X
