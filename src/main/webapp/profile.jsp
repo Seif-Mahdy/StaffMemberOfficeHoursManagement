@@ -49,7 +49,7 @@
         }
 
     }
-
+    boolean profile = request.getRequestURL().toString().contains("profile.jsp");
 %>
 
 
@@ -68,7 +68,15 @@
                     <a class="nav-link" href="home.jsp">Home</a>
                 </li>
                 <li class="nav-item">
+                    <%
+                        if (profile) {
+                    %>
+                    <a class="nav-link active" href="profile.jsp">Profile</a>
+                    <%
+                    } else {
+                    %>
                     <a class="nav-link" href="profile.jsp">Profile</a>
+                    <%}%>
                 </li>
             </ul>
             <div>

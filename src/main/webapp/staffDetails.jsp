@@ -1,14 +1,14 @@
 <%--
   Created by IntelliJ IDEA.
-  User: seifa
-  Date: 1/3/2021
-  Time: 12:22 AM
+  User: seif
+  Date: 1/5/21
+  Time: 3:28 AM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Home</title>
+    <title>Staff details</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
@@ -23,13 +23,6 @@
     <%--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">--%>
 </head>
 <body>
-
-<%
-    if (request.getSession().getAttribute("id") == null) {
-        response.sendRedirect("index.jsp");
-    }
-    boolean home = request.getRequestURL().toString().contains("home.jsp");
-%>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid d-flex align-items-center">
         <a class="navbar-brand" href="home.jsp">
@@ -42,17 +35,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <%
-                        if (home) {
-                    %>
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    <%
-                    } else {
-                    %>
-                    <a class="nav-link" aria-current="page" href="#">Home</a>
-                    <%
-                        }
-                    %>
+                    <a class="nav-link" href="home.jsp">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="profile.jsp">Profile</a>
@@ -68,27 +51,32 @@
         </div>
     </div>
 </nav>
-<div class="p-5" style="margin-top: 100px">
+<div style="margin-top: 100px" class="p-5">
     <div class="card mb-5">
         <div class="card-header fw-bold">
-            Notifications
+            Contact-info
         </div>
         <div class="card-body">
-            <p class="card-text">This is a test notification!.</p>
-
+            <p class="card-text">
+                <span class="fw-bold">Name: </span>Sara El-nady</p>
+            <p class="card-text"><span class="fw-bold"> Phone number: </span>01234567891</p>
+            <p class="card-text"><span class="fw-bold">Email: </span>s.elnady@gmail.com</p>
+        </div>
+        <div class="card-footer text-muted">
+            <button class="btn btn-success d-flex float-end">Send message</button>
         </div>
     </div>
-    <!--TODO: load all the courses here -->
     <div class="card mb-5">
         <div class="card-header fw-bold">
-            Subjects
+            Office hours
         </div>
+        <!--TODO: load all the office hours of a certain staff member here-->
         <div class="card-body">
-            <table id="example" class="cell-border hover" style="width:100%">
+            <table id="example2" class="cell-border hover" style="width:100%">
                 <thead>
                 <tr>
-                    <th>Name</th>
-                    <%--                    <th>Position</th>--%>
+                    <th>From</th>
+                    <th>To</th>
                     <%--                    <th>Office</th>--%>
                     <%--                    <th>Age</th>--%>
                     <%--                    <th>Start date</th>--%>
@@ -96,49 +84,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Math</td>
+                <tr onclick="" style="cursor: pointer">
+                    <td>5-1-2021 02:00PM</td>
+                    <td>5-1-2021 03:00PM</td>
                     <%--                    <td>System Architect</td>--%>
                     <%--                    <td>Edinburgh</td>--%>
                     <%--                    <td>61</td>--%>
-                    <%--                    <td>2011/04/25</td>--%>
-                    <%--                    <td>$320,800</td>--%>
-                </tr>
-                <tr>
-                    <td>Algorithms</td>
-                    <%--                    <td>Accountant</td>--%>
-                    <%--                    <td>Tokyo</td>--%>
-                    <%--                    <td>63</td>--%>
-                    <%--                    <td>2011/07/25</td>--%>
-                    <%--                    <td>$170,750</td>--%>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <!--TODO: create a function that takes a course and return all the staff members to be displayed here when user clicks the subject-->
-    <div class="card mb-5">
-        <div class="card-header fw-bold">
-            Staff members teaching X
-        </div>
-        <div class="card-body">
-            <table id="example1" class="cell-border hover" style="width:100%">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone number</th>
-                    <th>Role</th>
-                    <%--                    <th>Start date</th>--%>
-                    <%--                    <th>Salary</th>--%>
-                </tr>
-                </thead>
-                <tbody>
-                <tr onclick="window.location.href='staffDetails.jsp'" style="cursor: pointer">
-                    <td>Sara El-nady</td>
-                    <td>s.elnady@gmail.com</td>
-                    <td>01234567891</td>
-                    <td>TA</td>
                     <%--                    <td>2011/04/25</td>--%>
                     <%--                    <td>$320,800</td>--%>
                 </tr>
