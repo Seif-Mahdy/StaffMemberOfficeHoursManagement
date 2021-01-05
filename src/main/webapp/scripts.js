@@ -167,7 +167,7 @@ function loadProfileData() {
 }
 
 function logout() {
-    $('#logout-btn').prop('disabled','true')
+    $('#logout-btn').prop('disabled', 'true')
     $('#spinner1').removeClass('visually-hidden')
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -181,3 +181,8 @@ function logout() {
     xhttp.send();
 }
 
+$(document).ready(function () {
+    $('#example').DataTable();
+    $('#example1').DataTable();
+    $('#example2').DataTable();
+});
