@@ -24,6 +24,7 @@ function validateRegister(userName, userID, email, phoneNumber, registerType, ca
             $("#register-btn").prop('disabled', false);
             $("#spinner").addClass("visually-hidden")
             if (xhttp.responseText == 'success') {
+                $('#register-form').find('input,textarea').val('')
                 window.location.href = 'index.jsp'
             } else {
                 $('#registrationErrors').append('<li class="text-danger">' + xhttp.responseText.toUpperCase() + '</li>')
@@ -94,6 +95,7 @@ function showRegistrationType() {
 }
 
 function loadRegisterData() {
+
     $('#registrationErrors').empty()
     $('#register-form').submit(
         function (e) {
@@ -114,32 +116,35 @@ function loadRegisterData() {
     var phoneNumber = $('#exampleInputPhoneNumber').val()
     var ssn = $('#exampleInputSSN').val()
     var registerType = $('#inputGroupSelect02').is(':disabled') == false ? $('#inputGroupSelect02').val() : null
-    var captchaToken = $('#recaptchaResponse').val()
-
-    if (userName != "" && userID != "" && email != "" && phoneNumber != "" && ssn != "" && captchaToken != "") {
-        var error_msg = []
-        if (userID.length > 8 || userID.length < 8) {
-            error_msg.push("User ID must be exactly 8 digits!")
-        }
-        if (phoneNumber.length > 11 || phoneNumber.length < 11) {
-            error_msg.push("Phone number must be exactly 11 digits!")
-        }
-        if (ssn.length > 14 || ssn.length < 14) {
-            error_msg.push("SSN must be exactly 14 digits!")
-        }
-        if (error_msg.length == 0) {
-            $("#register-btn").prop('disabled', true)
-            $("#spinner").removeClass("visually-hidden")
-            $('#register-form').find('input,textarea').val('')
-            validateRegister(userName, userID, email, phoneNumber, registerType, captchaToken)
-        } else {
-            for (var i = 0; i < error_msg.length; i++) {
-                $('#registrationErrors').append('<li class="text-danger">' + error_msg[i] + '</li>')
+    var captchaToken = grecaptcha.getResponse()
+    if (captchaToken != "") {
+        if (userName != "" && userID != "" && email != "" && phoneNumber != "" && ssn != "" && captchaToken != "") {
+            var error_msg = []
+            if (userID.length > 8 || userID.length < 8) {
+                error_msg.push("User ID must be exactly 8 digits!")
             }
-        }
+            if (phoneNumber.length > 11 || phoneNumber.length < 11) {
+                error_msg.push("Phone number must be exactly 11 digits!")
+            }
+            if (ssn.length > 14 || ssn.length < 14) {
+                error_msg.push("SSN must be exactly 14 digits!")
+            }
+            if (error_msg.length == 0) {
+                $("#register-btn").prop('disabled', true)
+                $("#spinner").removeClass("visually-hidden")
+                validateRegister(userName, userID, email, phoneNumber, registerType, captchaToken)
+            } else {
+                for (var i = 0; i < error_msg.length; i++) {
+                    $('#registrationErrors').append('<li class="text-danger">' + error_msg[i] + '</li>')
+                }
+            }
 
+        } else {
+            $('#registrationErrors').append('<li class="text-danger">Data fields cannot be empty!</li>')
+        }
     } else {
-        $('#registrationErrors').append('<li class="text-danger">Data fields cannot be empty!</li>')
+        $('.g-recaptcha').addClass('border border-danger')
+        $('#registrationErrors').append('<li class="text-danger">Please verify that you are not a robot!</li>')
     }
 }
 
@@ -182,7 +187,13 @@ function logout() {
 }
 
 $(document).ready(function () {
-    $('#example').DataTable();
-    $('#example1').DataTable();
-    $('#example2').DataTable();
+    $('#example').DataTable({
+        "scrollY": "200px",
+    });
+    $('#example1').DataTable({
+        "scrollY": "200px",
+    });
+    $('#example2').DataTable({
+        "scrollY": "200px",
+    });
 });

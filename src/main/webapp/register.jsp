@@ -19,7 +19,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"
             integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script src="scripts.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body style="width: 100%;height: 100%;position: fixed">
 
@@ -49,16 +49,20 @@
                 <input type="text" class="form-control" id="exampleInputSSN" name="ssn" oninput="showRegistrationType()"
                        required>
             </div>
-            <div class="input-group mb-5 visually-hidden" id="register-type">
+            <div class="input-group mb-3 visually-hidden" id="register-type">
                 <label class="input-group-text" for="inputGroupSelect02">Register as</label>
                 <select class="form-select" id="inputGroupSelect02" name="registerType" disabled>
                     <option value="Doctor">Doctor</option>
                     <option value="TA">TA</option>
                 </select>
             </div>
-<%--            <div class="g-recaptcha"--%>
-<%--                 data-sitekey="6LcIIR0aAAAAAA7Ebm5naPBBBBJh5DwBxBHN8dda"></div>--%>
-<%--            <input type="hidden" name="recaptchaResponse" value="" id="recaptchaResponse">--%>
+            <div class="d-flex justify-content-end">
+                <div class="g-recaptcha mb-5" data-sitekey="6LeQpSEaAAAAALZwnxT07Ha2Ddyzme37Fcj0t9dy"></div>
+
+            </div>
+            <%--            <div class="g-recaptcha"--%>
+            <%--                 data-sitekey="6LcIIR0aAAAAAA7Ebm5naPBBBBJh5DwBxBHN8dda"></div>--%>
+            <%--            <input type="hidden" name="recaptchaResponse" value="" id="recaptchaResponse">--%>
 
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex flex-row align-items-center">

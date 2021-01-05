@@ -82,7 +82,7 @@
             Subjects
         </div>
         <div class="card-body">
-            <table id="example" class="display table table-bordered" style="width:100%">
+            <table id="example" class="cell-border hover" style="width:100%">
                 <thead>
                 <tr>
                     <th>Name</th>
@@ -119,7 +119,7 @@
             Staff members teaching X
         </div>
         <div class="card-body">
-            <table id="example1" class="display table table-bordered" style="width:100%">
+            <table id="example1" class="cell-border hover" style="width:100%">
                 <thead>
                 <tr>
                     <th>Name</th>

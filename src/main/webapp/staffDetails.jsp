@@ -71,7 +71,7 @@
             Office hours
         </div>
         <div class="card-body">
-            <table id="example2" class="display table table-bordered" style="width:100%">
+            <table id="example2" class="cell-border hover" style="width:100%">
                 <thead>
                 <tr>
                     <th>From</th>
