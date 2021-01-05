@@ -17,10 +17,10 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"
             integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script src="scripts.js"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap5.min.js"></script>
+    <%--    <script class="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>--%>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+    <%--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">--%>
 </head>
 <body>
 <%
@@ -82,7 +82,7 @@
             Subjects
         </div>
         <div class="card-body">
-            <table id="example" class="display table table-striped table-bordered" style="width:100%">
+            <table id="example" class="display table table-bordered" style="width:100%">
                 <thead>
                 <tr>
                     <th>Name</th>
@@ -119,7 +119,7 @@
             Staff members teaching X
         </div>
         <div class="card-body">
-            <table id="example1" class="display table table-striped table-bordered" style="width:100%">
+            <table id="example1" class="display table table-bordered" style="width:100%">
                 <thead>
                 <tr>
                     <th>Name</th>
