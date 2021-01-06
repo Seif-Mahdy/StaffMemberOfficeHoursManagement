@@ -8,6 +8,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,7 +82,7 @@ public class CourseToStaffCrud {
     public static List<String> selectAllStaffForCourse(int course) {
         List<CoursetostaffEntity>staffs = null;
         SessionFactory sessionObj = HybernateUtil.getSessionFactory();
-        List<String>staffIds = null;
+        List<String>staffIds = new ArrayList<>();
 
 
         try  {
@@ -91,13 +92,16 @@ public class CourseToStaffCrud {
 
             CriteriaQuery<CoursetostaffEntity> criteria = builder.createQuery(CoursetostaffEntity.class);
             Root<CoursetostaffEntity> root = criteria.from(CoursetostaffEntity.class);
-            criteria.select(root.get("StaffId"));
-            criteria.where(builder.equal(root.get("course"),course));
+         //   criteria.select(root.get("staffId"));
+            criteria.where(builder.equal(root.get("courseId"),course));
             TypedQuery<CoursetostaffEntity> query = session.createQuery(criteria);
             staffs = query.getResultList();
-            for(int i=0;i<staffs.size();i++)
-            {
-                staffIds.add(staffs.get(i).getStaffId());
+            for (CoursetostaffEntity staff : staffs) {
+
+
+                if (staff.getStaffId() != null) {
+                    staffIds.add(staff.getStaffId());
+                }
             }
 
             session.getTransaction().commit();

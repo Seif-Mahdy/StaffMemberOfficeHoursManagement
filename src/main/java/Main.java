@@ -5,6 +5,8 @@ import org.hibernate.SessionFactory;
 
 import javax.mail.*;
 import javax.mail.internet.*;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Properties;
 
@@ -82,13 +84,19 @@ public class Main {
         } catch (MessagingException mex) {
             mex.printStackTrace();
         }*/
-        System.out.println(StudentCrud.findStudent("20170144"));
-        System.out.println(StudentCrud.findStudent("20210144"));
-        List<StudentEntity>students =StudentCrud.selectAllStudents();
-        for(int i=0;i<students.size();i++)
-        {
-            System.out.println(students.get(i).getStudentId());
-        }
+         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        Timestamp stamp2= Timestamp.valueOf("2021-01-07 01:00:06.635");
+        System.out.println(timestamp);
+        OfficehourEntity slot = new OfficehourEntity();
+        slot.setLocation("home");
+        slot.setIsOffline((byte) 1);
+        slot.setFromDate(timestamp);
+        slot.setToDate(stamp2);
+        slot.setStaffId("20170000");
+        System.out.println(OfficeHourCrud.addOfficeHour(slot));
+
+
     }
 
 

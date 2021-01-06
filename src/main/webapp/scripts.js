@@ -203,6 +203,41 @@ function test(value) {
     var xhttp = new XMLHttpRequest()
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
+            //var json = JSON.parse(xhttp.responseText)
+            console.log(xhttp.responseText)
+            // $('#staff-table-body').append('<tr><td>' + json.staffName + '</td><td>' + json.staffEmail + '</td><td>' + json.staffNumber + '</td><td>' + json.staffRole + '</td></tr>')
+            var table = $('#example1').DataTable()
+            table.row.add([
+                json.staffName,
+                json.staffEmail,
+                json.staffNumber,
+                json.staffRole
+            ]).draw(true)
+            $('#example1 tbody').on('click', 'tr', function () {
+                var data = table.row(this).data()
+                var form = document.createElement('form')
+                form.action = 'staffDetails.jsp'
+                form.method = 'POST'
+                var input = document.createElement('input')
+                input.value = json.staffId
+                input.name = 'id'
+                form.appendChild(input)
+                document.body.appendChild(form)
+                form.submit()
+            })
+
+        }
+    }
+    xhttp.open("POST", "Test", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("courseName=" + value);
+}
+
+function test(value) {
+    $('#card-header').html('Staff members teaching'+ value)
+    var xhttp = new XMLHttpRequest()
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
             var json = JSON.parse(xhttp.responseText)
             // $('#staff-table-body').append('<tr><td>' + json.staffName + '</td><td>' + json.staffEmail + '</td><td>' + json.staffNumber + '</td><td>' + json.staffRole + '</td></tr>')
             var table = $('#example1').DataTable()
@@ -231,3 +266,16 @@ function test(value) {
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("courseName=" + value);
 }
+function reserveSlot(slotId,studentId,staffId)
+{
+var xHTTP=new XMLHttpRequest() ;
+ xHTTP.onreadystatechange=function (){
+     if(xHTTP.readyState==4 && xHTTP.status==200)
+     {
+
+     }
+
+ }
+    xhttp.open("POST", "Reservation", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("slotId=" + slotId +"&studentId" +studentId+ "&staffId" +staffId);}

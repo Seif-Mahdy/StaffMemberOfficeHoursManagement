@@ -11,11 +11,13 @@ public class MessageEntity {
 
     @Id
     @Column(name = "MessageID")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+
     public Integer getMessageId() {
         return messageId;
     }
 
-    public void setMessageId(Integer messageId) {
+    private void setMessageId(Integer messageId) {
         this.messageId = messageId;
     }
 

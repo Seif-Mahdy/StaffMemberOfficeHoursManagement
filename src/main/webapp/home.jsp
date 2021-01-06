@@ -105,7 +105,7 @@
                 <%
                     for (CourseEntity course : courses) {
                 %>
-                <tr onclick="test(<%=course.getCourseName()%>)">
+                <tr onclick="test('<%=course.getCourseName()%>')">
                     <td><%=course.getCourseName()%>
                     </td>
                 </tr>

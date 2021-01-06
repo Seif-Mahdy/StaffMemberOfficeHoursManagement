@@ -13,16 +13,17 @@ public class OfficehourEntity {
     private Timestamp toDate;
     private Byte isOffline;
     private String location;
+    private String staffId;
 
     @Id
     @Column(name = "ID")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+
     public Integer getId() {
         return id;
     }
+    private void setId(int id){this.id=id;}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     @Basic
     @Column(name = "From_Date")
@@ -63,6 +64,17 @@ public class OfficehourEntity {
     public void setLocation(String location) {
         this.location = location;
     }
+
+    @Basic
+    @Column(name = "StaffId")
+    public String getStaffId() {
+        return staffId;
+    }
+
+    public void setStaffId(String staffId) {
+        this.staffId = staffId;
+    }
+
 
     @Override
     public boolean equals(Object o) {
