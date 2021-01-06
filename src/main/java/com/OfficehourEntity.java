@@ -2,14 +2,15 @@ package com;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
 @Table(name = "officeHour", schema = "officehoursmangementsystem")
 public class OfficehourEntity {
     private Integer id;
-    private Date fromDate;
-    private Date toDate;
+    private Timestamp fromDate;
+    private Timestamp toDate;
     private Byte isOffline;
     private String location;
 
@@ -25,21 +26,21 @@ public class OfficehourEntity {
 
     @Basic
     @Column(name = "From_Date")
-    public Date getFromDate() {
+    public Timestamp getFromDate() {
         return fromDate;
     }
 
-    public void setFromDate(Date fromDate) {
+    public void setFromDate(Timestamp fromDate) {
         this.fromDate = fromDate;
     }
 
     @Basic
     @Column(name = "To_Date")
-    public Date getToDate() {
+    public Timestamp getToDate() {
         return toDate;
     }
 
-    public void setToDate(Date toDate) {
+    public void setToDate(Timestamp toDate) {
         this.toDate = toDate;
     }
 

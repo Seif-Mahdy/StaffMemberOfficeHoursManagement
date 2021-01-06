@@ -1110,12 +1110,12 @@ StudentId</ColNames>
     </column>
     <column id="332" parent="291" name="From_Date">
       <Position>2</Position>
-      <DataType>date|0s</DataType>
+      <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
     </column>
     <column id="333" parent="291" name="To_Date">
       <Position>3</Position>
-      <DataType>date|0s</DataType>
+      <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
     </column>
     <column id="334" parent="291" name="IsOffline">
@@ -1126,7 +1126,6 @@ StudentId</ColNames>
     <column id="335" parent="291" name="Location">
       <Position>5</Position>
       <DataType>varchar(50)|0s</DataType>
-      <NotNull>1</NotNull>
     </column>
     <column id="336" parent="291" name="StaffId">
       <Position>6</Position>
@@ -1173,7 +1172,7 @@ StudentId</ColNames>
     </column>
     <column id="345" parent="292" name="StaffRole">
       <Position>6</Position>
-      <DataType>tinyint(1)|0s</DataType>
+      <DataType>varchar(8)|0s</DataType>
     </column>
     <index id="346" parent="292" name="StaffNumber">
       <ColNames>StaffNumber</ColNames>

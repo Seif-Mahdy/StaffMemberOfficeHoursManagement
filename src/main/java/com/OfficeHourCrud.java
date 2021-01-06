@@ -9,6 +9,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 public class OfficeHourCrud {
@@ -85,11 +86,11 @@ public class OfficeHourCrud {
 
              if(attributeRequired.equals("From_Date"))
             {
-                officeHour.setFromDate(Date.valueOf(changedValue));
+                officeHour.setFromDate(Timestamp.valueOf(changedValue));
             }
             else if(attributeRequired.equals("To_Date"))
             {
-                officeHour.setToDate(Date.valueOf(changedValue));
+                officeHour.setToDate(Timestamp.valueOf(changedValue));
             }
             else if(attributeRequired.equals("IsOffline"))
             {
