@@ -1,5 +1,5 @@
 function validateLogin(id, password, login_type) {
-    var xhttp = new XMLHttpRequest();
+    var xhttp = new XMLHttpRequest()
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             $("#login-btn").prop('disabled', false)
@@ -197,3 +197,37 @@ $(document).ready(function () {
         "scrollY": "200px",
     });
 });
+
+function test(value) {
+    $('#card-header').html('Staff members teaching'+ value)
+    var xhttp = new XMLHttpRequest()
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var json = JSON.parse(xhttp.responseText)
+            // $('#staff-table-body').append('<tr><td>' + json.staffName + '</td><td>' + json.staffEmail + '</td><td>' + json.staffNumber + '</td><td>' + json.staffRole + '</td></tr>')
+            var table = $('#example1').DataTable()
+            table.row.add([
+                json.staffName,
+                json.staffEmail,
+                json.staffNumber,
+                json.staffRole
+            ]).draw(true)
+            $('#example1 tbody').on('click', 'tr', function () {
+                var data = table.row(this).data()
+                var form = document.createElement('form')
+                form.action = 'staffDetails.jsp'
+                form.method = 'POST'
+                var input = document.createElement('input')
+                input.value = json.staffId
+                input.name = 'id'
+                form.appendChild(input)
+                document.body.appendChild(form)
+                form.submit()
+            })
+
+        }
+    }
+    xhttp.open("POST", "Test", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("courseName=" + value);
+}
