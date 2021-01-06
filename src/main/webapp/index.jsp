@@ -15,20 +15,23 @@
     <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
             crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"
-            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
     <script src="scripts.js"></script>
 </head>
 <body style="width: 100%;height: 100%;position: fixed">
 
 <%
-if(request.getSession().getAttribute("id")!=null)
-{
-    response.sendRedirect("home.jsp");
-}
+    if (request.getSession().getAttribute("id") != null) {
+        response.sendRedirect("home.jsp");
+    }
 %>
 <div class="container-fluid d-flex flex-column justify-content-center align-items-center"
      style="height: 100%;background-color:gainsboro">
@@ -36,14 +39,20 @@ if(request.getSession().getAttribute("id")!=null)
         if (request.getSession().getAttribute("success") != null) {
     %>
     <div class="alert alert-success" role="alert">
-        <%--        <%--%>
-        <%--            PrintWriter writer = response.getWriter();--%>
-        <%--            writer.print();--%>
-        <%--        %>--%>
         <%= request.getSession().getAttribute("success")%>
     </div>
     <%
             request.getSession().removeAttribute("success");
+        }
+    %>
+    <%
+        if (request.getSession().getAttribute("logged-out") != null) {
+    %>
+    <div class="alert alert-danger" role="alert">
+        <%= request.getSession().getAttribute("logged-out")%>
+    </div>
+    <%
+            request.getSession().removeAttribute("logged-out");
         }
     %>
     <div class="w-50 shadow p-5 bg-light rounded">

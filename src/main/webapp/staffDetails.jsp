@@ -15,11 +15,15 @@
     <title>Staff details</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
             crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"
-            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
     <script src="scripts.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <%--    <script class="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>--%>
@@ -60,11 +64,18 @@
         <div class="card-header fw-bold">
             Contact-info
         </div>
+        <%
+            String id = request.getParameter("id");
+            StaffmemberEntity staff = StaffMemberCrud.findStaffMember(id);
+        %>
         <div class="card-body">
             <p class="card-text">
-                <span class="fw-bold">Name: </span>Sara El-nady</p>
-            <p class="card-text"><span class="fw-bold"> Phone number: </span>01234567891</p>
-            <p class="card-text"><span class="fw-bold">Email: </span>s.elnady@gmail.com</p>
+                <span class="fw-bold">Name: </span><%=staff.getStaffName()%>
+            </p>
+            <p class="card-text"><span class="fw-bold"> Phone number: </span><%=staff.getStaffNumber()%>
+            </p>
+            <p class="card-text"><span class="fw-bold">Email: </span><%=staff.getStaffEmail()%>
+            </p>
         </div>
         <div class="card-footer text-muted">
             <button class="btn btn-success d-flex float-end">Send message</button>
@@ -76,38 +87,39 @@
         </div>
         <!--TODO: get the email of the selected staff -->
 
-        <% String selectedStaffEmail=null;
-            StaffmemberEntity staff = StaffMemberCrud.findStaffByAtt("staffEmail",selectedStaffEmail).get(0));
-            List<OfficehourEntity>slots= OfficeHourCrud.selectStaffOfficeHour(staff.getStaffId());
-            ;
-
+        <%
+            List<OfficehourEntity> slots = OfficeHourCrud.selectStaffOfficeHour(staff.getStaffId());
         %>
         <div class="card-body">
             <table id="example2" class="cell-border hover" style="width:100%">
                 <thead>
                 <tr>
-                    <th>From</th>
-                    <th>To</th>
-                    <%--                    <th>Office</th>--%>
-                    <%--                    <th>Age</th>--%>
-                    <%--                    <th>Start date</th>--%>
-                    <%--                    <th>Salary</th>--%>
+                    <th class="text-center">From</th>
+                    <th class="text-center">To</th>
+                    <th class="text-center">Reservation</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr onclick="" style="cursor: pointer">
-                    <td>5-1-2021 02:00PM</td>
-                    <td>5-1-2021 03:00PM</td>
-                    <%--                    <td>System Architect</td>--%>
-                    <%--                    <td>Edinburgh</td>--%>
-                    <%--                    <td>61</td>--%>
-                    <%--                    <td>2011/04/25</td>--%>
-                    <%--                    <td>$320,800</td>--%>
+                <%
+                    for (OfficehourEntity slot : slots) {
+                %>
+                <tr>
+                    <td><%=slot.getFromDate()%></td>
+                    <td><%=slot.getToDate()%></td>
+                    <td>
+                        <button class="btn btn-success" type="button">
+                            reserve
+                        </button>
+                    </td>
                 </tr>
+                <%
+                    }
+                %>
                 </tbody>
             </table>
         </div>
     </div>
+</div>
 </div>
 </body>
 </html>
