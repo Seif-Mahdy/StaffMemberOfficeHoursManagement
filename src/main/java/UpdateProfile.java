@@ -23,7 +23,7 @@ public class UpdateProfile extends HttpServlet {
         String loginType = request.getSession().getAttribute("loginType").toString();
         String userId = request.getSession().getAttribute("id").toString();
 
-        System.out.println(username + " " + password + " " + phoneNumber + " " + email + " " + loginType + " " + userId);
+        //System.out.println(username + " " + password + " " + phoneNumber + " " + email + " " + loginType + " " + userId);
 
         if (loginType.equals("student")) {
             //if email changed , check if there is exist another account with this mail
@@ -39,23 +39,20 @@ public class UpdateProfile extends HttpServlet {
                 }
 
             }
-            if(!student.getStudentNumber().equals(phoneNumber))
-            {
-                List<StudentEntity> students=StudentCrud.findStudentByAtt("studentNumber",phoneNumber);
-                if(students.size()>0)
-                {
+            if (!student.getStudentNumber().equals(phoneNumber)) {
+                List<StudentEntity> students = StudentCrud.findStudentByAtt("studentNumber", phoneNumber);
+                if (students.size() > 0) {
                     out.print("This number has been taken!");
 
-                }
-                else
-                {
+                } else {
                     student.setStudentNumber(phoneNumber);
                 }
             }
             student.setStudentPassword(password);
             student.setStudentName(username);
             StudentCrud.updateStudent(student);
-
+            request.getSession().setAttribute("profileUpdate","Profile updated successfully!");
+            out.print("success");
 
         } else if (loginType.equals("staff")) {
             StaffmemberEntity staff = StaffMemberCrud.findStaffMember(userId);
@@ -68,12 +65,21 @@ public class UpdateProfile extends HttpServlet {
                     staff.setStaffEmail(email);
 
                 }
+                if (!staff.getStaffNumber().equals(phoneNumber)) {
+                    List<StaffmemberEntity> staffMembers = StaffMemberCrud.findStaffByAtt("staffNumber", phoneNumber);
+                    if (staffMembers.size() > 0) {
+                        out.print("This number has been taken!");
+                    } else {
+                        staff.setStaffNumber(phoneNumber);
+                    }
+                }
 
             }
             staff.setStaffPassword(password);
             staff.setStaffName(username);
             staff.setStaffNumber(phoneNumber);
             StaffMemberCrud.updateStaff(staff);
+            request.getSession().setAttribute("profileUpdate","Profile updated successfully!");
             out.print("success");
 
         }

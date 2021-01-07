@@ -78,6 +78,9 @@
                     <a class="nav-link" href="profile.jsp">Profile</a>
                     <%}%>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="appointments.jsp">My appointments</a>
+                </li>
             </ul>
             <div>
                 <div class="spinner-border text-primary spinner-border-sm visually-hidden" role="status"
@@ -92,6 +95,16 @@
 <div class="container-fluid p-5" style="margin-top: 100px">
     <ul id="updateProfileErrors">
     </ul>
+    <%
+        if (request.getSession().getAttribute("profileUpdate") != null) {
+
+    %>
+    <p class="text-success" id="updateProfileSuccess"><%=request.getSession().getAttribute("profileUpdate")%>
+    </p>
+    <%
+        }
+        request.getSession().removeAttribute("profileUpdate");
+    %>
     <form id="profileDataForm">
         <div class="mb-3">
             <label for="exampleInputName" class="form-label">Full name</label>

@@ -37,15 +37,19 @@ function validateRegister(userName, userID, email, phoneNumber, registerType, ca
 }
 
 function validateUpdateProfile(userName, email, password, phoneNumber) {
+    $('#updateProfileErrors').empty()
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             $("#update-btn").prop('disabled', false)
             $("#spinner").addClass("visually-hidden")
             if (xhttp.responseText == "success") {
+                console.log('in success')
                 window.location.href = 'profile.jsp'
+                //$('#updateProfileSuccess').html('Profile updated successfully!')
             } else {
-                $('#updateProfileErrors').html(xhttp.responseText.toUpperCase())
+                console.log('in else')
+                $('#updateProfileErrors').append('<li class="text-danger">' + xhttp.responseText.toUpperCase() + '</li>')
             }
         }
     }
@@ -102,14 +106,6 @@ function loadRegisterData() {
             e.preventDefault()
         }
     )
-    // grecaptcha.ready(function () {
-    //     grecaptcha.execute('6LcIIR0aAAAAAA7Ebm5naPBBBBJh5DwBxBHN8dda', {action: 'register'}).then(function (token) {
-    //         // console.log(token)
-    //         $('#recaptchaResponse').val(token);
-    //
-    //
-    //     });
-    // });
     var userName = $('#exampleInputUserName').val()
     var userID = $('#exampleInputUserID').val()
     var email = $('#exampleInputEmail1').val()
@@ -149,6 +145,11 @@ function loadRegisterData() {
 }
 
 function loadProfileData() {
+    if($('#updateProfileSuccess').html()!=''){
+        $('#updateProfileSuccess').empty()
+    }
+    $('#spinner').removeClass('visually-hidden')
+    $('#update-btn').prop('disabled', 'true')
     $('#updateProfileErrors').empty()
     $('#profileDataForm').submit(function (e) {
         e.preventDefault();
@@ -161,10 +162,11 @@ function loadProfileData() {
     if (userName != "" && email != "" && phoneNumber != "" && password != "") {
         if (phoneNumber.length != 11) {
             $('#updateProfileErrors').append('<li class="text-danger">Phone number must be exactly 11 digits!</li>')
+            $("#update-btn").prop('disabled', false)
+            $("#spinner").addClass("visually-hidden")
+        } else {
+            validateUpdateProfile(userName, email, password, phoneNumber)
         }
-        $("#update-btn").prop('disabled', true)
-        $("#spinner").removeClass("visually-hidden")
-        validateUpdateProfile(userName, email, password, phoneNumber)
 
     } else {
         $('#updateProfileErrors').append('<li class="text-danger">Data fields cannot be empty!</li>')
@@ -243,7 +245,7 @@ function reserveSlot(slotId, studentId, staffId) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-            if(xhttp.responseText=='success'){
+            if (xhttp.responseText == 'success') {
 
             }
         }
