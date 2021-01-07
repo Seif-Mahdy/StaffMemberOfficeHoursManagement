@@ -16,7 +16,7 @@ public class Logout extends HttpServlet {
         PrintWriter out = response.getWriter();
         request.getSession().removeAttribute("id");
         request.getSession().removeAttribute("loginType");
-        request.getSession().setAttribute("logged-out","yes");
+        request.getSession().setAttribute("logged-out","You have been logged-out successfully!");
         out.print("success");
     }
 }

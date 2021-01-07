@@ -9,8 +9,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "Test", value = "/Test")
-public class Test extends HttpServlet {
+@WebServlet(name = "ShowStaffMembers", value = "/ShowStaffMembers")
+public class ShowStaffMembers extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -21,7 +21,7 @@ public class Test extends HttpServlet {
         String courseName = request.getParameter("courseName");
 //        System.out.println(id);
         List<CourseEntity> course= CourseCrud.findCourseByAtt("courseName",courseName);
-        System.out.println("course if is " + course.get(0).getCourseId());
+        //System.out.println("course if is " + course.get(0).getCourseId());
         List<String>staffIds= CourseToStaffCrud.selectAllStaffForCourse(course.get(0).getCourseId());
         List<StaffmemberEntity>staff=new ArrayList<>();
         for (String staffId:
@@ -31,7 +31,7 @@ public class Test extends HttpServlet {
         }
         ObjectMapper mapper = new ObjectMapper();
         String json =mapper.writeValueAsString(staff);
-        System.out.println(json);
+        //System.out.println(json);
         PrintWriter out =response.getWriter();
         out.print(json);
 

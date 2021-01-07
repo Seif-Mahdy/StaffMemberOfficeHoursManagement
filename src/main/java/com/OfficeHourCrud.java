@@ -149,7 +149,7 @@ public class OfficeHourCrud {
 
             CriteriaQuery<OfficehourEntity> criteria = builder.createQuery(OfficehourEntity.class);
             Root<OfficehourEntity> root = criteria.from(OfficehourEntity.class);
-            criteria.where(builder.equal(root.get("StaffId"),staffId));
+            criteria.where(builder.equal(root.get("staffId"),staffId));
             TypedQuery<OfficehourEntity> query = session.createQuery(criteria);
             officeHours = query.getResultList();
 

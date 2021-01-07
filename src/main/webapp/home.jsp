@@ -53,17 +53,20 @@
                     <%
                         if (home) {
                     %>
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active" aria-current="page" href="home.jsp">Home</a>
                     <%
                     } else {
                     %>
-                    <a class="nav-link" aria-current="page" href="#">Home</a>
+                    <a class="nav-link" aria-current="page" href="home.jsp">Home</a>
                     <%
                         }
                     %>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="profile.jsp">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="appointments.jsp">My appointments</a>
                 </li>
             </ul>
             <div>
@@ -105,7 +108,7 @@
                 <%
                     for (CourseEntity course : courses) {
                 %>
-                <tr onclick="test('<%=course.getCourseName()%>')">
+                <tr onclick="showStaffMembers('<%=course.getCourseName()%>')">
                     <td><%=course.getCourseName()%>
                     </td>
                 </tr>
@@ -120,12 +123,13 @@
 
     <div class="card mb-5">
         <div class="card-header fw-bold" id="card-header">
-            Staff members teaching X
+            Staff members teaching
         </div>
         <div class="card-body">
             <table id="example1" class="cell-border hover" style="width:100%">
                 <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone number</th>

@@ -1,18 +1,15 @@
-<%@ page import="com.StaffmemberEntity" %>
-<%@ page import="com.StaffMemberCrud" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.OfficehourEntity" %>
-<%@ page import="com.OfficeHourCrud" %><%--
+<%@ page import="com.AppointmentEntity" %>
+<%@ page import="com.AppointmentCrud" %><%--
   Created by IntelliJ IDEA.
   User: seif
-  Date: 1/5/21
-  Time: 3:28 AM
+  Date: 1/7/21
+  Time: 2:04 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Staff details</title>
+    <title>My appointment</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -33,6 +30,7 @@
     if (request.getSession().getAttribute("id") == null) {
         response.sendRedirect("index.jsp");
     }
+    boolean appointments = request.getRequestURL().toString().contains("appointments.jsp");
 %>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid d-flex align-items-center">
@@ -51,9 +49,15 @@
                 <li class="nav-item">
                     <a class="nav-link" href="profile.jsp">Profile</a>
                 </li>
+                <% if (appointments) {%>
+                <li class="nav-item">
+                    <a class="nav-link active" href="appointments.jsp">My appointments</a>
+                </li>
+                <% } else {%>
                 <li class="nav-item">
                     <a class="nav-link" href="appointments.jsp">My appointments</a>
                 </li>
+                <%}%>
             </ul>
             <div>
                 <div class="spinner-border text-primary spinner-border-sm visually-hidden" role="status"
@@ -65,72 +69,45 @@
         </div>
     </div>
 </nav>
-<div style="margin-top: 100px" class="p-5">
+<div class="p-5" style="margin-top: 100px">
+    <%
+        String studentId = request.getSession().getAttribute("id").toString();
+        //TODO:create function to get all the appointments,get the office hour details and the name of the staff member
+    %>
     <div class="card mb-5">
         <div class="card-header fw-bold">
-            Contact-info
+            My appointments
         </div>
-        <%
-            String id = request.getParameter("id");
-            if (id != null) {
-                StaffmemberEntity staff = StaffMemberCrud.findStaffMember(id);
-        %>
-        <div class="card-body">
-            <p class="card-text">
-                <span class="fw-bold">Name: </span><%=staff.getStaffName()%>
-            </p>
-            <p class="card-text"><span class="fw-bold"> Phone number: </span><%=staff.getStaffNumber()%>
-            </p>
-            <p class="card-text"><span class="fw-bold">Email: </span><%=staff.getStaffEmail()%>
-            </p>
-        </div>
-        <div class="card-footer text-muted">
-            <button class="btn btn-success d-flex float-end">Send message</button>
-        </div>
-    </div>
-    <div class="card mb-5">
-        <div class="card-header fw-bold">
-            Office hours
-        </div>
-        <!--TODO: get the email of the selected staff -->
-
-        <%
-            List<OfficehourEntity> slots = OfficeHourCrud.selectStaffOfficeHour(id);
-            System.out.println(slots.size());
-        %>
         <div class="card-body">
             <table id="example2" class="cell-border hover" style="width:100%">
                 <thead>
                 <tr>
                     <th class="text-center">From</th>
                     <th class="text-center">To</th>
-                    <th class="text-center">Reservation</th>
+                    <th class="text-center">Offline?</th>
+                    <th class="text-center">Location</th>
+                    <th class="text-center">Staff member</th>
+                    <th class="text-center">Cancel appointment</th>
                 </tr>
                 </thead>
                 <tbody>
-                <%
-                    for (OfficehourEntity slot : slots) {
-                %>
                 <tr>
-                    <td><%=slot.getFromDate()%>
-                    </td>
-                    <td><%=slot.getToDate()%>
-                    </td>
-                    <td>
-                        <button class="btn btn-success" type="button">
-                            reserve
+                    <td class="text-center">test</td>
+                    <td class="text-center">test</td>
+                    <td class="text-center">test</td>
+                    <td class="text-center">test</td>
+                    <td class="text-center">test</td>
+                    <td class="text-center">
+                        <%--TODO:create a function to cancel reservation--%>
+                        <button class="btn btn-danger" type="button">
+                            Cancel
                         </button>
                     </td>
                 </tr>
-                <%
-                        }
-                    }
-                %>
                 </tbody>
             </table>
         </div>
     </div>
-</div>
 </div>
 </body>
 </html>
