@@ -89,7 +89,6 @@
 
         </div>
     </div>
-    <!--TODO: load all the courses here -->
     <%
         List<CourseEntity> courses = CourseCrud.selectAllCourses();
     %>
@@ -119,7 +118,6 @@
             </table>
         </div>
     </div>
-    <!--TODO: create a function that takes a course and return all the staff members to be displayed here when user clicks the subject-->
 
     <div class="card mb-5">
         <div class="card-header fw-bold" id="card-header">

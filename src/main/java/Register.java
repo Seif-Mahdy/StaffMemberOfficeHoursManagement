@@ -13,7 +13,6 @@ import java.util.List;
 
 @WebServlet(name = "/Register", value = "/Register")
 public class Register extends HttpServlet {
-    //TODO:validate that the number and email are unique
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         PrintWriter out = response.getWriter();
         String userName = request.getParameter("userName");

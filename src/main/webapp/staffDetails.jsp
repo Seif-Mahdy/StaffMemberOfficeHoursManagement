@@ -92,7 +92,6 @@
         <div class="card-header fw-bold">
             Office hours
         </div>
-        <!--TODO: get the email of the selected staff -->
 
         <%
             List<OfficehourEntity> slots = OfficeHourCrud.selectStaffOfficeHour(id);
