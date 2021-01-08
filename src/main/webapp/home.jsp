@@ -26,9 +26,7 @@
             crossorigin="anonymous"></script>
     <script src="scripts.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-    <%--    <script class="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>--%>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
-    <%--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">--%>
 </head>
 <body>
 
@@ -66,7 +64,19 @@
                     <a class="nav-link" href="profile.jsp">Profile</a>
                 </li>
                 <li class="nav-item">
+                    <%
+                        String loginType = request.getSession().getAttribute("loginType").toString();
+                        System.out.println(loginType);
+                        if (loginType.equals("student")) {
+                    %>
                     <a class="nav-link" href="appointments.jsp">My appointments</a>
+                    <%
+                    } else if (loginType.equals("staff")) {
+                    %>
+                    <a class="nav-link" href="staffAppointments.jsp">My appointments</a>
+                    <%
+                        }
+                    %>
                 </li>
             </ul>
             <div>
@@ -119,8 +129,6 @@
             </table>
         </div>
     </div>
-    <!--TODO: create a function that takes a course and return all the staff members to be displayed here when user clicks the subject-->
-
     <div class="card mb-5">
         <div class="card-header fw-bold" id="card-header">
             Staff members teaching

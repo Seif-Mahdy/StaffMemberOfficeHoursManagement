@@ -13,7 +13,6 @@ import java.util.List;
 
 @WebServlet(name = "/Register", value = "/Register")
 public class Register extends HttpServlet {
-    //TODO:validate that the number and email are unique
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         PrintWriter out = response.getWriter();
         String userName = request.getParameter("userName");
@@ -23,7 +22,7 @@ public class Register extends HttpServlet {
         String registerType = request.getParameter("registerType");
         String captchaToken = request.getParameter("captchaToken");
 
-        //System.out.println("captchaToken " + captchaToken);
+
         if (isCaptchaValid("6LeQpSEaAAAAAMVzbtFm_1AniSvqGDOOOoGHQp6k", captchaToken)) {
             System.out.println("captcha valid");
             if (!registerType.equals("null")) {

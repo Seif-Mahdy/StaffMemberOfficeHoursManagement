@@ -92,8 +92,6 @@
         <div class="card-header fw-bold">
             Office hours
         </div>
-        <!--TODO: get the email of the selected staff -->
-
         <%
             List<OfficehourEntity> slots = OfficeHourCrud.selectStaffOfficeHour(id);
             System.out.println(slots.size());
@@ -112,11 +110,11 @@
                     for (OfficehourEntity slot : slots) {
                 %>
                 <tr>
-                    <td><%=slot.getFromDate()%>
+                    <td class="text-center"><%=slot.getFromDate()%>
                     </td>
-                    <td><%=slot.getToDate()%>
+                    <td class="text-center"><%=slot.getToDate()%>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <button class="btn btn-success" type="button">
                             reserve
                         </button>

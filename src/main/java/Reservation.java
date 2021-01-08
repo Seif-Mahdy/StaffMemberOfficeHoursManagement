@@ -20,7 +20,7 @@ public class Reservation extends HttpServlet {
             ///TODO: notify the user for the status of the process
             out.print("success");
         } else {
-
+            out.print("Reservation failed!");
         }
     }
 
