@@ -9,15 +9,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "Reservation")
+@WebServlet(name = "Reservation",value ="/Reservation" )
 public class Reservation extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int slotId = Integer.parseInt(request.getParameter("slotId"));
         String studentId = request.getParameter("studentId");
         String staffId = request.getParameter("staffId");
+        //Todo: return values are null
         PrintWriter out = response.getWriter();
+        System.out.println("staffid" + staffId);
+        System.out.println("studentId" + studentId);
         if (reserveApp(slotId, studentId, staffId)) {
             ///TODO: notify the user for the status of the process
+            System.out.println("truueeee");
             out.print("success");
         } else {
             out.print("Reservation failed!");

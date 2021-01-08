@@ -246,14 +246,25 @@ function reserveSlot(slotId, studentId, staffId) {
     xhttp.onreadystatechange = function () {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             if (xhttp.responseText == 'success') {
+                $('#reserve-btn').val('Reserved')
+                $('#reserve-btn').prop('disabled',true)
+                //TODO: change button when reserve
+            }
+            else
+            {
 
             }
+
         }
 
     }
+    console.log(slotId)
+    console.log(staffId)
+    console.log(studentId)
     xhttp.open("POST", "Reservation", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("slotId=" + slotId + "&studentId" + studentId + "&staffId" + staffId);
+
 }
 
 function validate_date() {
@@ -278,3 +289,30 @@ function validate_date() {
     xhttp.send("appointmentDate=" + date);
 
 }
+function cancelReservation(appointmentId)
+{
+    var xhttp= new XMLHttpRequest();
+    xhttp.onreadystatechange=function ()
+    {
+        if(xhttp.status==200 && this.readyState==4)
+        {
+            if(xhttp.responseText=="success")
+            {
+
+            }
+            else
+            {
+
+            }
+
+        }
+        xhttp.open("POST", "CancelReservation", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("appointmentId=" + appointmentId);
+
+
+    }
+
+}
+
+

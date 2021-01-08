@@ -1,8 +1,6 @@
-<%@ page import="com.StaffmemberEntity" %>
-<%@ page import="com.StaffMemberCrud" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.OfficehourEntity" %>
-<%@ page import="com.OfficeHourCrud" %><%--
+<%@ page import="com.*" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: seif
   Date: 1/5/21
@@ -92,11 +90,32 @@
         <div class="card-header fw-bold">
             Office hours
         </div>
-        <!--TODO: get the email of the selected staff -->
 
         <%
             List<OfficehourEntity> slots = OfficeHourCrud.selectStaffOfficeHour(id);
+            List<AppointmentEntity>appointments=AppointmentCrud.selectAllAppointment("staffId",staff.getStaffId());
+            List<OfficehourEntity>modifiedSlots=new ArrayList<>();
+            boolean isEnter=false;
+            for(int i=0;i<slots.size();i++)
+            {
+                if(appointments.size()==0)
+                {
+                    modifiedSlots=slots;
+                }
+                else {
+                    for (int j = 0; j < appointments.size(); j++) {
+
+                        if (!(appointments.get(j).getOfficeHourId().equals(slots.get(i).getId()))) {
+                        modifiedSlots.add(slots.get(i));
+                        }
+
+                    }
+                }
+
+            }
             System.out.println(slots.size());
+            System.out.println(modifiedSlots.size());
+            System.out.println(appointments.size());
         %>
         <div class="card-body">
             <table id="example2" class="cell-border hover" style="width:100%">
@@ -109,7 +128,7 @@
                 </thead>
                 <tbody>
                 <%
-                    for (OfficehourEntity slot : slots) {
+                    for (OfficehourEntity slot : modifiedSlots) {
                 %>
                 <tr>
                     <td><%=slot.getFromDate()%>
@@ -117,7 +136,7 @@
                     <td><%=slot.getToDate()%>
                     </td>
                     <td>
-                        <button class="btn btn-success" type="button"
+                        <button class="btn btn-success" type="button" id="reserve-btn"
                                 onclick="reserveSlot('<%=slot.getId()%>','<%=request.getSession().getAttribute("id").toString()%>','<%=staff.getStaffId()%>')">
                             reserve
                         </button>

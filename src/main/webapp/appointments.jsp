@@ -102,31 +102,57 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <%
-                        for (int i=0;i<appointmentsList.size();i++){
-                            %>
 
-                    <%
-                        }
-                    %>
+                <%
+                    for (int i = 0; i < appointmentsList.size(); i++) {
+                %>
+                <tr>
+
+
+                    <td class="text-center">
+                        <%=slotsInfo.get(i).getFromDate() %>
+                    </td>
+                    <td class="text-center">
+                        <%= slotsInfo.get(i).getToDate() %>
+                    </td>
+                    <td class="text-center">
+                        <% Byte isOnline = slotsInfo.get(i).getIsOffline();
+                            if (isOnline == 1) {%>
+                        Yes
+                        <%
+                        } else if (isOnline == 0) {%>
+                        No
+                        <% }
+                        %>
+                    </td>
+                    <td class="text-center">
+                        <%
+                            String location = slotsInfo.get(i).getLocation();
+                            if (location == null) {
+                        %>
+                        N/A
+                        <%} else { %>
+                        <%=location%>
+                        <% }
+                        %>
+                    </td>
+                    <td class="text-center">
+                        <%= staffInfo.get(i).getStaffName()%>
+                    </td>
+
                     <td class="text-center">
                         <%--TODO:create a function to cancel reservation[Done]--%>
                         <%--TODO:get the appointment id and pass it to the function--%>
 
-                        <% int appointmentId = 2;
-                            if (AppointmentCrud.removeAppointmentById(appointmentId)) {
-                                /// appointment deleted
-                            } else {
 
-                            }
-                        %>
 
-                        <button class="btn btn-danger" type="button">
+                        <button class="btn btn-danger" type="button" onclick="">
                             Cancel
                         </button>
                     </td>
                 </tr>
+                <% }
+                %>
                 </tbody>
             </table>
         </div>

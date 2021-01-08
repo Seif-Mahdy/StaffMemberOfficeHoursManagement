@@ -84,7 +84,7 @@ public class Main {
         } catch (MessagingException mex) {
             mex.printStackTrace();
         }*/
-         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+      /*   SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         Timestamp stamp2= Timestamp.valueOf("2021-01-07 01:00:06.635");
         System.out.println(timestamp);
@@ -94,7 +94,7 @@ public class Main {
         slot.setFromDate(timestamp);
         slot.setToDate(stamp2);
         slot.setStaffId("20170000");
-        System.out.println(OfficeHourCrud.addOfficeHour(slot));
+        System.out.println(OfficeHourCrud.addOfficeHour(slot));*/
 
 
     }
