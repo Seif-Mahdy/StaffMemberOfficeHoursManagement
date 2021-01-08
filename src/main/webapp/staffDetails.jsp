@@ -117,7 +117,8 @@
                     <td><%=slot.getToDate()%>
                     </td>
                     <td>
-                        <button class="btn btn-success" type="button">
+                        <button class="btn btn-success" type="button"
+                                onclick="reserveSlot('<%=slot.getId()%>','<%=request.getSession().getAttribute("id").toString()%>','<%=staff.getStaffId()%>')">
                             reserve
                         </button>
                     </td>

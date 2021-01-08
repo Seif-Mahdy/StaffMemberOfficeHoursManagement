@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="com.github.stephenc.simple-java-mail:simple-java-mail:1.8" type="repository">
+    <properties maven-id="com.github.stephenc.simple-java-mail:simple-java-mail:1.8" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/stephenc/simple-java-mail/simple-java-mail/1.8/simple-java-mail-1.8.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/javax/mail/mail/1.4.1/mail-1.4.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/javax/activation/activation/1.1/activation-1.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/stephenc/simple-java-mail/simple-java-mail/1.8/simple-java-mail-1.8-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>

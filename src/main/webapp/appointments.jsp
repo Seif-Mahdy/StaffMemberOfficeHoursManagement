@@ -74,13 +74,12 @@
     <%
         String studentId = request.getSession().getAttribute("id").toString();
         //TODO:create function to get all the appointments,get the office hour details and the name of the staff member[DONE]
-       ///list of all appointments contain student id , office hour id , staff id
+        ///list of all appointments contain student id , office hour id , staff id
         ///
-        List<AppointmentEntity> appointmentsList  =AppointmentCrud.selectAllAppointment("studentId",studentId);
-        List<OfficehourEntity> slotsInfo=new ArrayList<>();
-        List<StaffmemberEntity>staffInfo=new ArrayList<>();
-        for(int i=0;i<appointmentsList.size();i++)
-        {
+        List<AppointmentEntity> appointmentsList = AppointmentCrud.selectAllAppointment("studentId", studentId);
+        List<OfficehourEntity> slotsInfo = new ArrayList<>();
+        List<StaffmemberEntity> staffInfo = new ArrayList<>();
+        for (int i = 0; i < appointmentsList.size(); i++) {
             slotsInfo.add(OfficeHourCrud.findOfficeHour(appointmentsList.get(i).getOfficeHourId()));
             staffInfo.add(StaffMemberCrud.findStaffMember(appointmentsList.get(i).getStaffId()));
         }
@@ -104,25 +103,24 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td class="text-center">test</td>
-                    <td class="text-center">test</td>
-                    <td class="text-center">test</td>
-                    <td class="text-center">test</td>
-                    <td class="text-center">test</td>
+                    <%
+                        for (int i=0;i<appointmentsList.size();i++){
+                            %>
+
+                    <%
+                        }
+                    %>
                     <td class="text-center">
                         <%--TODO:create a function to cancel reservation[Done]--%>
-                            <%--TODO:get the appointment id and pass it to the function--%>
+                        <%--TODO:get the appointment id and pass it to the function--%>
 
-                            <% int appointmentId=2;
-                          if(  AppointmentCrud.removeAppointmentById(appointmentId) )
-                          {
-                              /// appointment deleted
-                          }
-                          else
-                          {
+                        <% int appointmentId = 2;
+                            if (AppointmentCrud.removeAppointmentById(appointmentId)) {
+                                /// appointment deleted
+                            } else {
 
-                          }
-                            %>
+                            }
+                        %>
 
                         <button class="btn btn-danger" type="button">
                             Cancel

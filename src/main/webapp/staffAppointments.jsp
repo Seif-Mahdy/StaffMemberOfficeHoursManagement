@@ -22,15 +22,10 @@
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
     <script src="scripts.js"></script>
+
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
 
-    <%-- date time picker --%>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.38.0/js/tempusdominus-bootstrap-4.min.js"
-            crossorigin="anonymous"></script>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.38.0/css/tempusdominus-bootstrap-4.min.css"
-          crossorigin="anonymous"/>
 </head>
 <body>
 <%
@@ -103,7 +98,9 @@
             </table>
         </div>
         <div class="card-footer text-muted">
-            <button class="btn btn-success d-flex float-end" data-toggle="modal" data-target="#exampleModal">Add office hour</button>
+            <button class="btn btn-success d-flex float-end" data-toggle="modal" data-target="#exampleModal">Add office
+                hour
+            </button>
         </div>
     </div>
     <div class="card mb-5">
@@ -139,7 +136,9 @@
             </table>
         </div>
         <div class="card-footer text-muted">
-            <button class="btn btn-danger d-flex float-end" data-toggle="modal" data-target="#exampleModal1">Cancel appointments of a day</button>
+            <button class="btn btn-danger d-flex float-end" data-toggle="modal" data-target="#exampleModal1">Cancel
+                appointments of a day
+            </button>
         </div>
     </div>
 </div>
@@ -156,13 +155,28 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="" method="POST">
+                <form action="#" method="POST" id="add-office-hour">
+                    <div class="input-group d-flex flex-column mb-3">
+                        <label for="meeting-time" class="mb-2 fw-bold">From:</label>
+                        <div>
+                            <input class="form-control" type="datetime-local" id="meeting-time"
+                                   name="from-datetime">
+                        </div>
 
+                    </div>
+                    <div class="input-group d-flex flex-column">
+                        <label for="meeting-time1" class="mb-2 fw-bold">To:</label>
+                        <div>
+                            <input class="form-control" type="datetime-local" id="meeting-time1"
+                                   name="to-datetime">
+                        </div>
+
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success">Add</button>
+                <button type="submit" form="add-office-hour" class="btn btn-success">Add</button>
             </div>
         </div>
     </div>
@@ -174,17 +188,28 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel1">Modal title2</h5>
+                <h5 class="modal-title" id="exampleModalLabel1">Cancel
+                    appointments of a day</h5>
                 <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">x</span>
                 </button>
             </div>
             <div class="modal-body">
-                ...
+                <form action="#" method="POST" id="cancel-appointment">
+                    <div class="input-group d-flex flex-column mb-3">
+                        <label for="appointment-date" class="mb-2 fw-bold">Date of the day:</label>
+                        <div>
+                            <input class="form-control" type="date" id="appointment-date"
+                                   name="date">
+                        </div>
+
+                    </div>
+                </form>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-danger">Cancel appointments</button>
             </div>
         </div>
     </div>

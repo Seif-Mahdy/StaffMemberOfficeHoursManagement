@@ -40,8 +40,8 @@
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.11.4" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.11.4" />
           <element id="library" level="project" name="Hibernate 5.4.11-5.4.11" />
-          <element id="file-copy" path="$USER_HOME$/Downloads/mailactivation/activation.jar" />
-          <element id="file-copy" path="$USER_HOME$/Downloads/mailactivation/mail.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/../activation.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/../mail.jar" />
         </element>
       </element>
       <element id="directory" name="META-INF">

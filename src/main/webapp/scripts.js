@@ -145,7 +145,7 @@ function loadRegisterData() {
 }
 
 function loadProfileData() {
-    if($('#updateProfileSuccess').html()!=''){
+    if ($('#updateProfileSuccess').html() != '') {
         $('#updateProfileSuccess').empty()
     }
     $('#spinner').removeClass('visually-hidden')
@@ -254,4 +254,27 @@ function reserveSlot(slotId, studentId, staffId) {
     xhttp.open("POST", "Reservation", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("slotId=" + slotId + "&studentId" + studentId + "&staffId" + staffId);
+}
+
+function validate_date() {
+    $('#cancel-appointment').submit(function (e) {
+        e.preventDefault()
+    })
+    var date = $('#appointment-date').val()
+    var xhttp = new XMLHttpRequest()
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            $("#login-btn").prop('disabled', false)
+            $("#spinner").addClass("visually-hidden")
+            if (xhttp.responseText == "success") {
+                //
+            } else {
+                $('#validation_error').html(xhttp.responseText.toUpperCase())
+            }
+        }
+    }
+    // xhttp.open("POST", "Login", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("appointmentDate=" + date);
+
 }
