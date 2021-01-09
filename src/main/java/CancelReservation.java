@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "CancelReservation")
+@WebServlet(name = "CancelReservation",value = "/CancelReservation")
 public class CancelReservation extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
      int appointmentId=Integer.parseInt(request.getParameter("appointmentId"));

@@ -258,12 +258,10 @@ function reserveSlot(slotId, studentId, staffId) {
         }
 
     }
-    console.log(slotId)
-    console.log(staffId)
-    console.log(studentId)
+
     xhttp.open("POST", "Reservation", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send("slotId=" + slotId + "&studentId" + studentId + "&staffId" + staffId);
+    xhttp.send("slotId=" + slotId + "&studentId=" + studentId + "&staffId=" + staffId);
 
 }
 
@@ -291,14 +289,16 @@ function validate_date() {
 }
 function cancelReservation(appointmentId)
 {
+    console.log("enter")
     var xhttp= new XMLHttpRequest();
     xhttp.onreadystatechange=function ()
     {
-        if(xhttp.status==200 && this.readyState==4)
+        if(xhttp.readyState == 4 && xhttp.status == 200)
         {
             if(xhttp.responseText=="success")
             {
-
+                $('#cancelReservation-btn').val('Reserved')
+                $('#cancelReservation-btn').prop('disabled',true)
             }
             else
             {
@@ -306,12 +306,14 @@ function cancelReservation(appointmentId)
             }
 
         }
-        xhttp.open("POST", "CancelReservation", true);
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send("appointmentId=" + appointmentId);
+
 
 
     }
+
+    xhttp.open("POST", "CancelReservation", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("appointmentId=" + appointmentId);
 
 }
 

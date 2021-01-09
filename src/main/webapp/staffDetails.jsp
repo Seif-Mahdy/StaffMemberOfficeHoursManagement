@@ -113,9 +113,7 @@
                 }
 
             }
-            System.out.println(slots.size());
-            System.out.println(modifiedSlots.size());
-            System.out.println(appointments.size());
+
         %>
         <div class="card-body">
             <table id="example2" class="cell-border hover" style="width:100%">

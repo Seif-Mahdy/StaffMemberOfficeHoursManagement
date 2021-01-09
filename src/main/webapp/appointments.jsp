@@ -105,6 +105,7 @@
 
                 <%
                     for (int i = 0; i < appointmentsList.size(); i++) {
+                        int appointmentId=appointmentsList.get(i).getAppointmentId();
                 %>
                 <tr>
 
@@ -146,12 +147,14 @@
 
 
 
-                        <button class="btn btn-danger" type="button" onclick="">
+                        <button class="btn btn-danger" type="button"  id ="cancelReservation-btn" onclick="cancelReservation('<%=appointmentId%>')">
                             Cancel
                         </button>
                     </td>
                 </tr>
-                <% }
+                <%
+                     //   System.out.println(appointmentId +"idd");
+                      }
                 %>
                 </tbody>
             </table>
