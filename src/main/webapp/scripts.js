@@ -191,6 +191,9 @@ function logout() {
 $(document).ready(function () {
     $('#example').DataTable({
         "scrollY": "200px",
+        "columnDefs": [{
+            "className": "text-center",
+        }]
     });
     $('#example1').DataTable({
         "scrollY": "200px",
@@ -198,10 +201,14 @@ $(document).ready(function () {
             "targets": [0],
             "visible": false,
             "searchable": false,
+            "className": "text-center",
         }],
     });
     $('#example2').DataTable({
         "scrollY": "200px",
+        "columnDefs": [{
+            "className": "text-center",
+        }]
     });
 });
 
@@ -212,6 +219,7 @@ function showStaffMembers(value) {
         if (this.readyState == 4 && this.status == 200) {
             var json = JSON.parse(xhttp.responseText)
             var table = $('#example1').DataTable()
+            table.clear()
             for (var i = 0; i < json.length; i++) {
                 table.row.add([
                     json[i].staffId,
@@ -221,6 +229,7 @@ function showStaffMembers(value) {
                     json[i].staffRole
                 ]).draw(true)
             }
+
             $('#example1 tbody').on('click', 'tr', function () {
                 var data = table.row(this).data()
                 var form = document.createElement('form')
@@ -246,13 +255,15 @@ function reserveSlot(slotId, studentId, staffId) {
     xhttp.onreadystatechange = function () {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             if (xhttp.responseText == 'success') {
-                $('#reserve-btn').val('Reserved')
-                $('#reserve-btn').prop('disabled',true)
-                //TODO: change button when reserve
-            }
-            else
-            {
-
+                $('#' + slotId).empty()
+                $('#' + slotId).append('<img src="images/check.svg" width="30" height="30">')
+                $('#example2').removeClass('mt-4')
+                $('#msg').addClass('text-success')
+                $('#msg').html('Slot reserved successfully!')
+            } else {
+                $('#example2').removeClass('mt-4')
+                $('#msg').addClass('text-danger')
+                $('#msg').html('Failed to reserve this slot!')
             }
 
         }
@@ -287,26 +298,20 @@ function validate_date() {
     xhttp.send("appointmentDate=" + date);
 
 }
-function cancelReservation(appointmentId)
-{
-    console.log("enter")
-    var xhttp= new XMLHttpRequest();
-    xhttp.onreadystatechange=function ()
-    {
-        if(xhttp.readyState == 4 && xhttp.status == 200)
-        {
-            if(xhttp.responseText=="success")
-            {
-                $('#cancelReservation-btn').val('Reserved')
-                $('#cancelReservation-btn').prop('disabled',true)
-            }
-            else
-            {
 
+function cancelReservation(appointmentId) {
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            if (xhttp.responseText == "success") {
+                window.location.href = 'appointments.jsp'
+            } else {
+                $('#msg').addClass('text-danger')
+                $('#msg').html('Failed to cancel this appointment!')
             }
 
         }
-
 
 
     }
@@ -317,4 +322,13 @@ function cancelReservation(appointmentId)
 
 }
 
+function addOfficeHour(date,fromTime,toTime,staffId){
 
+}
+$(document).ready(function(){
+    $('#from').onchange = function () {
+        $('#to').min = $('#from').val()
+        $('#to').max = $('#from').val()
+    }
+
+})

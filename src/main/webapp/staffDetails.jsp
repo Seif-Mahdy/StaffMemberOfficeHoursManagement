@@ -31,6 +31,7 @@
     if (request.getSession().getAttribute("id") == null) {
         response.sendRedirect("index.jsp");
     }
+    String loginType = request.getSession().getAttribute("loginType").toString();
 %>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid d-flex align-items-center">
@@ -64,6 +65,9 @@
     </div>
 </nav>
 <div style="margin-top: 100px" class="p-5">
+    <%
+        if (loginType.equals("student")) {
+    %>
     <div class="card mb-5">
         <div class="card-header fw-bold">
             Contact-info
@@ -93,30 +97,28 @@
 
         <%
             List<OfficehourEntity> slots = OfficeHourCrud.selectStaffOfficeHour(id);
-            List<AppointmentEntity>appointments=AppointmentCrud.selectAllAppointment("staffId",staff.getStaffId());
-            List<OfficehourEntity>modifiedSlots=new ArrayList<>();
-            boolean isEnter=false;
-            for(int i=0;i<slots.size();i++)
-            {
-                if(appointments.size()==0)
-                {
-                    modifiedSlots=slots;
-                }
-                else {
-                    for (int j = 0; j < appointments.size(); j++) {
+            List<AppointmentEntity> appointments = AppointmentCrud.selectAllAppointment("staffId", staff.getStaffId());
+            List<OfficehourEntity> modifiedSlots = new ArrayList<>();
+            boolean isEnter = false;
+            for (int i = 0; i < slots.size(); i++) {
+                if (appointments.size() == 0) {
+                    modifiedSlots = slots;
+                } else {
+                    for (AppointmentEntity appointment : appointments) {
 
-                        if (!(appointments.get(j).getOfficeHourId().equals(slots.get(i).getId()))) {
-                        modifiedSlots.add(slots.get(i));
+                        if (!(appointment.getOfficeHourId().equals(slots.get(i).getId()))) {
+                            modifiedSlots.add(slots.get(i));
                         }
 
                     }
                 }
 
             }
-
+            System.out.println(modifiedSlots.size());
         %>
         <div class="card-body">
-            <table id="example2" class="cell-border hover" style="width:100%">
+            <div class="d-flex justify-content-center" id="msg"></div>
+            <table id="example2" class="cell-border hover mt-4" style="width:100%">
                 <thead>
                 <tr>
                     <th class="text-center">From</th>
@@ -129,11 +131,11 @@
                     for (OfficehourEntity slot : modifiedSlots) {
                 %>
                 <tr>
-                    <td><%=slot.getFromDate()%>
+                    <td class="text-center"><%=slot.getFromDate()%>
                     </td>
-                    <td><%=slot.getToDate()%>
+                    <td class="text-center"><%=slot.getToDate()%>
                     </td>
-                    <td>
+                    <td class="text-center" id="<%=slot.getId()%>">
                         <button class="btn btn-success" type="button" id="reserve-btn"
                                 onclick="reserveSlot('<%=slot.getId()%>','<%=request.getSession().getAttribute("id").toString()%>','<%=staff.getStaffId()%>')">
                             reserve
@@ -148,6 +150,38 @@
             </table>
         </div>
     </div>
+    <%
+    } else {
+    %>
+    <div class="card mb-5">
+        <div class="card-header fw-bold">
+            Contact-info
+        </div>
+        <%
+            String id = request.getParameter("id");
+            if (id != null) {
+                StudentEntity student = StudentCrud.findStudent(id);
+        %>
+        <div class="card-body">
+            <p class="card-text">
+                <span class="fw-bold">ID: </span><%=student.getStudentId()%>
+            </p>
+            <p class="card-text">
+                <span class="fw-bold">Name: </span><%=student.getStudentName()%>
+            </p>
+            <p class="card-text"><span class="fw-bold"> Phone number: </span><%=student.getStudentNumber()%>
+            </p>
+            <p class="card-text"><span class="fw-bold">Email: </span><%=student.getStudentEmail()%>
+            </p>
+        </div>
+        <div class="card-footer text-muted">
+            <button class="btn btn-success d-flex float-end">Send message</button>
+        </div>
+    </div>
+    <%
+            }
+        }
+    %>
 </div>
 </div>
 </body>

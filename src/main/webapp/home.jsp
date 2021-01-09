@@ -1,8 +1,5 @@
-<%@ page import="com.StaffmemberEntity" %>
-<%@ page import="com.StaffMemberCrud" %>
-<%@ page import="com.CourseEntity" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.CourseCrud" %><%--
+<%@ page import="com.*" %><%--
   Created by IntelliJ IDEA.
   User: seifa
   Date: 1/3/2021
@@ -37,6 +34,7 @@
         response.sendRedirect("index.jsp");
     }
     boolean home = request.getRequestURL().toString().contains("home.jsp");
+    String loginType = request.getSession().getAttribute("loginType").toString();
 %>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid d-flex align-items-center">
@@ -80,16 +78,18 @@
     </div>
 </nav>
 <div class="p-5" style="margin-top: 100px">
-    <div class="card mb-5">
-        <div class="card-header fw-bold">
-            Notifications
-        </div>
-        <div class="card-body">
-            <p class="card-text">This is a test notification!.</p>
+    <%
+        if (loginType.equals("student")) {
+    %>
+    <%--    <div class="card mb-5">--%>
+    <%--        <div class="card-header fw-bold">--%>
+    <%--            Notifications--%>
+    <%--        </div>--%>
+    <%--        <div class="card-body">--%>
+    <%--            <p class="card-text">This is a test notification!.</p>--%>
 
-        </div>
-    </div>
-    <!--TODO: load all the courses here -->
+    <%--        </div>--%>
+    <%--    </div>--%>
     <%
         List<CourseEntity> courses = CourseCrud.selectAllCourses();
     %>
@@ -119,8 +119,6 @@
             </table>
         </div>
     </div>
-    <!--TODO: create a function that takes a course and return all the staff members to be displayed here when user clicks the subject-->
-
     <div class="card mb-5">
         <div class="card-header fw-bold" id="card-header">
             Staff members teaching
@@ -129,19 +127,67 @@
             <table id="example1" class="cell-border hover" style="width:100%">
                 <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone number</th>
-                    <th>Role</th>
+                    <th class="text-center">ID</th>
+                    <th class="text-center">Name</th>
+                    <th class="text-center">Email</th>
+                    <th class="text-center">Phone number</th>
+                    <th class="text-center">Role</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="t-body">
 
                 </tbody>
             </table>
         </div>
     </div>
+    <%
+    } else {
+    %>
+    <div class="card mb-5">
+        <div class="card-header fw-bold">
+            Students
+        </div>
+        <div class="card-body">
+            <table id="example2" class="cell-border hover" style="width:100%">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Number</th>
+                </tr>
+                </thead>
+                <tbody>
+                <%
+                    List<StudentEntity> students = StudentCrud.selectAllStudents();
+                    int counter = 0;
+                    for (StudentEntity student : students) {
+                %>
+                <tr onclick="$('#'+<%=counter%>).submit()">
+                    <td>
+                        <form action="staffDetails.jsp" id="<%=counter%>" class="visually-hidden">
+                            <input type="text" value="<%=student.getStudentId()%>" name="id">
+                        </form>
+                        <%=student.getStudentId()%>
+                    </td>
+                    <td><%=student.getStudentName()%>
+                    </td>
+                    <td><%=student.getStudentEmail()%>
+                    </td>
+                    <td><%=student.getStudentNumber()%>
+                    </td>
+                </tr>
+                <%
+                        counter++;
+                    }
+                %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <%
+        }
+    %>
 </div>
 </body>
 </html>

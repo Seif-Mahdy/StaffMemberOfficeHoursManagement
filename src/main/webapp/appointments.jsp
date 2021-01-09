@@ -90,6 +90,7 @@
             My appointments
         </div>
         <div class="card-body">
+            <div class="d-flex justify-content-center" id="msg"></div>
             <table id="example2" class="cell-border hover" style="width:100%">
                 <thead>
                 <tr>

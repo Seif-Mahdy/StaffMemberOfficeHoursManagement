@@ -47,7 +47,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
 
-                    <a class="nav-link active" aria-current="page" href="home.jsp">Home</a>
+                    <a class="nav-link" aria-current="page" href="home.jsp">Home</a>
 
                 </li>
                 <li class="nav-item">
@@ -157,17 +157,17 @@
             <div class="modal-body">
                 <form action="#" method="POST" id="add-office-hour">
                     <div class="input-group d-flex flex-column mb-3">
-                        <label for="meeting-time" class="mb-2 fw-bold">From:</label>
+                        <label for="from" class="mb-2 fw-bold">From:</label>
                         <div>
-                            <input class="form-control" type="datetime-local" id="meeting-time"
+                            <input class="form-control" type="datetime-local" id="from"
                                    name="from-datetime">
                         </div>
 
                     </div>
                     <div class="input-group d-flex flex-column">
-                        <label for="meeting-time1" class="mb-2 fw-bold">To:</label>
+                        <label for="to" class="mb-2 fw-bold">To:</label>
                         <div>
-                            <input class="form-control" type="datetime-local" id="meeting-time1"
+                            <input class="form-control" type="datetime-local" id="to"
                                    name="to-datetime">
                         </div>
 
