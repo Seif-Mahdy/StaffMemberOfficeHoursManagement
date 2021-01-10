@@ -299,13 +299,17 @@ function validate_date() {
 
 }
 
-function cancelReservation(appointmentId) {
+function cancelReservation(appointmentId, loginType) {
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             if (xhttp.responseText == "success") {
-                window.location.href = 'appointments.jsp'
+                if (loginType == 'student') {
+                    window.location.href = 'appointments.jsp'
+                } else if (loginType == 'staff') {
+                    window.location.href = 'staffAppointments.jsp'
+                }
             } else {
                 $('#msg').addClass('text-danger')
                 $('#msg').html('Failed to cancel this appointment!')
@@ -322,13 +326,82 @@ function cancelReservation(appointmentId) {
 
 }
 
-function addOfficeHour(date,fromTime,toTime,staffId){
-
-}
-$(document).ready(function(){
-    $('#from').onchange = function () {
-        $('#to').min = $('#from').val()
-        $('#to').max = $('#from').val()
+function addOfficeHour() {
+    $('#spinner2').removeClass('visually-hidden')
+    $('#add-btn').prop('disabled', true)
+    $('#btn-text').addClass('visually-hidden')
+    var date = $('#date').val()
+    var fromTime = $('#from').val()
+    var toTime = $('#to').val()
+    var isOffline = $('#offline').val()
+    var location = $('#location').val()
+    if (location == '') {
+        location = null
     }
+    if (date != '' && toTime != '' && fromTime != '') {
+        if (toTime <= fromTime) {
+            $('#form-msg').attr('class', 'text-danger')
+            $('#form-msg').html('To time must be after the from time!')
+        } else {
+            var xhttp = new XMLHttpRequest()
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    $('#spinner2').addClass('visually-hidden')
+                    $('#add-btn').prop('disabled', false)
+                    $('#btn-text').removeClass('visually-hidden')
+                    if (xhttp.responseText == 'success') {
+                        $('#form-msg').attr('class', 'text-success')
+                        $('#form-msg').html('Office hour added successfully!')
+                    } else {
+                        $('#form-msg').attr('class', 'text-danger')
+                        $('#form-msg').html('Failed to add this office hour!')
+                    }
+                }
+            }
+            //TODO: add the servlet name here
+            xhttp.open("POST", "", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("date=" + date + "&fromTime" + fromTime + "&toTime" + toTime + "&isOffline" + isOffline + "&location" + location);
+        }
+    } else {
+        $('#spinner2').addClass('visually-hidden')
+        $('#add-btn').prop('disabled', false)
+        $('#btn-text').removeClass('visually-hidden')
+        $('#form-msg').attr('class', 'text-danger')
+        $('#form-msg').html('Fields cannot be empty!')
+    }
+}
 
-})
+function cancelAppointmentsOfDay() {
+    $('#spinner3').removeClass('visually-hidden')
+    $('#cancel-btn').prop('disabled', true)
+    $('#btn-text2').addClass('visually-hidden')
+    var date = $('#appointment-date').val()
+    if (date != '') {
+        var xhttp = new XMLHttpRequest()
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                $('#spinner3').addClass('visually-hidden')
+                $('#cancel-btn').prop('disabled', false)
+                $('#btn-text2').removeClass('visually-hidden')
+                if (xhttp.responseText == 'success') {
+                    $('#form-msg2').attr('class', 'text-success')
+                    $('#form-msg2').html('Office hour added successfully!')
+                } else {
+                    $('#form-msg2').attr('class', 'text-danger')
+                    $('#form-msg2').html('No appointments at this day!')
+                }
+            }
+        }
+        //TODO: add the servlet name here
+        xhttp.open("POST", "", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("date=" + date + "&fromTime" + fromTime + "&toTime" + toTime + "&isOffline" + isOffline + "&location" + location);
+    } else {
+        $('#spinner3').addClass('visually-hidden')
+        $('#cancel-btn').prop('disabled', false)
+        $('#btn-text2').removeClass('visually-hidden')
+        $('#form-msg2').attr('class', 'text-danger')
+        $('#form-msg2').html('Fields cannot be empty!')
+    }
+}

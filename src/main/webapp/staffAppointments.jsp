@@ -1,5 +1,6 @@
-<%@ page import="com.StaffmemberEntity" %>
-<%@ page import="com.StaffMemberCrud" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="com.*" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: seif
   Date: 1/8/21
@@ -82,18 +83,68 @@
             My office hours
         </div>
         <div class="card-body">
+            <%
+
+                if (request.getSession().getAttribute("id") != null) {
+                    String id = request.getSession().getAttribute("id").toString();
+                    List<OfficehourEntity> slots = OfficeHourCrud.selectStaffOfficeHour(id);
+                    List<AppointmentEntity> appointments = AppointmentCrud.selectAllAppointment("staffId", id);
+                    List<OfficehourEntity> modifiedSlots = new ArrayList<>();
+                    List<OfficehourEntity> reservedSlots = new ArrayList<>();
+                    for (int i = 0; i < slots.size(); i++) {
+                        if (appointments.size() == 0) {
+                            modifiedSlots = slots;
+                        } else {
+                            for (AppointmentEntity app : appointments) {
+
+                                if (!(app.getOfficeHourId().equals(slots.get(i).getId()))) {
+                                    modifiedSlots.add(slots.get(i));
+                                } else {
+                                    reservedSlots.add(slots.get(i));
+                                }
+
+                            }
+                        }
+
+                    }
+            %>
             <table id="example" class="cell-border hover" style="width:100%">
                 <thead>
                 <tr>
                     <th class="text-center">From</th>
                     <th class="text-center">To</th>
+                    <th class="text-center">Reserved?</th>
                 </tr>
                 </thead>
                 <tbody>
+                <%
+                    if (appointments.size() != 0) {
+                        for (OfficehourEntity slot : reservedSlots
+                        ) {
+                %>
                 <tr>
-                    <td></td>
-                    <td></td>
+                    <td class="text-center"><%=slot.getFromDate()%>
+                    </td>
+                    <td class="text-center"><%=slot.getToDate()%>
+                    </td>
+                    <td class="text-center"><img src="images/check.svg" alt="" width="20" height="20"></td>
                 </tr>
+                <% }
+                }
+                %>
+                <%
+                    for (OfficehourEntity slot : modifiedSlots
+                    ) {
+                %>
+                <tr>
+                    <td class="text-center"><%=slot.getFromDate()%>
+                    </td>
+                    <td class="text-center"><%=slot.getToDate()%>
+                    </td>
+                    <td class="text-center"><img src="images/close.svg" alt="" width="20" height="20"></td>
+                </tr>
+                <% }
+                %>
                 </tbody>
             </table>
         </div>
@@ -120,18 +171,45 @@
                 </tr>
                 </thead>
                 <tbody>
+                <%
+                    for (int i = 0; i < appointments.size(); i++) {
+                %>
                 <tr>
-                    <td class="text-center">test</td>
-                    <td class="text-center">test</td>
-                    <td class="text-center">test</td>
-                    <td class="text-center">test</td>
-                    <td class="text-center">test</td>
+                    <td class="text-center"><%=modifiedSlots.get(i).getFromDate()%>
+                    </td>
+                    <td class="text-center"><%=modifiedSlots.get(i).getToDate()%>
+                    </td>
+                    <td class="text-center"><%
+                        if (modifiedSlots.get(i).getIsOffline() == 0) {%>
+                        NO
+                        <%} else {%>
+                        YES
+                        <%
+                            }
+                        %></td>
+                    <td class="text-center"><%
+                        if (modifiedSlots.get(i).getLocation() == null) {%>
+                        N/A
+                        <%
+                        } else {%>
+                        modifiedSlots.get(i).getLocation()
+                        <%
+                            }
+                        %>
+                    </td>
+                    <td class="text-center"><%=appointments.get(i).getStudentId()%>
+                    </td>
                     <td class="text-center">
-                        <button class="btn btn-danger" type="button">
+                        <button class="btn btn-danger"
+                                onclick="cancelReservation('<%=appointments.get(i).getAppointmentId()%>','staff')">
                             Cancel
                         </button>
                     </td>
                 </tr>
+                <%
+                        }
+                    }
+                %>
                 </tbody>
             </table>
         </div>
@@ -155,20 +233,44 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="#" method="POST" id="add-office-hour">
+                <div id="form-msg"></div>
+                <form action="#" method="POST" id="add-office-hour" class="mt-2">
                     <div class="input-group d-flex flex-column mb-3">
-                        <label for="from" class="mb-2 fw-bold">From:</label>
+                        <label for="date" class="mb-2 fw-bold"><span class="text-danger">*</span>Date:</label>
                         <div>
-                            <input class="form-control" type="datetime-local" id="from"
-                                   name="from-datetime">
+                            <input class="form-control" type="date" id="date"
+                                   name="date">
                         </div>
 
                     </div>
-                    <div class="input-group d-flex flex-column">
-                        <label for="to" class="mb-2 fw-bold">To:</label>
+                    <div class="input-group d-flex flex-column mb-3">
+                        <label for="from" class="mb-2 fw-bold"><span class="text-danger">*</span>From:</label>
                         <div>
-                            <input class="form-control" type="datetime-local" id="to"
-                                   name="to-datetime">
+                            <input class="form-control" type="time" id="from"
+                                   name="from">
+                        </div>
+
+                    </div>
+                    <div class="input-group d-flex flex-column mb-5">
+                        <label for="to" class="mb-2 fw-bold"><span class="text-danger">*</span>To:</label>
+                        <div>
+                            <input class="form-control" type="time" id="to"
+                                   name="to">
+                        </div>
+
+                    </div>
+                    <div class="input-group mb-4">
+                        <label class="input-group-text" for="offline"><span class="text-danger">*</span>Offline?</label>
+                        <select class="form-select" id="offline" name="login_type">
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                    <div class="input-group d-flex flex-column">
+                        <label for="location" class="mb-2 fw-bold">Location:</label>
+                        <div>
+                            <input class="form-control" type="text" id="location"
+                                   name="to">
                         </div>
 
                     </div>
@@ -176,7 +278,16 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                <button type="submit" form="add-office-hour" class="btn btn-success">Add</button>
+                <button type="button" class="btn btn-success" onclick="addOfficeHour()"
+                        style="height: 38px;width: 55px" id="add-btn">
+                    <div class="spinner-border text-light spinner-border-sm visually-hidden" role="status"
+                         id="spinner2">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <div id="btn-text">
+                        Add
+                    </div>
+                </button>
             </div>
         </div>
     </div>
@@ -195,9 +306,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="#" method="POST" id="cancel-appointment">
+                <div id="form-msg2"></div>
+                <form action="#" method="POST" id="cancel-appointment" class="mt-2">
                     <div class="input-group d-flex flex-column mb-3">
-                        <label for="appointment-date" class="mb-2 fw-bold">Date of the day:</label>
+                        <label for="appointment-date" class="mb-2 fw-bold"><span class="text-danger">*</span>Date of the
+                            day:</label>
                         <div>
                             <input class="form-control" type="date" id="appointment-date"
                                    name="date">
@@ -209,7 +322,16 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger">Cancel appointments</button>
+                <button type="button" class="btn btn-danger" onclick="cancelAppointmentsOfDay()"
+                        style="width: 200px;height: 38px" id="cancel-btn">
+                    <div class="spinner-border text-light spinner-border-sm visually-hidden" role="status"
+                         id="spinner3">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <div id="btn-text2">
+                        Cancel appointments
+                    </div>
+                </button>
             </div>
         </div>
     </div>

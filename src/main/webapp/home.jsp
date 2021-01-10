@@ -63,9 +63,21 @@
                 <li class="nav-item">
                     <a class="nav-link" href="profile.jsp">Profile</a>
                 </li>
+                <%
+                    if (loginType.equals("student")) {
+                %>
                 <li class="nav-item">
                     <a class="nav-link" href="appointments.jsp">My appointments</a>
                 </li>
+                <%
+                } else {
+                %>
+                <li class="nav-item">
+                    <a class="nav-link" href="staffAppointments.jsp">My appointments</a>
+                </li>
+                <%
+                    }
+                %>
             </ul>
             <div>
                 <div class="spinner-border text-primary spinner-border-sm visually-hidden" role="status"

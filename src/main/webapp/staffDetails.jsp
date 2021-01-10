@@ -99,7 +99,6 @@
             List<OfficehourEntity> slots = OfficeHourCrud.selectStaffOfficeHour(id);
             List<AppointmentEntity> appointments = AppointmentCrud.selectAllAppointment("staffId", staff.getStaffId());
             List<OfficehourEntity> modifiedSlots = new ArrayList<>();
-            boolean isEnter = false;
             for (int i = 0; i < slots.size(); i++) {
                 if (appointments.size() == 0) {
                     modifiedSlots = slots;
@@ -114,7 +113,6 @@
                 }
 
             }
-            System.out.println(modifiedSlots.size());
         %>
         <div class="card-body">
             <div class="d-flex justify-content-center" id="msg"></div>
