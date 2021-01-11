@@ -214,6 +214,7 @@ $(document).ready(function () {
 
 function showStaffMembers(value) {
     $('#card-header').html('Staff members teaching ' + value)
+    $("html, body").animate({scrollTop: $(document).height()}, "fast");
     var xhttp = new XMLHttpRequest()
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -327,6 +328,7 @@ function cancelReservation(appointmentId, loginType) {
 }
 
 function addOfficeHour() {
+
     $('#spinner2').removeClass('visually-hidden')
     $('#add-btn').prop('disabled', true)
     $('#btn-text').addClass('visually-hidden')
@@ -404,4 +406,19 @@ function cancelAppointmentsOfDay() {
         $('#form-msg2').attr('class', 'text-danger')
         $('#form-msg2').html('Fields cannot be empty!')
     }
+}
+
+function test(){
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0 so need to add 1 to make it 1!
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd
+    }
+    if (mm < 10) {
+        mm = '0' + mm
+    }
+    today = yyyy + '-' + mm + '-' + dd;
+    document.getElementById("date").setAttribute("min", today);
 }
