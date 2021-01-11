@@ -214,6 +214,7 @@ $(document).ready(function () {
 
 function showStaffMembers(value) {
     $('#card-header').html('Staff members teaching ' + value)
+    $("html, body").animate({scrollTop: $(document).height()}, "fast");
     var xhttp = new XMLHttpRequest()
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -358,11 +359,10 @@ function addOfficeHour() {
                     }
                 }
             }
-
-            //TODO: add the servlet name here[DONE]
-            xhttp.open("POST", "AddOfficeHour", true);
+            //TODO: add the servlet name here
+            xhttp.open("POST", "", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send("date=" + date + "&fromTime=" + fromTime + "&toTime=" + toTime + "&isOffline=" + isOffline + "&location=" + location);
+            xhttp.send("date=" + date + "&fromTime" + fromTime + "&toTime" + toTime + "&isOffline" + isOffline + "&location" + location);
         }
     } else {
         $('#spinner2').addClass('visually-hidden')
@@ -387,7 +387,7 @@ function cancelAppointmentsOfDay() {
                 $('#btn-text2').removeClass('visually-hidden')
                 if (xhttp.responseText == 'success') {
                     $('#form-msg2').attr('class', 'text-success')
-                    $('#form-msg2').html('Appointments canceled successfully!')
+                    $('#form-msg2').html('Office hour added successfully!')
                 } else {
                     $('#form-msg2').attr('class', 'text-danger')
                     $('#form-msg2').html('No appointments at this day!')
@@ -405,4 +405,19 @@ function cancelAppointmentsOfDay() {
         $('#form-msg2').attr('class', 'text-danger')
         $('#form-msg2').html('Fields cannot be empty!')
     }
+}
+
+function test(){
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0 so need to add 1 to make it 1!
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd
+    }
+    if (mm < 10) {
+        mm = '0' + mm
+    }
+    today = yyyy + '-' + mm + '-' + dd;
+    document.getElementById("date").setAttribute("min", today);
 }
