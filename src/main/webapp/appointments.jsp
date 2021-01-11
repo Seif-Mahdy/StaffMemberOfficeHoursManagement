@@ -73,9 +73,7 @@
 <div class="p-5" style="margin-top: 100px">
     <%
         String studentId = request.getSession().getAttribute("id").toString();
-        //TODO:create function to get all the appointments,get the office hour details and the name of the staff member[DONE]
-        ///list of all appointments contain student id , office hour id , staff id
-        ///
+
         List<AppointmentEntity> appointmentsList = AppointmentCrud.selectAllAppointment("studentId", studentId);
         List<OfficehourEntity> slotsInfo = new ArrayList<>();
         List<StaffmemberEntity> staffInfo = new ArrayList<>();
@@ -143,8 +141,6 @@
                     </td>
 
                     <td class="text-center">
-                        <%--TODO:create a function to cancel reservation[Done]--%>
-                        <%--TODO:get the appointment id and pass it to the function--%>
 
                         <button class="btn btn-danger" type="button" id="cancelReservation-btn"
                                 onclick="cancelReservation('<%=appointmentId%>','student')">

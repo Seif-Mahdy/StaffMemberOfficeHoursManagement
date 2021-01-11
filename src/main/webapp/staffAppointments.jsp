@@ -172,27 +172,27 @@
                 </thead>
                 <tbody>
                 <%
-                    for (int i = 0; i < appointments.size(); i++) {
+                    for (int i = 0; i < reservedSlots.size(); i++) {
                 %>
                 <tr>
-                    <td class="text-center"><%=modifiedSlots.get(i).getFromDate()%>
+                    <td class="text-center"><%=reservedSlots.get(i).getFromDate()%>
                     </td>
-                    <td class="text-center"><%=modifiedSlots.get(i).getToDate()%>
+                    <td class="text-center"><%=reservedSlots.get(i).getToDate()%>
                     </td>
                     <td class="text-center"><%
-                        if (modifiedSlots.get(i).getIsOffline() == 0) {%>
-                        NO
+                        if (reservedSlots.get(i).getIsOffline() == 0) {%>
+                        No
                         <%} else {%>
-                        YES
+                        Yes
                         <%
                             }
                         %></td>
                     <td class="text-center"><%
-                        if (modifiedSlots.get(i).getLocation() == null) {%>
+                        if (reservedSlots.get(i).getLocation() == null) {%>
                         N/A
                         <%
                         } else {%>
-                        modifiedSlots.get(i).getLocation()
+                       <%= reservedSlots.get(i).getLocation()%>
                         <%
                             }
                         %>

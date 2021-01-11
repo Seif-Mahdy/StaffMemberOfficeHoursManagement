@@ -16,11 +16,8 @@ public class Reservation extends HttpServlet {
 
         int slotId = Integer.parseInt(request.getParameter("slotId"));
         String staffId = request.getParameter("staffId");
-        //Todo: return values are null
         PrintWriter out = response.getWriter();
-        System.out.println("slotid"+ slotId);
-        System.out.println("staffid" + staffId);
-        System.out.println("studentId" + studentId);
+        
         if (reserveApp(slotId, studentId, staffId)) {
             ///TODO: notify the user for the status of the process
             out.print("success");
