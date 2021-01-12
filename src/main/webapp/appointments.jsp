@@ -17,7 +17,8 @@
 <%
     if (request.getSession().getAttribute("id") == null) {
         response.sendRedirect("index.jsp");
-    }
+    } else {
+        String loginType = request.getSession().getAttribute("loginType").toString();
 %>
 <%@include file="layout/navbar.jsp" %>
 <div class="p-5" style="margin-top: 100px">
@@ -25,7 +26,6 @@
         if (request.getSession().getAttribute("id") == null) {
             response.sendRedirect("index.jsp");
         } else {
-            String loginType = request.getSession().getAttribute("loginType").toString();
             String studentId = request.getSession().getAttribute("id").toString();
             List<AppointmentEntity> appointmentsList = AppointmentCrud.selectAllAppointment("studentId", studentId);
             List<OfficehourEntity> slotsInfo = new ArrayList<>();
@@ -97,6 +97,7 @@
                     </td>
                 </tr>
                 <%
+                            }
                         }     //   System.out.println(appointmentId +"idd");
                     }
                 %>

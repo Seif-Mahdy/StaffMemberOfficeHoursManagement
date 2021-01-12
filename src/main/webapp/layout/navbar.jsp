@@ -11,7 +11,7 @@
 <%
     String url = request.getRequestURL().toString();
 %>
-<nav class="navbar navbar-expand-lg navbar-light fixed-top shadow rounded">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow rounded">
     <div class="container-fluid d-flex align-items-center">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,24 +53,23 @@
                     <a class="nav-link active" href="appointments.jsp">My appointments</a>
                 </li>
                 <%
+                    if (url.contains("inbox.jsp")) {
+                %>
+                <li class="nav-item rounded" style="background-color: lightgray">
+                    <a class="nav-link active" href="inbox.jsp">My inbox</a>
+                </li>
+                <%
                 } else {
                 %>
                 <li class="nav-item rounded">
-                    <a class="nav-link" href="appointments.jsp">My appointments</a>
+                    <a class="nav-link" href="inbox.jsp">My inbox</a>
                 </li>
                 <%
                     }
                 } else {
-                    if (url.contains("staffAppointments.jsp")) {
-                %>
-                <li class="nav-item rounded" style="background-color: lightgray">
-                    <a class="nav-link active" href="staffAppointments.jsp">My appointments</a>
-                </li>
-                <%
-                } else {
                 %>
                 <li class="nav-item rounded">
-                    <a class="nav-link" href="staffAppointments.jsp">My appointments</a>
+                    <a class="nav-link" href="appointments.jsp">My appointments</a>
                 </li>
                 <%
                     if (url.contains("inbox.jsp")) {
@@ -85,8 +84,36 @@
                     <a class="nav-link" href="inbox.jsp">My inbox</a>
                 </li>
                 <%
-                            }
                         }
+                    }
+                } else {
+                    if (url.contains("staffAppointments.jsp")) {
+                %>
+                <li class="nav-item rounded" style="background-color: lightgray">
+                    <a class="nav-link active" href="staffAppointments.jsp">My appointments</a>
+                </li>
+                <%
+                } else {
+                %>
+                <li class="nav-item rounded">
+                    <a class="nav-link" href="staffAppointments.jsp">My appointments</a>
+                </li>
+                <%
+                    }
+                    if (url.contains("inbox.jsp")) {
+                %>
+                <li class="nav-item rounded" style="background-color: lightgray">
+                    <a class="nav-link active" href="inbox.jsp">My inbox</a>
+                </li>
+                <%
+                } else {
+                %>
+                <li class="nav-item rounded">
+                    <a class="nav-link" href="inbox.jsp">My inbox</a>
+                </li>
+                <%
+                        }
+
                     }
                 %>
             </ul>

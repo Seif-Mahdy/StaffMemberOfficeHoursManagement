@@ -22,6 +22,7 @@
             List<CourseEntity> courses = CourseCrud.selectAllCourses();
 %>
 <%@include file="layout/navbar.jsp" %>
+<%--TODO:replace all row click with dedicated buttons--%>
 <div class="p-5" style="margin-top: 100px">
     <div class="card mb-5">
         <div class="card-header fw-bold">
