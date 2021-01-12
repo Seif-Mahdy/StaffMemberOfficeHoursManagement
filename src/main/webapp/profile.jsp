@@ -68,7 +68,6 @@
                     <input type="text" class="form-control" id="exampleInputName" value="<%= name %>" required>
                 </div>
                 <div class="mb-3">
-                    <%--TODO:check update mail error--%>
                     <label for="exampleInputEmail" class="form-label">Email</label>
                     <input type="text" class="form-control" id="exampleInputEmail" value="<%=email%>" required>
                 </div>
@@ -98,7 +97,6 @@
         if (loginType.equals("staff")) {
     %>
     <div class="card mb-5">
-        <%--TODO: get all the appointments here--%>
         <div class="card-header fw-bold">
             Reservations history
         </div>

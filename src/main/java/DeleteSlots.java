@@ -19,7 +19,6 @@ import java.util.List;
 @WebServlet(name = "DeleteSlots",value = "/DeleteSlots")
 public class DeleteSlots extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-       //TODO: send cancelDate
         Date cancelDate= null;
         try {
             cancelDate = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("cancelDate"));
@@ -29,13 +28,11 @@ public class DeleteSlots extends HttpServlet {
         String staffId=request.getParameter("staffId");
         List<AppointmentEntity> appointments=new ArrayList<>();
         appointments= AppointmentCrud.selectAllAppointment("staffId",staffId);
-        for(int i=0;i<appointments.size();i++)
-        {
-            Date date= OfficeHourCrud.findOfficeHour(appointments.get(i).getOfficeHourId()).getFromDate();
-            if(date.equals(cancelDate) )
-            {
-            AppointmentCrud.removeAppointmentById(appointments.get(i).getAppointmentId());
-            OfficeHourCrud.removeOfficeHourById(appointments.get(i).getOfficeHourId());
+        for (AppointmentEntity appointment : appointments) {
+            Date date = OfficeHourCrud.findOfficeHour(appointment.getOfficeHourId()).getFromDate();
+            if (date.equals(cancelDate)) {
+                AppointmentCrud.removeAppointmentById(appointment.getAppointmentId());
+                OfficeHourCrud.removeOfficeHourById(appointment.getOfficeHourId());
             }
         }
 

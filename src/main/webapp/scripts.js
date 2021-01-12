@@ -360,7 +360,6 @@ function addOfficeHour() {
                     }
                 }
             }
-            //TODO: add the servlet name here
             xhttp.open("POST", "", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send("date=" + date + "&fromTime" + fromTime + "&toTime" + toTime + "&isOffline" + isOffline + "&location" + location);
@@ -395,7 +394,6 @@ function cancelAppointmentsOfDay() {
                 }
             }
         }
-        //TODO: add the servlet name here
         xhttp.open("POST", "", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("date=" + date);
@@ -408,7 +406,7 @@ function cancelAppointmentsOfDay() {
     }
 }
 
-function test(){
+function test() {
     var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth() + 1; //January is 0 so need to add 1 to make it 1!
