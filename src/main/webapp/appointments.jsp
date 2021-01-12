@@ -1,6 +1,9 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.*" %><%--
+<%@ page import="com.*" %>
+<%@ page import="org.joda.time.DateTime" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="org.joda.time.LocalDate" %><%--
   Created by IntelliJ IDEA.
   User: seif
   Date: 1/7/21
@@ -55,17 +58,29 @@
                 <tbody>
                 <%
                     for (int i = 0; i < appointmentsList.size(); i++) {
-                        int appointmentId = appointmentsList.get(i).getAppointmentId();
+                        OfficehourEntity slot = OfficeHourCrud.findOfficeHour(appointmentsList.get(i).getOfficeHourId());
+                        DateTime fromDate = new DateTime(slot.getFromDate());
+
+                        Date date = new Date();
+
+                        long time = date.getTime();
+                        DateTime dateTime = new DateTime(date);
+                        org.joda.time.LocalDate local1 = fromDate.toLocalDate();
+                        LocalDate local2 = dateTime.toLocalDate();
+
+
+                        if (local1.compareTo(local2) >= 0) {
+                            int appointmentId = appointmentsList.get(i).getAppointmentId();
                 %>
                 <tr>
                     <td class="text-center">
-                        <%=slotsInfo.get(i).getFromDate() %>
+                        <%=slot.getFromDate() %>
                     </td>
                     <td class="text-center">
-                        <%= slotsInfo.get(i).getToDate() %>
+                        <%= slot.getToDate() %>
                     </td>
                     <td class="text-center">
-                        <% Byte isOnline = slotsInfo.get(i).getIsOffline();
+                        <% Byte isOnline = slot.getIsOffline();
                             if (isOnline == 1) {%>
                         Yes
                         <%
@@ -76,7 +91,7 @@
                     </td>
                     <td class="text-center">
                         <%
-                            String location = slotsInfo.get(i).getLocation();
+                            String location = slot.getLocation();
                             if (location == null) {
                         %>
                         N/A
@@ -97,6 +112,7 @@
                     </td>
                 </tr>
                 <%
+                                }
                             }
                         }     //   System.out.println(appointmentId +"idd");
                     }

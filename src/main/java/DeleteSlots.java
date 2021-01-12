@@ -19,43 +19,38 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@WebServlet(name = "DeleteSlots",value = "/DeleteSlots")
+@WebServlet(name = "DeleteSlots", value = "/DeleteSlots")
 public class DeleteSlots extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        boolean isDeleted=true;
-        PrintWriter out =response.getWriter();
-        String inputDate=request.getParameter("date");
-        inputDate=inputDate+" "+"00:00:00";
-        DateTime cancelDate= new DateTime(Timestamp.valueOf(inputDate));
-        String staffId=request.getSession().getAttribute("id").toString();
-        List<AppointmentEntity> appointments=new ArrayList<>();
-        appointments= AppointmentCrud.selectAllAppointment("staffId",staffId);
-        for(int i=0;i<appointments.size();i++)
-        {
-            Date date= OfficeHourCrud.findOfficeHour(appointments.get(i).getOfficeHourId()).getFromDate();
-            DateTime dateTime= new DateTime(date);
-            org.joda.time.LocalDate local1=cancelDate.toLocalDate();
-            LocalDate local2=dateTime.toLocalDate();
+        boolean isDeleted = true;
+        PrintWriter out = response.getWriter();
+        String inputDate = request.getParameter("date");
+        inputDate = inputDate + " " + "00:00:00";
+        DateTime cancelDate = new DateTime(Timestamp.valueOf(inputDate));
+        String staffId = request.getSession().getAttribute("id").toString();
+        List<AppointmentEntity> appointments = new ArrayList<>();
+        appointments = AppointmentCrud.selectAllAppointment("staffId", staffId);
+        for (int i = 0; i < appointments.size(); i++) {
+            Date date = OfficeHourCrud.findOfficeHour(appointments.get(i).getOfficeHourId()).getFromDate();
+            DateTime dateTime = new DateTime(date);
+            org.joda.time.LocalDate local1 = cancelDate.toLocalDate();
+            LocalDate local2 = dateTime.toLocalDate();
 
-            if(local1.compareTo(local2) ==0 )
-            {
-            AppointmentEntity appointment=AppointmentCrud.findAppointment(appointments.get(i).getAppointmentId());
-            appointment.setIsCanceled((byte) 1);
-          if(!(AppointmentCrud.updateAppointment(appointment) && OfficeHourCrud.removeOfficeHourById(appointments.get(i).getOfficeHourId())))
-          {
-           isDeleted=false;
-          }
+            if (local1.compareTo(local2) == 0) {
+                AppointmentEntity appointment = AppointmentCrud.findAppointment(appointments.get(i).getAppointmentId());
+                appointment.setIsCanceled((byte) 1);
+                if (!(AppointmentCrud.updateAppointment(appointment) && OfficeHourCrud.removeOfficeHourById(appointments.get(i).getOfficeHourId()))) {
+                    isDeleted = false;
+                }
 
 
             }
         }
-        if(isDeleted)
-        {
+        if (isDeleted && appointments.size()>0) {
+            //TODO: check notification appearance
             out.print("success");
-        }
-        else
-        {
+        } else {
             out.print("failed to delete");
         }
 

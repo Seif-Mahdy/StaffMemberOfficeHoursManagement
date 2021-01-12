@@ -9,8 +9,11 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
+   //TODO: remove sandwitch
+
     String url = request.getRequestURL().toString();
 %>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow rounded">
     <div class="container-fluid d-flex align-items-center">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"

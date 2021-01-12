@@ -328,6 +328,7 @@ function cancelReservation(appointmentId, loginType) {
 }
 
 function addOfficeHour() {
+
     $('#spinner2').removeClass('visually-hidden')
     $('#add-btn').prop('disabled', true)
     $('#btn-text').addClass('visually-hidden')
@@ -337,7 +338,7 @@ function addOfficeHour() {
     var isOffline = $('#offline').val()
     var location = $('#location').val()
     if (location == '') {
-        location = "N/A"
+        location = null
     }
     if (date != '' && toTime != '' && fromTime != '') {
         if (toTime <= fromTime) {
@@ -359,7 +360,6 @@ function addOfficeHour() {
                     }
                 }
             }
-            //TODO: add the servlet name here[DONE]
             xhttp.open("POST", "AddOfficeHour", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send("date=" + date + "&fromTime=" + fromTime + "&toTime=" + toTime + "&isOffline=" + isOffline + "&location=" + location);
@@ -387,7 +387,7 @@ function cancelAppointmentsOfDay() {
                 $('#btn-text2').removeClass('visually-hidden')
                 if (xhttp.responseText == 'success') {
                     $('#form-msg2').attr('class', 'text-success')
-                    $('#form-msg2').html('Office hour Canceled successfully!')
+                    $('#form-msg2').html('ِAppointments cancelled successfully!')
                 } else {
                     $('#form-msg2').attr('class', 'text-danger')
                     $('#form-msg2').html('No appointments at this day!')
@@ -406,7 +406,7 @@ function cancelAppointmentsOfDay() {
     }
 }
 
-function test(){
+function test() {
     var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth() + 1; //January is 0 so need to add 1 to make it 1!

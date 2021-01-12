@@ -10,6 +10,7 @@
 <html>
 <head>
     <title>Home</title>
+
     <%@include file="layout/includes.html" %>
 </head>
 <body>

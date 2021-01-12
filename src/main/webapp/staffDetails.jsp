@@ -2,7 +2,9 @@
 <%@ page import="com.*" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Date" %>
-<%@ page import="java.sql.Timestamp" %><%--
+<%@ page import="java.sql.Timestamp" %>
+<%@ page import="org.joda.time.DateTime" %>
+<%@ page import="org.joda.time.LocalDate" %><%--
   Created by IntelliJ IDEA.
   User: seif
   Date: 1/5/21
@@ -58,16 +60,23 @@
             List<OfficehourEntity> slots = OfficeHourCrud.selectStaffOfficeHour(id);
             List<AppointmentEntity> appointments = AppointmentCrud.selectAllAppointment("staffId", staff.getStaffId());
             List<OfficehourEntity> freeSlots = new ArrayList<>();
+            boolean isExist =false;
             for (int i = 0; i < slots.size(); i++) {
                 if (appointments.size() == 0) {
                     freeSlots = slots;
                 } else {
                     for (AppointmentEntity appointment : appointments) {
 
-                        if (!(appointment.getOfficeHourId().equals(slots.get(i).getId()))) {
-                            freeSlots.add(slots.get(i));
+                        if (appointment.getOfficeHourId().equals(slots.get(i).getId())) {
+                            System.out.println("appoint"+ appointment.getOfficeHourId());
+                            System.out.println("slot"+ slots.get(i).getId());
+                           isExist=true;
                         }
 
+                    }
+                    if(!isExist)
+                    {
+                        freeSlots.add(slots.get(i));
                     }
                 }
 
@@ -85,13 +94,21 @@
                 </thead>
                 <tbody>
                 <%
+                    System.out.println(freeSlots.size());
                     for (OfficehourEntity slot : freeSlots) {
+
+                        DateTime fromDate = new DateTime(slot.getFromDate());
+
                         Date date = new Date();
+                        System.out.println(date);
+
                         long time = date.getTime();
-                        Timestamp currentDate = new Timestamp(time);
+                        DateTime dateTime = new DateTime(date);
+                        org.joda.time.LocalDate local1 = fromDate.toLocalDate();
+                        LocalDate local2 = dateTime.toLocalDate();
 
 
-                        if (currentDate.compareTo(slot.getFromDate()) <= 0)
+                        if (local1.compareTo(local2) >= 0)
                         {
                 %>
                 <tr>

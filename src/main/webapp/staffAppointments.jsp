@@ -2,7 +2,8 @@
 <%@ page import="com.*" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Date" %>
-<%@ page import="java.sql.Timestamp" %><%--
+<%@ page import="org.joda.time.DateTime" %>
+<%@ page import="org.joda.time.LocalDate" %><%--
   Created by IntelliJ IDEA.
   User: seif
   Date: 1/8/21
@@ -17,6 +18,7 @@
 </head>
 <body>
 <%
+    //TODO:shof elzrar mtb2a4 ksoLLL
     if (request.getSession().getAttribute("id") == null) {
         response.sendRedirect("index.jsp");
     } else {
@@ -36,21 +38,28 @@
                 String id = request.getSession().getAttribute("id").toString();
                 List<OfficehourEntity> slots = OfficeHourCrud.selectStaffOfficeHour(id);
                 List<AppointmentEntity> appointments = AppointmentCrud.selectAllAppointment("staffId", id);
-                List<OfficehourEntity> modifiedSlots = new ArrayList<>();
+                List<OfficehourEntity> freeSlots = new ArrayList<>();
                 List<OfficehourEntity> reservedSlots = new ArrayList<>();
+                boolean isExist=false;
                 for (int i = 0; i < slots.size(); i++) {
                     if (appointments.size() == 0) {
-                        modifiedSlots = slots;
+                        freeSlots = slots;
                     } else {
                         for (AppointmentEntity app : appointments) {
 
-                            if (!(app.getOfficeHourId().equals(slots.get(i).getId()))) {
-                                modifiedSlots.add(slots.get(i));
-                            } else {
+                            if (app.getOfficeHourId().equals(slots.get(i).getId())) {
+                                isExist=true;
                                 reservedSlots.add(slots.get(i));
+
                             }
 
                         }
+                        if(!isExist)
+                        {
+                            freeSlots.add(slots.get(i));
+                        }
+
+
                     }
 
                 }
@@ -68,14 +77,20 @@
                     if (appointments.size() != 0) {
                         for (OfficehourEntity slot : reservedSlots
                         ) {
+                            DateTime fromDate = new DateTime(slot.getFromDate());
+
                             Date date = new Date();
+
                             long time = date.getTime();
-                            Timestamp currentDate = new Timestamp(time);
+                            DateTime dateTime = new DateTime(date);
+                            org.joda.time.LocalDate local1 = fromDate.toLocalDate();
+                            LocalDate local2 = dateTime.toLocalDate();
 
 
+                            if (local1.compareTo(local2) >= 0)
 
-                            if (currentDate.compareTo(slot.getFromDate()) <= 0)
                             {
+
                 %>
                 <tr>
                     <td class="text-center"><%=slot.getFromDate()%>
@@ -90,14 +105,20 @@
                 }
                 %>
                 <%
-                    for (OfficehourEntity slot : modifiedSlots
+                    for (OfficehourEntity slot : freeSlots
                     ) {
+                        DateTime fromDate = new DateTime(slot.getFromDate());
+
                         Date date = new Date();
+
                         long time = date.getTime();
-                        Timestamp currentDate = new Timestamp(time);
+                        DateTime dateTime = new DateTime(date);
+                        org.joda.time.LocalDate local1 = fromDate.toLocalDate();
+                        LocalDate local2 = dateTime.toLocalDate();
 
 
-                        if (currentDate.compareTo(slot.getFromDate()) <= 0)
+                        if (local1.compareTo(local2) >= 0)
+
                         {
                 %>
                 <tr>
@@ -141,12 +162,18 @@
                     for (int i = 0; i < reservedSlots.size(); i++) {
 
 
+                        DateTime fromDate = new DateTime(reservedSlots.get(i).getFromDate());
+
                         Date date = new Date();
+
                         long time = date.getTime();
-                        Timestamp currentDate = new Timestamp(time);
+                        DateTime dateTime = new DateTime(date);
+                        org.joda.time.LocalDate local1 = fromDate.toLocalDate();
+                        LocalDate local2 = dateTime.toLocalDate();
 
 
-                        if (currentDate.compareTo(reservedSlots.get(i).getFromDate()) <= 0)
+                        if (local1.compareTo(local2) >= 0)
+
                         {
                 %>
                 <tr>

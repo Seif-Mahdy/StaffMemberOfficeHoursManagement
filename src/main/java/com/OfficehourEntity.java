@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Objects;
-
+//TODO: change prirmary keys
 @Entity
 @Table(name = "officehour", schema = "officehoursmangementsystem")
 public class OfficehourEntity {
