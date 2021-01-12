@@ -1,7 +1,8 @@
-<%@ page import="com.StudentEntity" %>
-<%@ page import="com.StudentCrud" %>
-<%@ page import="com.StaffmemberEntity" %>
-<%@ page import="com.StaffMemberCrud" %><%--
+<%@ page import="com.*" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.sql.Timestamp" %><%--
   Created by IntelliJ IDEA.
   User: seifa
   Date: 1/3/2021
@@ -139,7 +140,7 @@
                     <input type="text" class="form-control" id="exampleInputName" value="<%= name %>" required>
                 </div>
                 <div class="mb-3">
-                    <%--TODO:check update mail error--%>
+                    <%--TODO:check update mail error[DONE]--%>
                     <label for="exampleInputEmail" class="form-label">Email</label>
                     <input type="text" class="form-control" id="exampleInputEmail" value="<%=email%>" required>
                 </div>
@@ -170,6 +171,10 @@
     %>
     <div class="card mb-5">
         <%--TODO: get all the appointments here--%>
+        <% List<AppointmentEntity> appointments = new ArrayList<>();
+            appointments = AppointmentCrud.selectAllAppointment("staffId", request.getSession().getAttribute("id").toString());
+        %>
+
         <div class="card-header fw-bold">
             Reservations history
         </div>
@@ -182,16 +187,47 @@
                     <th class="text-center">To</th>
                     <th class="text-center">Offline?</th>
                     <th class="text-center">Location</th>
-                    <th class="text-center">Cancelled?</th>
+                    <th class="text-center">Student</th>
                 </tr>
                 </thead>
                 <tbody>
+                <%
+                    for (int i = 0; i < appointments.size(); i++) {
+                        Date date = new Date();
+                        long time = date.getTime();
+                        Timestamp currentDate = new Timestamp(time);
 
+
+                        OfficehourEntity slot = OfficeHourCrud.findOfficeHour(appointments.get(i).getOfficeHourId());
+                        if (currentDate.compareTo(slot.getFromDate()) > 0) {
+                %>
+                <tr>
+
+
+                    <td class="text-center"><%=slot.getFromDate()%>
+                    </td>
+                    <td class="text-center"><%=slot.getToDate() %>
+                    </td>
+                    <td class="text-center"><%=slot.getIsOffline()%>
+                    </td>
+                    <td class="text-center"><%=slot.getLocation()%>
+                    </td>
+                    <td class="text-center"><%=appointments.get(i).getStudentId()%>
+                    </td>
+
+                </tr>
+
+
+                <%
+                        }
+                    }
+                %>
                 </tbody>
             </table>
         </div>
     </div>
     <%
+
             }
         }
     %>

@@ -19,7 +19,6 @@ public class Reservation extends HttpServlet {
         PrintWriter out = response.getWriter();
         
         if (reserveApp(slotId, studentId, staffId)) {
-            ///TODO: notify the user for the status of the process
             out.print("success");
         } else {
             out.print("Reservation failed!");

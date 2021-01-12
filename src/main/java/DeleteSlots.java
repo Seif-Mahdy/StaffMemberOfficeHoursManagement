@@ -40,8 +40,9 @@ public class DeleteSlots extends HttpServlet {
 
             if(local1.compareTo(local2) ==0 )
             {
-
-          if(!(AppointmentCrud.removeAppointmentById(appointments.get(i).getAppointmentId()) && OfficeHourCrud.removeOfficeHourById(appointments.get(i).getOfficeHourId())))
+            AppointmentEntity appointment=AppointmentCrud.findAppointment(appointments.get(i).getAppointmentId());
+            appointment.setIsCanceled((byte) 1);
+          if(!(AppointmentCrud.updateAppointment(appointment) && OfficeHourCrud.removeOfficeHourById(appointments.get(i).getOfficeHourId())))
           {
            isDeleted=false;
           }

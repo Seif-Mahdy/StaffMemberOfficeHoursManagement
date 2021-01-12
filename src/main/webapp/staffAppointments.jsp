@@ -1,6 +1,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.*" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.sql.Timestamp" %><%--
   Created by IntelliJ IDEA.
   User: seif
   Date: 1/8/21
@@ -122,6 +124,14 @@
                     if (appointments.size() != 0) {
                         for (OfficehourEntity slot : reservedSlots
                         ) {
+                            Date date = new Date();
+                            long time = date.getTime();
+                            Timestamp currentDate = new Timestamp(time);
+
+
+
+                            if (currentDate.compareTo(slot.getFromDate()) <= 0)
+                            {
                 %>
                 <tr>
                     <td class="text-center"><%=slot.getFromDate()%>
@@ -130,12 +140,21 @@
                     </td>
                     <td class="text-center"><img src="images/check.svg" alt="" width="20" height="20"></td>
                 </tr>
-                <% }
+                <%
+                            }
+                        }
                 }
                 %>
                 <%
                     for (OfficehourEntity slot : modifiedSlots
                     ) {
+                        Date date = new Date();
+                        long time = date.getTime();
+                        Timestamp currentDate = new Timestamp(time);
+
+
+                        if (currentDate.compareTo(slot.getFromDate()) <= 0)
+                        {
                 %>
                 <tr>
                     <td class="text-center"><%=slot.getFromDate()%>
@@ -144,7 +163,9 @@
                     </td>
                     <td class="text-center"><img src="images/close.svg" alt="" width="20" height="20"></td>
                 </tr>
-                <% }
+                <%
+                        }
+                    }
                 %>
                 </tbody>
             </table>
@@ -174,6 +195,15 @@
                 <tbody>
                 <%
                     for (int i = 0; i < reservedSlots.size(); i++) {
+
+
+                        Date date = new Date();
+                        long time = date.getTime();
+                        Timestamp currentDate = new Timestamp(time);
+
+
+                        if (currentDate.compareTo(reservedSlots.get(i).getFromDate()) <= 0)
+                        {
                 %>
                 <tr>
                     <td class="text-center"><%=reservedSlots.get(i).getFromDate()%>
@@ -195,7 +225,9 @@
                         } else {%>
                        <%= reservedSlots.get(i).getLocation()%>
                         <%
-                            }
+
+                                }
+
                         %>
                     </td>
                     <td class="text-center"><%=appointments.get(i).getStudentId()%>
@@ -209,6 +241,7 @@
                 </tr>
                 <%
                         }
+                    }
                     }
                 %>
                 </tbody>

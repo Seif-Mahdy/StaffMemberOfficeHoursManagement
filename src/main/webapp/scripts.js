@@ -359,10 +359,10 @@ function addOfficeHour() {
                     }
                 }
             }
-            //TODO: add the servlet name here
-            xhttp.open("POST", "", true);
+            //TODO: add the servlet name here[DONE]
+            xhttp.open("POST", "AddOfficeHour", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send("date=" + date + "&fromTime" + fromTime + "&toTime" + toTime + "&isOffline" + isOffline + "&location" + location);
+            xhttp.send("date=" + date + "&fromTime=" + fromTime + "&toTime=" + toTime + "&isOffline=" + isOffline + "&location=" + location);
         }
     } else {
         $('#spinner2').addClass('visually-hidden')
@@ -387,14 +387,13 @@ function cancelAppointmentsOfDay() {
                 $('#btn-text2').removeClass('visually-hidden')
                 if (xhttp.responseText == 'success') {
                     $('#form-msg2').attr('class', 'text-success')
-                    $('#form-msg2').html('Office hour added successfully!')
+                    $('#form-msg2').html('Office hour Canceled successfully!')
                 } else {
                     $('#form-msg2').attr('class', 'text-danger')
                     $('#form-msg2').html('No appointments at this day!')
                 }
             }
         }
-        //TODO: add the servlet name here
         xhttp.open("POST", "DeleteSlots", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("date=" + date);

@@ -1,4 +1,5 @@
 import com.AppointmentCrud;
+import com.AppointmentEntity;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +14,9 @@ public class CancelReservation extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
      int appointmentId=Integer.parseInt(request.getParameter("appointmentId"));
         PrintWriter out =response.getWriter();
-       if(AppointmentCrud.removeAppointmentById(appointmentId))
+        AppointmentEntity appointment=AppointmentCrud.findAppointment(appointmentId);
+        appointment.setIsCanceled((byte) 1);
+       if(AppointmentCrud.updateAppointment(appointment))
        {
            out.print("success");
        }

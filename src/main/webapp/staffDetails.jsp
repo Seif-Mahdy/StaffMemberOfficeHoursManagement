@@ -1,6 +1,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.*" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.sql.Timestamp" %><%--
   Created by IntelliJ IDEA.
   User: seif
   Date: 1/5/21
@@ -101,15 +103,15 @@
         <%
             List<OfficehourEntity> slots = OfficeHourCrud.selectStaffOfficeHour(id);
             List<AppointmentEntity> appointments = AppointmentCrud.selectAllAppointment("staffId", staff.getStaffId());
-            List<OfficehourEntity> modifiedSlots = new ArrayList<>();
+            List<OfficehourEntity> freeSlots = new ArrayList<>();
             for (int i = 0; i < slots.size(); i++) {
                 if (appointments.size() == 0) {
-                    modifiedSlots = slots;
+                    freeSlots = slots;
                 } else {
                     for (AppointmentEntity appointment : appointments) {
 
                         if (!(appointment.getOfficeHourId().equals(slots.get(i).getId()))) {
-                            modifiedSlots.add(slots.get(i));
+                            freeSlots.add(slots.get(i));
                         }
 
                     }
@@ -129,7 +131,14 @@
                 </thead>
                 <tbody>
                 <%
-                    for (OfficehourEntity slot : modifiedSlots) {
+                    for (OfficehourEntity slot : freeSlots) {
+                        Date date = new Date();
+                        long time = date.getTime();
+                        Timestamp currentDate = new Timestamp(time);
+
+
+                        if (currentDate.compareTo(slot.getFromDate()) <= 0)
+                        {
                 %>
                 <tr>
                     <td class="text-center"><%=slot.getFromDate()%>
@@ -145,6 +154,8 @@
                 </tr>
                 <%
                         }
+                        }
+
                     }
                 %>
                 </tbody>

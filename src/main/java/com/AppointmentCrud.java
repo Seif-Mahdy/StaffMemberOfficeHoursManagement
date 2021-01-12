@@ -97,6 +97,21 @@ public class AppointmentCrud {
 
         return appointments;
     }
+    public static boolean updateAppointment(AppointmentEntity updatedApp) {
+        SessionFactory sessionObj = HybernateUtil.getSessionFactory();
+        boolean isInsert = false;
 
+        try {
+            Session session = sessionObj.openSession();
+            session.beginTransaction();
+            session.saveOrUpdate(updatedApp);
+            session.getTransaction().commit();
+            session.close();
+            isInsert = true;
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+        return isInsert;
+    }
 
 }

@@ -57,7 +57,7 @@ public class UpdateProfile extends HttpServlet {
         } else if (loginType.equals("staff")) {
             StaffmemberEntity staff = StaffMemberCrud.findStaffMember(userId);
             if (!staff.getStaffEmail().equals(email)) {
-                List<StaffmemberEntity> staffs = StaffMemberCrud.findStaffByAtt("staffemail", email);
+                List<StaffmemberEntity> staffs = StaffMemberCrud.findStaffByAtt("staffEmail", email);
                 if (staffs.size() > 0) {
                     // out.print("email is exist");
                     out.print("This mail has been taken!");

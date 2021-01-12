@@ -10,6 +10,7 @@ public class AppointmentEntity {
     private Integer officeHourId;
     private String studentId;
     private String staffId;
+    private Byte isCanceled;
 
     @Id
     @Column(name = "AppointmentId")
@@ -68,4 +69,11 @@ public class AppointmentEntity {
     }
 
 
+    public Byte getIsCanceled() {
+        return isCanceled;
+    }
+
+    public void setIsCanceled(Byte isCanceled) {
+        this.isCanceled = isCanceled;
+    }
 }
