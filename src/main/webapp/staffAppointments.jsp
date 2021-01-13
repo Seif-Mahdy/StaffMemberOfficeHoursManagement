@@ -18,16 +18,15 @@
 </head>
 <body>
 <%
-    //TODO:shof elzrar mtb2a4 ksoLLL
     if (request.getSession().getAttribute("id") == null) {
         response.sendRedirect("index.jsp");
     } else {
         String loginType = request.getSession().getAttribute("loginType").toString();
 %>
 <%@include file="layout/navbar.jsp" %>
-<div class="p-5" style="margin-top: 100px">
+<div class="px-5" style="margin-top: 100px">
     <div class="card mb-5">
-        <div class="card-header fw-bold">
+        <div class="card-header font-weight-bold">
             My office hours
         </div>
         <div class="card-body">
@@ -40,7 +39,7 @@
                 List<AppointmentEntity> appointments = AppointmentCrud.selectAllAppointment("staffId", id);
                 List<OfficehourEntity> freeSlots = new ArrayList<>();
                 List<OfficehourEntity> reservedSlots = new ArrayList<>();
-                boolean isExist=false;
+                boolean isExist = false;
                 for (int i = 0; i < slots.size(); i++) {
                     if (appointments.size() == 0) {
                         freeSlots = slots;
@@ -48,14 +47,13 @@
                         for (AppointmentEntity app : appointments) {
 
                             if (app.getOfficeHourId().equals(slots.get(i).getId())) {
-                                isExist=true;
+                                isExist = true;
                                 reservedSlots.add(slots.get(i));
 
                             }
 
                         }
-                        if(!isExist)
-                        {
+                        if (!isExist) {
                             freeSlots.add(slots.get(i));
                         }
 
@@ -87,9 +85,7 @@
                             LocalDate local2 = dateTime.toLocalDate();
 
 
-                            if (local1.compareTo(local2) >= 0)
-
-                            {
+                            if (local1.compareTo(local2) >= 0) {
 
                 %>
                 <tr>
@@ -102,7 +98,7 @@
                 <%
                             }
                         }
-                }
+                    }
                 %>
                 <%
                     for (OfficehourEntity slot : freeSlots
@@ -117,9 +113,7 @@
                         LocalDate local2 = dateTime.toLocalDate();
 
 
-                        if (local1.compareTo(local2) >= 0)
-
-                        {
+                        if (local1.compareTo(local2) >= 0) {
                 %>
                 <tr>
                     <td class="text-center"><%=slot.getFromDate()%>
@@ -136,13 +130,14 @@
             </table>
         </div>
         <div class="card-footer text-muted">
-            <button class="btn btn-success d-flex float-end" data-toggle="modal" data-target="#exampleModal">Add office
+            <button class="btn btn-success d-flex float-right" data-toggle="modal" data-target="#exampleModal">Add
+                office
                 hour
             </button>
         </div>
     </div>
     <div class="card mb-5">
-        <div class="card-header fw-bold">
+        <div class="card-header font-weight-bold">
             My appointments
         </div>
         <div class="card-body">
@@ -172,9 +167,7 @@
                         LocalDate local2 = dateTime.toLocalDate();
 
 
-                        if (local1.compareTo(local2) >= 0)
-
-                        {
+                        if (local1.compareTo(local2) >= 0) {
                 %>
                 <tr>
                     <td class="text-center"><%=reservedSlots.get(i).getFromDate()%>
@@ -194,10 +187,10 @@
                         N/A
                         <%
                         } else {%>
-                       <%= reservedSlots.get(i).getLocation()%>
+                        <%= reservedSlots.get(i).getLocation()%>
                         <%
 
-                                }
+                            }
 
                         %>
                     </td>
@@ -211,15 +204,15 @@
                     </td>
                 </tr>
                 <%
+                            }
                         }
-                    }
                     }
                 %>
                 </tbody>
             </table>
         </div>
         <div class="card-footer text-muted">
-            <button class="btn btn-danger d-flex float-end" data-toggle="modal" data-target="#exampleModal1">Cancel
+            <button class="btn btn-danger d-flex float-right" data-toggle="modal" data-target="#exampleModal1">Cancel
                 appointments of a day
             </button>
         </div>
@@ -242,7 +235,7 @@
                 <div id="form-msg"></div>
                 <form action="#" method="POST" id="add-office-hour" class="mt-2">
                     <div class="input-group d-flex flex-column mb-3">
-                        <label for="date" class="mb-2 fw-bold"><span class="text-danger">*</span>Date:</label>
+                        <label for="date" class="mb-2 font-weight-bold"><span class="text-danger">*</span>Date:</label>
                         <div>
                             <input class="form-control" type="date" id="date"
                                    name="date" min="2021-01-11">
@@ -250,7 +243,7 @@
 
                     </div>
                     <div class="input-group d-flex flex-column mb-3">
-                        <label for="from" class="mb-2 fw-bold"><span class="text-danger">*</span>From:</label>
+                        <label for="from" class="mb-2 font-weight-bold"><span class="text-danger">*</span>From:</label>
                         <div>
                             <input class="form-control" type="time" id="from"
                                    name="from">
@@ -258,7 +251,7 @@
 
                     </div>
                     <div class="input-group d-flex flex-column mb-5">
-                        <label for="to" class="mb-2 fw-bold"><span class="text-danger">*</span>To:</label>
+                        <label for="to" class="mb-2 font-weight-bold"><span class="text-danger">*</span>To:</label>
                         <div>
                             <input class="form-control" type="time" id="to"
                                    name="to">
@@ -267,13 +260,13 @@
                     </div>
                     <div class="input-group mb-4">
                         <label class="input-group-text" for="offline"><span class="text-danger">*</span>Offline?</label>
-                        <select class="form-select" id="offline" name="login_type">
+                        <select class="form-control form-select" id="offline" name="login_type">
                             <option value="1">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </div>
                     <div class="input-group d-flex flex-column">
-                        <label for="location" class="mb-2 fw-bold">Location:</label>
+                        <label for="location" class="mb-2 font-weight-bold">Location:</label>
                         <div>
                             <input class="form-control" type="text" id="location"
                                    name="to">
@@ -283,12 +276,14 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"
+                        onclick="closeModal('add-office-hour','form-msg')">Close
+                </button>
                 <button type="button" class="btn btn-success" onclick="addOfficeHour()"
                         style="height: 38px;width: 55px" id="add-btn">
-                    <div class="spinner-border text-light spinner-border-sm visually-hidden" role="status"
+                    <div class="spinner-border text-light spinner-border-sm d-none" role="status"
                          id="spinner2">
-                        <span class="visually-hidden">Loading...</span>
+                        <span class="d-none">Loading...</span>
                     </div>
                     <div id="btn-text">
                         Add
@@ -315,7 +310,8 @@
                 <div id="form-msg2"></div>
                 <form action="#" method="POST" id="cancel-appointment" class="mt-2">
                     <div class="input-group d-flex flex-column mb-3">
-                        <label for="appointment-date" class="mb-2 fw-bold"><span class="text-danger">*</span>Date of the
+                        <label for="appointment-date" class="mb-2 font-weight-bold"><span class="text-danger">*</span>Date
+                            of the
                             day:</label>
                         <div>
                             <input class="form-control" type="date" id="appointment-date"
@@ -327,12 +323,14 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                        onclick="closeModal('cancel-appointment','form-msg2')">Close
+                </button>
                 <button type="button" class="btn btn-danger" onclick="cancelAppointmentsOfDay()"
                         style="width: 200px;height: 38px" id="cancel-btn">
-                    <div class="spinner-border text-light spinner-border-sm visually-hidden" role="status"
+                    <div class="spinner-border text-light spinner-border-sm d-none" role="status"
                          id="spinner3">
-                        <span class="visually-hidden">Loading...</span>
+                        <span class="d-none">Loading...</span>
                     </div>
                     <div id="btn-text2">
                         Cancel appointments

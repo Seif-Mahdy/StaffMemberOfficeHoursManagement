@@ -23,10 +23,9 @@
             List<CourseEntity> courses = CourseCrud.selectAllCourses();
 %>
 <%@include file="layout/navbar.jsp" %>
-<%--TODO:replace all row click with dedicated buttons--%>
-<div class="p-5" style="margin-top: 100px">
+<div class="px-5" style="margin-top: 100px;">
     <div class="card mb-5">
-        <div class="card-header fw-bold">
+        <div class="card-header font-weight-bold">
             Subjects
         </div>
         <div class="card-body">
@@ -58,7 +57,7 @@
         </div>
     </div>
     <div class="card mb-5">
-        <div class="card-header fw-bold" id="card-header">
+        <div class="card-header font-weight-bold" id="card-header">
             Staff members teaching
         </div>
         <div class="card-body">
@@ -70,6 +69,7 @@
                     <th class="text-center">Email</th>
                     <th class="text-center">Phone number</th>
                     <th class="text-center">Role</th>
+                    <th class="text-center">Show profile</th>
                 </tr>
                 </thead>
                 <tbody id="t-body">
@@ -82,43 +82,43 @@
     } else {
     %>
     <%@include file="layout/navbar.jsp" %>
-    <div class="p-5" style="margin-top: 100px">
+    <div class="px-5" style="margin-top: 100px">
         <div class="card mb-5">
-            <div class="card-header fw-bold">
+            <div class="card-header font-weight-bold">
                 Students
             </div>
             <div class="card-body">
                 <table id="example2" class="cell-border hover" style="width:100%">
                     <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Number</th>
+                        <th class="text-center">ID</th>
+                        <th class="text-center">Name</th>
+                        <th class="text-center">Email</th>
+                        <th class="text-center">Number</th>
+                        <th class="text-center">Show profile</th>
                     </tr>
                     </thead>
                     <tbody>
                     <%
                         List<StudentEntity> students = StudentCrud.selectAllStudents();
-                        int counter = 0;
                         for (StudentEntity student : students) {
                     %>
-                    <tr onclick="$('#'+<%=counter%>).submit()">
-                        <td>
-                            <form action="staffDetails.jsp" id="<%=counter%>" class="visually-hidden">
-                                <input type="text" value="<%=student.getStudentId()%>" name="id">
-                            </form>
+                    <tr>
+                        <td class="text-center">
                             <%=student.getStudentId()%>
                         </td>
-                        <td><%=student.getStudentName()%>
+                        <td class="text-center"><%=student.getStudentName()%>
                         </td>
-                        <td><%=student.getStudentEmail()%>
+                        <td class="text-center"><%=student.getStudentEmail()%>
                         </td>
-                        <td><%=student.getStudentNumber()%>
+                        <td class="text-center"><%=student.getStudentNumber()%>
+                        </td>
+                        <td class="text-center">
+                            <button class="btn btn-primary" onclick="showStudent('<%=student.getStudentId()%>')">Show
+                            </button>
                         </td>
                     </tr>
                     <%
-                            counter++;
                         }
                     %>
                     </tbody>
