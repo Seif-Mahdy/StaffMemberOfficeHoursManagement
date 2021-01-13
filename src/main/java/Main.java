@@ -95,14 +95,8 @@ public class Main {
         slot.setToDate(stamp2);
         slot.setStaffId("20170000");
         System.out.println(OfficeHourCrud.addOfficeHour(slot));*/
-        String date="2021-01-11";
-        String time="03:32";
-        time=time+":00";
-        String fromDate=date+ " "+time;
-        System.out.println(fromDate);
-        Timestamp Date= Timestamp.valueOf(fromDate);
-        System.out.println(Date);
 
+       List< StudentEntity> student =  StudentCrud.findStudentByAtt("studentName","Abdelrhman hosny awad");
 
     }
 

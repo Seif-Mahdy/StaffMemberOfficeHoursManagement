@@ -41,7 +41,8 @@ public class Register extends HttpServlet {
                     boolean done = StaffMemberCrud.addStaff(staff);
                     if (done) {
                         request.getSession().setAttribute("success", "Account created successfully!");
-                        RegisterationMail.sendMail(email);
+                        RegisterationMail.sendMail(email,"","Temporary Password","your temporary password is (123456789), We encourage you to change your password ");
+
                         out.print("success");
                     }
                 } else {
@@ -59,16 +60,18 @@ public class Register extends HttpServlet {
                     student.setStudentName(userName);
                     student.setStudentNumber(phoneNumber);
                     student.setStudentPassword("123456789");
-                    boolean isSent = RegisterationMail.sendMail(email);
+                    boolean isAdded = StudentCrud.addStudent(student);
 
 
-                    if (isSent) {
+
+
+                    if (isAdded) {
                         request.getSession().setAttribute("success", "Account created successfully!");
+                        RegisterationMail.sendMail(email,"","Temporary Password","your temporary password is (123456789), We encourage you to change your password ");
 
-                        boolean isAdded = StudentCrud.addStudent(student);
-                        if (isAdded) {
+
                             out.print("success");
-                        }
+
                     }
                 } else {
                     out.print("There is already an account associated with these credentials!");

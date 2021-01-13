@@ -12,7 +12,6 @@ import java.util.List;
 
 public class StudentCrud {
     public static List<StudentEntity> findStudentByAtt(String attribute, String attributeValue) {
-        StudentEntity student = null;
         SessionFactory sessionObj = HybernateUtil.getSessionFactory();
         List<StudentEntity> results = null;
 
@@ -24,6 +23,8 @@ public class StudentCrud {
             CriteriaQuery<StudentEntity> criteria = builder.createQuery(StudentEntity.class);
             Root<StudentEntity> root = criteria.from(StudentEntity.class);
             criteria.select(root).where(builder.like(root.get(attribute), attributeValue));
+           // criteria.select(root).where(builder.like(root.get("studentNumber"), "01018236359"));
+
             TypedQuery<StudentEntity> query = session.createQuery(criteria);
             results = query.getResultList();
 

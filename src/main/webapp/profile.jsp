@@ -101,7 +101,6 @@
         if (loginType.equals("staff")) {
     %>
     <div class="card mb-5">
-        <%--TODO: get all the appointments here--%>
         <% List<AppointmentEntity> appointments = new ArrayList<>();
             appointments = AppointmentCrud.selectAllAppointment("staffId", request.getSession().getAttribute("id").toString());
         %>

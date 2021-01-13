@@ -14,7 +14,6 @@ import java.sql.Timestamp;
 public class AddOfficeHour extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter out= response.getWriter();
-        //TODO: duplicate office hour(change from_date and to_date to be unique)
     String date=request.getParameter("date");
     String fromTime = request.getParameter("fromTime");
     String toTime=request.getParameter("toTime");
