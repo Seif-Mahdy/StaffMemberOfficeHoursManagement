@@ -1,6 +1,7 @@
 package com;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
@@ -11,6 +12,7 @@ public class MessageEntity implements Comparable<MessageEntity> {
     private String receiverId;
     private String subject;
     private String senderId;
+    private Timestamp messageDate;
 
     @Id
     @Column(name = "MessageID")
@@ -78,5 +80,14 @@ public class MessageEntity implements Comparable<MessageEntity> {
     @Override
     public int compareTo(MessageEntity o) {
         return this.getMessageId().compareTo(o.getMessageId());
+    }
+    @Basic
+    @Column(name = "MessageDate")
+    public Timestamp getMessageDate() {
+        return messageDate;
+    }
+
+    public void setMessageDate(Timestamp messageDate) {
+        this.messageDate = messageDate;
     }
 }

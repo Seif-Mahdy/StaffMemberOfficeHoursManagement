@@ -4,6 +4,15 @@ import java.util.Objects;
 
 public class Key {
     private final String sender;
+
+    public String getSender() {
+        return sender;
+    }
+
+    public String getReceiver() {
+        return receiver;
+    }
+
     private final String receiver;
 
     public Key(String sender, String receiver) {

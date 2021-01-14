@@ -21,63 +21,69 @@ public class Register extends HttpServlet {
         String phoneNumber = request.getParameter("phoneNumber");
         String registerType = request.getParameter("registerType");
         String captchaToken = request.getParameter("captchaToken");
+        boolean isMailValid=false;
+       isMailValid=RegisterationMail.isValidEmailAddress(email);
 
 
         if (isCaptchaValid("6LeQpSEaAAAAAMVzbtFm_1AniSvqGDOOOoGHQp6k", captchaToken)) {
             System.out.println("captcha valid");
-            if (!registerType.equals("null")) {
+            if (isMailValid) {
+                if (!registerType.equals("null")) {
 
-                StaffmemberEntity staff = StaffMemberCrud.findStaffMember(userID);
-                List<StaffmemberEntity> staffByEmail = StaffMemberCrud.findStaffByAtt("staffEmail", email);
-                List<StaffmemberEntity> staffByNumber = StaffMemberCrud.findStaffByAtt("staffNumber", phoneNumber);
-                if (staff == null && staffByEmail.size() == 0 && staffByNumber.size() == 0) {
-                    staff = new StaffmemberEntity();
-                    staff.setStaffId(userID);
-                    staff.setStaffEmail(email);
-                    staff.setStaffName(userName);
-                    staff.setStaffNumber(phoneNumber);
-                    staff.setStaffPassword("123456789");
-                    staff.setStaffRole(registerType);
-                    boolean done = StaffMemberCrud.addStaff(staff);
-                    if (done) {
-                        request.getSession().setAttribute("success", "Account created successfully!");
-                        RegisterationMail.sendMail(email,"","Temporary Password","your temporary password is (123456789), We encourage you to change your password ");
+                    StaffmemberEntity staff = StaffMemberCrud.findStaffMember(userID);
+                    List<StaffmemberEntity> staffByEmail = StaffMemberCrud.findStaffByAtt("staffEmail", email);
+                    List<StaffmemberEntity> staffByNumber = StaffMemberCrud.findStaffByAtt("staffNumber", phoneNumber);
+                    if (staff == null && staffByEmail.size() == 0 && staffByNumber.size() == 0) {
+                        staff = new StaffmemberEntity();
+                        staff.setStaffId(userID);
+                        staff.setStaffEmail(email);
+                        staff.setStaffName(userName);
+                        staff.setStaffNumber(phoneNumber);
+                        staff.setStaffPassword("123456789");
+                        staff.setStaffRole(registerType);
+                        boolean done = StaffMemberCrud.addStaff(staff);
+                        if (done) {
+                            request.getSession().setAttribute("success", "Account created successfully!");
+                            RegisterationMail.sendMail(email, "", "Temporary Password", "your temporary password is (123456789), We encourage you to change your password ");
 
-                        out.print("success");
+                            out.print("success");
+                        }
+                    } else {
+                        out.print("There is already an account associated with these credentials!");
                     }
                 } else {
-                    out.print("There is already an account associated with these credentials!");
-                }
-            } else {
 
-                StudentEntity student = StudentCrud.findStudent(userID);
-                List<StudentEntity> studentByEmail = StudentCrud.findStudentByAtt("studentEmail", email);
-                List<StudentEntity> studentByNumber = StudentCrud.findStudentByAtt("studentNumber", phoneNumber);
-                if (student == null && studentByNumber.size() == 0 && studentByEmail.size() == 0) {
-                    student = new StudentEntity();
-                    student.setStudentId(userID);
-                    student.setStudentEmail(email);
-                    student.setStudentName(userName);
-                    student.setStudentNumber(phoneNumber);
-                    student.setStudentPassword("123456789");
-                    boolean isAdded = StudentCrud.addStudent(student);
+                    StudentEntity student = StudentCrud.findStudent(userID);
+                    List<StudentEntity> studentByEmail = StudentCrud.findStudentByAtt("studentEmail", email);
+                    List<StudentEntity> studentByNumber = StudentCrud.findStudentByAtt("studentNumber", phoneNumber);
+                    if (student == null && studentByNumber.size() == 0 && studentByEmail.size() == 0) {
+                        student = new StudentEntity();
+                        student.setStudentId(userID);
+                        student.setStudentEmail(email);
+                        student.setStudentName(userName);
+                        student.setStudentNumber(phoneNumber);
+                        student.setStudentPassword("123456789");
+                        boolean isAdded = StudentCrud.addStudent(student);
 
 
-
-
-                    if (isAdded) {
-                        request.getSession().setAttribute("success", "Account created successfully!");
-                        RegisterationMail.sendMail(email,"","Temporary Password","your temporary password is (123456789), We encourage you to change your password ");
+                        if (isAdded) {
+                            request.getSession().setAttribute("success", "Account created successfully!");
+                            RegisterationMail.sendMail(email, "", "Temporary Password", "your temporary password is (123456789), We encourage you to change your password ");
 
 
                             out.print("success");
 
+                        }
+                    } else {
+                        out.print("There is already an account associated with these credentials!");
                     }
-                } else {
-                    out.print("There is already an account associated with these credentials!");
                 }
             }
-        } else {
+            else
+            {
+                out.print("Please enter a valid email!");
+            }
+        }else {
             out.print("Captcha is invalid!");
         }
     }

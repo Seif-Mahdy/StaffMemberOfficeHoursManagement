@@ -14,6 +14,7 @@ import javax.activation.*;
 
 
 public class Main {
+
     public static void main(final String[] args) throws Exception {
 
 
@@ -95,8 +96,6 @@ public class Main {
         slot.setToDate(stamp2);
         slot.setStaffId("20170000");
         System.out.println(OfficeHourCrud.addOfficeHour(slot));*/
-
-       List< StudentEntity> student =  StudentCrud.findStudentByAtt("studentName","Abdelrhman hosny awad");
 
     }
 

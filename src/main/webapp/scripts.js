@@ -454,6 +454,7 @@ function showChat(receiverId, senderId) {
 }
 
 function sendMessage() {
+    console.log("enterr")
     var toEmail = $('#toEmail').val()
     var subject = $('#subject').val()
     var message = $('#message').val()

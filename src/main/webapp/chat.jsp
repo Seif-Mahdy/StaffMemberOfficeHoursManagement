@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.util.Map" %><%--
   Created by IntelliJ IDEA.
   User: seif
   Date: 1/13/21
@@ -13,6 +13,7 @@
 </head>
 <body>
 <%
+    //TODO:Determine which is the sender and which is the receiver , the chat page is the same for both
     if (request.getSession().getAttribute("id") == null) {
         response.sendRedirect("index.jsp");
     } else {
@@ -20,44 +21,31 @@
         System.out.println(request.getParameter("senderId"));
 %>
 <%@include file="layout/navbar.jsp" %>
+<%                    Map<Key, List<MessageEntity>> myInbox =RegisterationMail.retrieveMessages(request.getSession().getAttribute("id").toString());
+List<MessageEntity>chat=myInbox.get(new Key(request.getParameter("senderId"),request.getParameter("receiverId")));
+%>
 <div class="px-5" style="margin-top: 100px">
     <ul class="list-group">
+        <%
+        for(int i=0;i<chat.size();i++)
+        {
+
+
+
+        %>
         <li class="list-group-item mb-4">
             <div class="d-flex justify-content-between mb-2">
-                <div class="font-weight-bold h5">Subject</div>
+                <div class="font-weight-bold h5"><%=chat.get(i).getSubject()%></div>
             </div>
-            <div class="font-weight-lighter h6">this is the message content this is the message contentthis is the
-                message contentthis is the message content
+            <div class="font-weight-lighter h6"><%=chat.get(i).getMessageContent()%>
             </div>
-            <div class="font-weight-lighter text-muted float-right">2020-1-14 14:00</div>
+            <div class="font-weight-lighter text-muted float-right"><%=chat.get(i).getMessageDate()%></div>
         </li>
-        <li class="list-group-item mb-4 border-top rounded">
-            <div class="d-flex justify-content-between mb-2">
-                <div class="font-weight-bold h5">Subject</div>
-            </div>
-            <div class="font-weight-lighter h6">this is the message content this is the message contentthis is the
-                message contentthis is the message content
-            </div>
-            <div class="font-weight-lighter text-muted float-right">2020-1-14 14:00</div>
-        </li>
-        <li class="list-group-item mb-4 border-top rounded">
-            <div class="d-flex justify-content-between mb-2">
-                <div class="font-weight-bold h5">Subject</div>
-            </div>
-            <div class="font-weight-lighter h6">this is the message content this is the message contentthis is the
-                message contentthis is the message content
-            </div>
-            <div class="font-weight-lighter text-muted float-right">2020-1-14 14:00</div>
-        </li>
-        <li class="list-group-item mb-4 border-top rounded">
-            <div class="d-flex justify-content-between mb-2">
-                <div class="font-weight-bold h5">Subject</div>
-            </div>
-            <div class="font-weight-lighter h6">this is the message content this is the message contentthis is the
-                message contentthis is the message content
-            </div>
-            <div class="font-weight-lighter text-muted float-right">2020-1-14 14:00</div>
-        </li>
+
+<% }
+
+%>
+
     </ul>
 </div>
 <%

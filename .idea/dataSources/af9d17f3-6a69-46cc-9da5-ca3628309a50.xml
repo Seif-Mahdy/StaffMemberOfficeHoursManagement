@@ -943,8 +943,7 @@ SELECT|sys.sys_config
     </column>
     <column id="298" parent="286" name="isCanceled">
       <Position>5</Position>
-      <DataType>tinyint(1)|0s</DataType>
-      <NotNull>1</NotNull>
+      <DataType>tinyint|0s</DataType>
     </column>
     <index id="299" parent="286" name="OfficeHourId">
       <ColNames>OfficeHourId</ColNames>
@@ -1071,11 +1070,11 @@ StudentId</ColNames>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="324" parent="290" name="StudentId">
+    <column id="324" parent="290" name="SenderId">
       <Position>2</Position>
       <DataType>varchar(8)|0s</DataType>
     </column>
-    <column id="325" parent="290" name="StaffId">
+    <column id="325" parent="290" name="ReceiverId">
       <Position>3</Position>
       <DataType>varchar(8)|0s</DataType>
     </column>
@@ -1084,29 +1083,28 @@ StudentId</ColNames>
       <DataType>varchar(250)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="327" parent="290" name="StudentId">
-      <ColNames>StudentId</ColNames>
+    <column id="327" parent="290" name="Subject">
+      <Position>5</Position>
+      <DataType>varchar(40)|0s</DataType>
+    </column>
+    <column id="328" parent="290" name="MessageDate">
+      <Position>6</Position>
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="329" parent="290" name="message_staffmember__fk">
+      <ColNames>SenderId</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="328" parent="290" name="StaffId">
-      <ColNames>StaffId</ColNames>
+    <index id="330" parent="290" name="message_student__fk">
+      <ColNames>ReceiverId</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="329" parent="290" name="PRIMARY">
+    <key id="331" parent="290" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>MessageID</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="330" parent="290" name="message_ibfk_1">
-      <ColNames>StudentId</ColNames>
-      <RefTableName>student</RefTableName>
-      <RefColNames>StudentId</RefColNames>
-    </foreign-key>
-    <foreign-key id="331" parent="290" name="message_ibfk_2">
-      <ColNames>StaffId</ColNames>
-      <RefTableName>staffmember</RefTableName>
-      <RefColNames>StaffId</RefColNames>
-    </foreign-key>
     <column id="332" parent="291" name="ID">
       <Position>1</Position>
       <DataType>int|0s</DataType>

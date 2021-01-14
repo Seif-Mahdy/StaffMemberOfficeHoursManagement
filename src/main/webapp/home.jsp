@@ -22,6 +22,7 @@
         if (loginType.equals("student")) {
             List<CourseEntity> courses = CourseCrud.selectAllCourses();
 %>
+<% //TODO: check subject staff table , do not update  %>
 <%@include file="layout/navbar.jsp" %>
 <div class="px-5" style="margin-top: 100px;">
     <div class="card mb-5">

@@ -215,7 +215,7 @@
                     <button type="button" class="btn btn-danger" data-dismiss="modal"
                             onclick="closeModal('send-message','form-msg2')">Close
                     </button>
-                    <button type="button" class="btn btn-success" onclick=""
+                    <button type="button" class="btn btn-success" onclick="sendMessage()"
                             style="width: 64px;height: 38px" id="cancel-btn">
                         <div class="spinner-border text-light spinner-border-sm d-none" role="status"
                              id="spinner3">

@@ -13,7 +13,9 @@ public class RegisterationMail {
         String password = "Office1212";
         boolean isSent = false;
         //Get the session object
-        messageContent = "This message is Sent by: " + senderMail + "\n" + messageContent;
+        if(senderMail!=null) {
+            messageContent = "This message is Sent by: " + senderMail + "\n" + messageContent;
+        }
         Properties properties = System.getProperties();
         properties.setProperty("mail.smtp.host", host);
         properties.put("mail.smtp.auth", "true");
@@ -48,8 +50,13 @@ public class RegisterationMail {
 
     public static Map<Key, List<MessageEntity>> retrieveMessages(String id) {
         List<MessageEntity> myChat = new ArrayList<>();
+        List<MessageEntity> receivedMessages = new ArrayList<>();
+
         List<String> receivers = new ArrayList<>();
         Map<String, String> att= new HashMap<>();
+        att.put("receiverId",id);
+        receivedMessages=MessageCrud.findMessageByAtt(att);
+        att.remove("receiverId");
         Map<Key,List<MessageEntity>>myInbox = new HashMap<>();
         att.put("senderId",id);
         myChat = MessageCrud.findMessageByAtt(att);
@@ -60,6 +67,15 @@ public class RegisterationMail {
 
             }
         }
+        for(int i=0;i<receivedMessages.size();i++)
+        {
+            if(!receivers.contains(receivedMessages.get(i).getSenderId()))
+            {
+                receivers.add(receivedMessages.get(i).getSenderId());
+            }
+        }
+
+
         att.remove("senderId");
         for ( String receiver:
              receivers) {
@@ -86,5 +102,15 @@ public class RegisterationMail {
         chat.addAll(receiverMessages);
         Collections.sort(chat);
         return  chat;
+    }
+    public static boolean isValidEmailAddress(String email) {
+        boolean result = true;
+        try {
+            InternetAddress emailAddr = new InternetAddress(email);
+            emailAddr.validate();
+        } catch (AddressException ex) {
+            result = false;
+        }
+        return result;
     }
 }
