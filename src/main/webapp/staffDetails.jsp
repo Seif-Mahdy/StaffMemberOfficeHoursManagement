@@ -25,12 +25,12 @@
         String loginType = request.getSession().getAttribute("loginType").toString();
 %>
 <%@include file="layout/navbar.jsp" %>
-<div style="margin-top: 100px" class="p-5">
+<div style="margin-top: 100px" class="px-5">
     <%
         if (loginType.equals("student")) {
     %>
     <div class="card mb-5">
-        <div class="card-header fw-bold">
+        <div class="card-header font-weight-bold">
             Contact-info
         </div>
         <%
@@ -40,19 +40,21 @@
         %>
         <div class="card-body">
             <p class="card-text">
-                <span class="fw-bold">Name: </span><%=staff.getStaffName()%>
+                <span class="font-weight-bold">Name: </span><%=staff.getStaffName()%>
             </p>
-            <p class="card-text"><span class="fw-bold"> Phone number: </span><%=staff.getStaffNumber()%>
+            <p class="card-text"><span class="font-weight-bold"> Phone number: </span><%=staff.getStaffNumber()%>
             </p>
-            <p class="card-text"><span class="fw-bold">Email: </span><%=staff.getStaffEmail()%>
+            <p class="card-text"><span class="font-weight-bold">Email: </span><%=staff.getStaffEmail()%>
             </p>
         </div>
         <div class="card-footer text-muted">
-            <button class="btn btn-success d-flex float-end">Send message</button>
+            <button class="btn btn-success d-flex float-right" data-toggle="modal" data-target="#exampleModal1">Send
+                message
+            </button>
         </div>
     </div>
     <div class="card mb-5">
-        <div class="card-header fw-bold">
+        <div class="card-header font-weight-bold">
             Office hours
         </div>
 
@@ -60,7 +62,7 @@
             List<OfficehourEntity> slots = OfficeHourCrud.selectStaffOfficeHour(id);
             List<AppointmentEntity> appointments = AppointmentCrud.selectAllAppointment("staffId", staff.getStaffId());
             List<OfficehourEntity> freeSlots = new ArrayList<>();
-            boolean isExist =false;
+            boolean isExist = false;
             for (int i = 0; i < slots.size(); i++) {
                 if (appointments.size() == 0) {
                     freeSlots = slots;
@@ -68,14 +70,13 @@
                     for (AppointmentEntity appointment : appointments) {
 
                         if (appointment.getOfficeHourId().equals(slots.get(i).getId())) {
-                            System.out.println("appoint"+ appointment.getOfficeHourId());
-                            System.out.println("slot"+ slots.get(i).getId());
-                           isExist=true;
+                            System.out.println("appoint" + appointment.getOfficeHourId());
+                            System.out.println("slot" + slots.get(i).getId());
+                            isExist = true;
                         }
 
                     }
-                    if(!isExist)
-                    {
+                    if (!isExist) {
                         freeSlots.add(slots.get(i));
                     }
                 }
@@ -108,8 +109,7 @@
                         LocalDate local2 = dateTime.toLocalDate();
 
 
-                        if (local1.compareTo(local2) >= 0)
-                        {
+                        if (local1.compareTo(local2) >= 0) {
                 %>
                 <tr>
                     <td class="text-center"><%=slot.getFromDate()%>
@@ -124,7 +124,7 @@
                     </td>
                 </tr>
                 <%
-                        }
+                            }
                         }
 
                     }
@@ -137,7 +137,7 @@
     } else {
     %>
     <div class="card mb-5">
-        <div class="card-header fw-bold">
+        <div class="card-header font-weight-bold">
             Contact-info
         </div>
         <%
@@ -147,26 +147,92 @@
         %>
         <div class="card-body">
             <p class="card-text">
-                <span class="fw-bold">ID: </span><%=student.getStudentId()%>
+                <span class="font-weight-bold">ID: </span><%=student.getStudentId()%>
             </p>
             <p class="card-text">
-                <span class="fw-bold">Name: </span><%=student.getStudentName()%>
+                <span class="font-weight-bold">Name: </span><%=student.getStudentName()%>
             </p>
-            <p class="card-text"><span class="fw-bold"> Phone number: </span><%=student.getStudentNumber()%>
+            <p class="card-text"><span class="font-weight-bold"> Phone number: </span><%=student.getStudentNumber()%>
             </p>
-            <p class="card-text"><span class="fw-bold">Email: </span><%=student.getStudentEmail()%>
+            <p class="card-text"><span class="font-weight-bold">Email: </span><%=student.getStudentEmail()%>
             </p>
         </div>
         <div class="card-footer text-muted">
-            <button class="btn btn-success d-flex float-end">Send message</button>
+            <button class="btn btn-success d-flex float-right" data-toggle="modal" data-target="#exampleModal1">Send
+                message
+            </button>
         </div>
     </div>
+
     <%
-                }
             }
         }
-    %>
+    %> <!-- Modal -->
+    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel1">Send message</h5>
+                    <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">x</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-danger" id="send-message-errors"></div>
+                    <form action="#" method="POST" id="send-message" class="mt-2">
+                        <div class="form-group mb-3">
+                            <label class="mb-1" for="toEmail">To</label>
+                            <%
+                                String id = request.getParameter("id");
+                                StudentEntity student = StudentCrud.findStudent(id);
+                                if (loginType.equals("staff")) {
+                            %>
+                            <input type="email" class="form-control" id="toEmail"
+                                   name="toEmail" readonly value="<%=student.getStudentEmail()%>">
+                            <%
+                            } else {
+                                StaffmemberEntity staff = StaffMemberCrud.findStaffMember(id);
+                            %>
+                            <input type="email" class="form-control" id="toEmail"
+                                   name="toEmail" readonly value="<%=staff.getStaffEmail()%>">
+                            <%
+                                }
+                            %>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="mb-1" for="subject">Subject</label>
+                            <input type="text" class="form-control" id="subject"
+                                   required name="subject">
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-1" for="message">Message body</label>
+                            <textarea class="form-control" id="message" rows="3"></textarea>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"
+                            onclick="closeModal('send-message','form-msg2')">Close
+                    </button>
+                    <button type="button" class="btn btn-success" onclick=""
+                            style="width: 64px;height: 38px" id="cancel-btn">
+                        <div class="spinner-border text-light spinner-border-sm d-none" role="status"
+                             id="spinner3">
+                            <span class="d-none">Loading...</span>
+                        </div>
+                        <div id="btn-text2">
+                            Send
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </div>
+<%
+    }
+%>
 </body>
 </html>

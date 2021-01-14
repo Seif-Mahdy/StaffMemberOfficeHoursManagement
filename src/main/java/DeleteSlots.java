@@ -46,7 +46,6 @@ public class DeleteSlots extends HttpServlet {
             }
         }
         if (isDeleted && appointments.size()>0) {
-            //TODO: check notification appearance
             out.print("success");
         } else {
             out.print("failed to delete");

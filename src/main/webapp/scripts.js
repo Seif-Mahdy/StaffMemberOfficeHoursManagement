@@ -3,7 +3,7 @@ function validateLogin(id, password, login_type) {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             $("#login-btn").prop('disabled', false)
-            $("#spinner").addClass("visually-hidden")
+            $("#spinner").addClass("invisible")
             if (xhttp.responseText == "success") {
                 window.location.href = 'home.jsp'
             } else {
@@ -22,7 +22,7 @@ function validateRegister(userName, userID, email, phoneNumber, registerType, ca
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             $("#register-btn").prop('disabled', false);
-            $("#spinner").addClass("visually-hidden")
+            $("#spinner").addClass("invisible")
             if (xhttp.responseText == 'success') {
                 $('#register-form').find('input,textarea').val('')
                 window.location.href = 'index.jsp'
@@ -42,7 +42,7 @@ function validateUpdateProfile(userName, email, password, phoneNumber) {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             $("#update-btn").prop('disabled', false)
-            $("#spinner").addClass("visually-hidden")
+            $("#spinner").addClass("invisible")
             if (xhttp.responseText == "success") {
                 console.log('in success')
                 window.location.href = 'profile.jsp'
@@ -60,6 +60,7 @@ function validateUpdateProfile(userName, email, password, phoneNumber) {
 }
 
 function loadLoginData() {
+    $('#spinner').removeClass('invisible')
     $("#login-form").submit(function (e) {
         e.preventDefault()
     })
@@ -71,7 +72,7 @@ function loadLoginData() {
             $('#validation_error').html('User ID must be exactly 8 digits!')
         } else {
             $("#login-btn").prop('disabled', true)
-            $("#spinner").removeClass("visually-hidden")
+            $("#spinner").removeClass("invisible")
             validateLogin(id, password, loginType)
         }
     } else {
@@ -88,12 +89,12 @@ function showRegistrationType() {
             $('#register-type').attr('class', 'input-group mb-5')
             $('#inputGroupSelect02').prop('disabled', false)
         } else {
-            $('#register-type').attr('class', 'input-group mb-5 visually-hidden')
+            $('#register-type').attr('class', 'input-group mb-5 invisible')
             $('#inputGroupSelect02').prop('disabled', true)
         }
 
     } else {
-        $('#register-type').attr('class', 'input-group mb-5 visually-hidden')
+        $('#register-type').attr('class', 'input-group mb-5 invisible')
         $('#inputGroupSelect02').prop('disabled', true)
     }
 }
@@ -127,7 +128,7 @@ function loadRegisterData() {
             }
             if (error_msg.length == 0) {
                 $("#register-btn").prop('disabled', true)
-                $("#spinner").removeClass("visually-hidden")
+                $("#spinner").removeClass("invisible")
                 validateRegister(userName, userID, email, phoneNumber, registerType, captchaToken)
             } else {
                 for (var i = 0; i < error_msg.length; i++) {
@@ -148,7 +149,7 @@ function loadProfileData() {
     if ($('#updateProfileSuccess').html() != '') {
         $('#updateProfileSuccess').empty()
     }
-    $('#spinner').removeClass('visually-hidden')
+    $('#spinner').removeClass('invisible')
     $('#update-btn').prop('disabled', 'true')
     $('#updateProfileErrors').empty()
     $('#profileDataForm').submit(function (e) {
@@ -163,7 +164,7 @@ function loadProfileData() {
         if (phoneNumber.length != 11) {
             $('#updateProfileErrors').append('<li class="text-danger">Phone number must be exactly 11 digits!</li>')
             $("#update-btn").prop('disabled', false)
-            $("#spinner").addClass("visually-hidden")
+            $("#spinner").addClass("invisible")
         } else {
             validateUpdateProfile(userName, email, password, phoneNumber)
         }
@@ -175,7 +176,7 @@ function loadProfileData() {
 
 function logout() {
     $('#logout-btn').prop('disabled', 'true')
-    $('#spinner1').removeClass('visually-hidden')
+    $('#spinner1').removeClass('invisible')
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -197,20 +198,48 @@ $(document).ready(function () {
     });
     $('#example1').DataTable({
         "scrollY": "200px",
-        "columnDefs": [{
-            "targets": [0],
-            "visible": false,
-            "searchable": false,
-            "className": "text-center",
-        }],
+        "columnDefs": [
+            {
+                "targets": [0],
+                "visible": false,
+                "searchable": false,
+            },
+            {
+                "targets": -1,
+                "data": null,
+                "defaultContent": "<button class='btn btn-primary'>Show</button>"
+            },
+            {
+                className: "text-center",
+                "targets": [1, 2, 3, 4, 5],
+
+            }
+
+        ],
     });
     $('#example2').DataTable({
         "scrollY": "200px",
-        "columnDefs": [{
-            "className": "text-center",
-        }]
+        "columnDefs": [
+            {
+                "className": "text-center",
+            }
+        ]
     });
 });
+
+function showStudent(studentId) {
+    var form = document.createElement('form')
+    form.action = 'staffDetails.jsp'
+    form.method = 'POST'
+    form.className = 'invisible'
+    var input = document.createElement('input')
+    input.value = studentId
+    input.name = 'id'
+    form.appendChild(input)
+    document.body.appendChild(form)
+    form.submit()
+
+}
 
 function showStaffMembers(value) {
     $('#card-header').html('Staff members teaching ' + value)
@@ -231,11 +260,12 @@ function showStaffMembers(value) {
                 ]).draw(true)
             }
 
-            $('#example1 tbody').on('click', 'tr', function () {
-                var data = table.row(this).data()
+            $('#example1 tbody').on('click', 'button', function () {
+                var data = table.row($(this).parents('tr')).data()
                 var form = document.createElement('form')
                 form.action = 'staffDetails.jsp'
                 form.method = 'POST'
+                form.className = 'invisible'
                 var input = document.createElement('input')
                 input.value = data[0]
                 input.name = 'id'
@@ -277,29 +307,6 @@ function reserveSlot(slotId, studentId, staffId) {
 
 }
 
-function validate_date() {
-    $('#cancel-appointment').submit(function (e) {
-        e.preventDefault()
-    })
-    var date = $('#appointment-date').val()
-    var xhttp = new XMLHttpRequest()
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            $("#login-btn").prop('disabled', false)
-            $("#spinner").addClass("visually-hidden")
-            if (xhttp.responseText == "success") {
-                //
-            } else {
-                $('#validation_error').html(xhttp.responseText.toUpperCase())
-            }
-        }
-    }
-    // xhttp.open("POST", "Login", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send("appointmentDate=" + date);
-
-}
-
 function cancelReservation(appointmentId, loginType) {
 
     var xhttp = new XMLHttpRequest();
@@ -329,9 +336,9 @@ function cancelReservation(appointmentId, loginType) {
 
 function addOfficeHour() {
 
-    $('#spinner2').removeClass('visually-hidden')
+    $('#spinner2').removeClass('d-none')
     $('#add-btn').prop('disabled', true)
-    $('#btn-text').addClass('visually-hidden')
+    $('#btn-text').addClass('invisible')
     var date = $('#date').val()
     var fromTime = $('#from').val()
     var toTime = $('#to').val()
@@ -342,18 +349,22 @@ function addOfficeHour() {
     }
     if (date != '' && toTime != '' && fromTime != '') {
         if (toTime <= fromTime) {
+            $('#spinner2').addClass('d-none')
+            $('#add-btn').prop('disabled', false)
+            $('#btn-text').removeClass('invisible')
             $('#form-msg').attr('class', 'text-danger')
             $('#form-msg').html('To time must be after the from time!')
         } else {
             var xhttp = new XMLHttpRequest()
             xhttp.onreadystatechange = function () {
                 if (xhttp.readyState == 4 && xhttp.status == 200) {
-                    $('#spinner2').addClass('visually-hidden')
+                    $('#spinner2').addClass('d-none')
                     $('#add-btn').prop('disabled', false)
-                    $('#btn-text').removeClass('visually-hidden')
+                    $('#btn-text').removeClass('invisible')
                     if (xhttp.responseText == 'success') {
                         $('#form-msg').attr('class', 'text-success')
                         $('#form-msg').html('Office hour added successfully!')
+                        window.location.href = 'staffAppointments.jsp'
                     } else {
                         $('#form-msg').attr('class', 'text-danger')
                         $('#form-msg').html('Failed to add this office hour!')
@@ -365,26 +376,26 @@ function addOfficeHour() {
             xhttp.send("date=" + date + "&fromTime=" + fromTime + "&toTime=" + toTime + "&isOffline=" + isOffline + "&location=" + location);
         }
     } else {
-        $('#spinner2').addClass('visually-hidden')
+        $('#spinner2').addClass('d-none')
         $('#add-btn').prop('disabled', false)
-        $('#btn-text').removeClass('visually-hidden')
+        $('#btn-text').removeClass('invisible')
         $('#form-msg').attr('class', 'text-danger')
         $('#form-msg').html('Fields cannot be empty!')
     }
 }
 
 function cancelAppointmentsOfDay() {
-    $('#spinner3').removeClass('visually-hidden')
+    $('#spinner3').removeClass('d-none')
     $('#cancel-btn').prop('disabled', true)
-    $('#btn-text2').addClass('visually-hidden')
+    $('#btn-text2').addClass('invisible')
     var date = $('#appointment-date').val()
     if (date != '') {
         var xhttp = new XMLHttpRequest()
         xhttp.onreadystatechange = function () {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
-                $('#spinner3').addClass('visually-hidden')
+                $('#spinner3').addClass('d-none')
                 $('#cancel-btn').prop('disabled', false)
-                $('#btn-text2').removeClass('visually-hidden')
+                $('#btn-text2').removeClass('invisible')
                 if (xhttp.responseText == 'success') {
                     $('#form-msg2').attr('class', 'text-success')
                     $('#form-msg2').html('ِAppointments cancelled successfully!')
@@ -398,9 +409,9 @@ function cancelAppointmentsOfDay() {
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("date=" + date);
     } else {
-        $('#spinner3').addClass('visually-hidden')
+        $('#spinner3').addClass('d-none')
         $('#cancel-btn').prop('disabled', false)
-        $('#btn-text2').removeClass('visually-hidden')
+        $('#btn-text2').removeClass('invisible')
         $('#form-msg2').attr('class', 'text-danger')
         $('#form-msg2').html('Fields cannot be empty!')
     }
@@ -419,4 +430,46 @@ function test() {
     }
     today = yyyy + '-' + mm + '-' + dd;
     document.getElementById("date").setAttribute("min", today);
+}
+
+function closeModal(formId, labelId) {
+    document.getElementById(formId).reset()
+    $('#' + labelId).html('')
+}
+
+function showChat(receiverId, senderId) {
+    var form = document.createElement('form')
+    form.action = 'chat.jsp'
+    form.method = 'post'
+    var senderInput = document.createElement('input')
+    senderInput.value = senderId
+    senderInput.name = 'senderId'
+    var receiverInput = document.createElement('input')
+    receiverInput.value = receiverId
+    receiverInput.name = 'receiverId'
+    form.appendChild(receiverInput)
+    form.appendChild(senderInput)
+    document.body.appendChild(form)
+    form.submit()
+}
+
+function sendMessage() {
+    var toEmail = $('#toEmail').val()
+    var subject = $('#subject').val()
+    var message = $('#message').val()
+
+    if (toEmail == '' && subject == '' && message == '') {
+        $('send-message-errors').html('Fields cannot be empty!')
+    } else {
+        var xhttp = new XMLHttpRequest()
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+//TODO:show proper response when mail is sent and when it is not
+            }
+        }
+
+        xhttp.open("POST", "AddMessage", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("toEmail=" + toEmail + "&subject=" + subject + "&message=" + message);
+    }
 }

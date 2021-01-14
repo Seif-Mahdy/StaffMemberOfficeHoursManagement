@@ -24,7 +24,7 @@
         String loginType = request.getSession().getAttribute("loginType").toString();
 %>
 <%@include file="layout/navbar.jsp" %>
-<div class="p-5" style="margin-top: 100px">
+<div class="px-5" style="margin-top: 100px">
     <%
         if (request.getSession().getAttribute("id") == null) {
             response.sendRedirect("index.jsp");
@@ -39,7 +39,7 @@
             }
     %>
     <div class="card mb-5">
-        <div class="card-header fw-bold">
+        <div class="card-header font-weight-bold">
             My appointments
         </div>
         <div class="card-body">

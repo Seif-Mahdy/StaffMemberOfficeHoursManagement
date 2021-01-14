@@ -45,12 +45,12 @@
         }
 %>
 <%@include file="layout/navbar.jsp" %>
-<div class="container-fluid p-5" style="margin-top: 100px">
+<div class="container-fluid px-5" style="margin-top: 100px">
     <ul id="updateProfileErrors">
     </ul>
 
     <div class="card mb-5">
-        <div class="card-header fw-bold">
+        <div class="card-header font-weight-bold">
             Update Profile
         </div>
         <div class="card-body">
@@ -71,7 +71,6 @@
                     <input type="text" class="form-control" id="exampleInputName" value="<%= name %>" required>
                 </div>
                 <div class="mb-3">
-                    <%--TODO:check update mail error[DONE]--%>
                     <label for="exampleInputEmail" class="form-label">Email</label>
                     <input type="text" class="form-control" id="exampleInputEmail" value="<%=email%>" required>
                 </div>
@@ -86,10 +85,10 @@
             </form>
         </div>
         <div class="card-footer text-muted">
-            <div class="d-flex flex-row float-end align-items-center">
-                <div class="spinner-border text-primary spinner-border-sm visually-hidden" role="status"
+            <div class="d-flex flex-row float-right align-items-center">
+                <div class="spinner-border text-primary spinner-border-sm invisible" role="status"
                      id="spinner">
-                    <span class="visually-hidden">Loading...</span>
+                    <span class="invisible">Loading...</span>
                 </div>
                 <button type="submit" form="profileDataForm" class="btn btn-primary ms-4" onclick="loadProfileData()"
                         id="update-btn">update
@@ -101,11 +100,12 @@
         if (loginType.equals("staff")) {
     %>
     <div class="card mb-5">
-        <% List<AppointmentEntity> appointments = new ArrayList<>();
+        <%
+            List<AppointmentEntity> appointments = new ArrayList<>();
             appointments = AppointmentCrud.selectAllAppointment("staffId", request.getSession().getAttribute("id").toString());
         %>
 
-        <div class="card-header fw-bold">
+        <div class="card-header font-weight-bold">
             Reservations history
         </div>
         <div class="card-body">
@@ -122,13 +122,13 @@
                 </thead>
                 <tbody>
                 <%
-                    for (int i = 0; i < appointments.size(); i++) {
+                    for (AppointmentEntity appointment : appointments) {
                         Date date = new Date();
                         long time = date.getTime();
                         Timestamp currentDate = new Timestamp(time);
 
 
-                        OfficehourEntity slot = OfficeHourCrud.findOfficeHour(appointments.get(i).getOfficeHourId());
+                        OfficehourEntity slot = OfficeHourCrud.findOfficeHour(appointment.getOfficeHourId());
                         if (currentDate.compareTo(slot.getFromDate()) > 0) {
                 %>
                 <tr>
@@ -142,7 +142,7 @@
                     </td>
                     <td class="text-center"><%=slot.getLocation()%>
                     </td>
-                    <td class="text-center"><%=appointments.get(i).getStudentId()%>
+                    <td class="text-center"><%=appointment.getStudentId()%>
                     </td>
 
                 </tr>

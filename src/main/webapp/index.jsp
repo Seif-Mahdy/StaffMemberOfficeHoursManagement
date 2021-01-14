@@ -79,9 +79,9 @@
                 <div class="d-flex flex-row align-items-center">
                     <button type="submit" class="btn btn-primary" onclick="loadLoginData()" id="login-btn">login
                     </button>
-                    <div class="spinner-border text-primary spinner-border-sm ms-4 visually-hidden" role="status"
+                    <div class="spinner-border text-primary spinner-border-sm ms-4 invisible" role="status"
                          id="spinner">
-                        <span class="visually-hidden">Loading...</span>
+                        <span class="invisible">Loading...</span>
                     </div>
                 </div>
                 <a href="register.jsp">Don't have an account?</a>
