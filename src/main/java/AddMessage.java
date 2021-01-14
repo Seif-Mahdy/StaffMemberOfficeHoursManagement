@@ -1,5 +1,4 @@
 import com.*;
-import sun.plugin2.message.Message;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +17,9 @@ public class AddMessage extends HttpServlet {
 
     String senderId=request.getSession().getAttribute("id").toString();
         String senderEmail=null ;
-    if(request.getSession().getAttribute("loginType").toString().equals("student"))
+        PrintWriter out = response.getWriter();
+
+        if(request.getSession().getAttribute("loginType").toString().equals("student"))
     {
         StudentEntity student= StudentCrud.findStudent(senderId);
         senderEmail=student.getStudentEmail();
@@ -31,42 +32,39 @@ public class AddMessage extends HttpServlet {
         MessageEntity message=new MessageEntity();
 
         String receiverMail=request.getParameter("toEmail");
-        List<StudentEntity> tempStudent=StudentCrud.findStudentByAtt("studentEmail",receiverMail);
-        List<StaffmemberEntity> tempStuff=StaffMemberCrud.findStaffByAtt("staffEmail",receiverMail);
-        boolean isValidDate=true;
-    if(tempStudent.size()>0)
-    {
-        message.setReceiverId(tempStudent.get(0).getStudentId());
-    }
-    else if(tempStuff.size()>0)
-    {
-        message.setReceiverId(tempStuff.get(0).getStaffId());
-    }
 
-      else // receiver mail does not exist
-    {
-        //TODO: decide how to handle this case , invalid receiver mail
-        isValidDate=false;
-    }
+            List<StudentEntity> tempStudent = StudentCrud.findStudentByAtt("studentEmail", receiverMail);
+            List<StaffmemberEntity> tempStuff = StaffMemberCrud.findStaffByAtt("staffEmail", receiverMail);
+            boolean isValidDate = true;
+            if (tempStudent.size() > 0) {
+                message.setReceiverId(tempStudent.get(0).getStudentId());
+            } else if (tempStuff.size() > 0) {
+                message.setReceiverId(tempStuff.get(0).getStaffId());
+            } else // receiver mail does not exist
+            {
 
-    String messageContent=request.getParameter("message");
-    String subject=request.getParameter("subject");
-    message.setMessageContent(messageContent);
-    message.setSubject(subject);
-    message.setSenderId(senderId);
+                isValidDate = false;
+            }
+    if(isValidDate) {
+        String messageContent = request.getParameter("message");
+        String subject = request.getParameter("subject");
+        message.setMessageContent(messageContent);
+        message.setSubject(subject);
+        message.setSenderId(senderId);
         Date date = new Date();
 
-    message.setMessageDate(new Timestamp(date.getTime()));
-        PrintWriter out = response.getWriter();
-    if(  RegisterationMail.sendMail(receiverMail,senderEmail,subject,messageContent) && MessageCrud.addMessage(message))
-    {
-        out.print("success");
+        message.setMessageDate(new Timestamp(date.getTime()));
+        if (RegisterationMail.sendMail(receiverMail, senderEmail, subject, messageContent) && MessageCrud.addMessage(message)) {
+            out.print("success");
+        } else {
+            out.print("Failed to send message");
+        }
+
     }
     else
     {
-        out.print("Failed to send message");
+        //TODO: decide how to handle this case , invalid receiver mail
     }
-
 
 
 
