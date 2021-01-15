@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "Reservation",value ="/Reservation" )
+@WebServlet(name = "Reservation", value = "/Reservation")
 public class Reservation extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String studentId = request.getParameter("studentId");
@@ -17,7 +17,7 @@ public class Reservation extends HttpServlet {
         int slotId = Integer.parseInt(request.getParameter("slotId"));
         String staffId = request.getParameter("staffId");
         PrintWriter out = response.getWriter();
-        
+
         if (reserveApp(slotId, studentId, staffId)) {
             out.print("success");
         } else {

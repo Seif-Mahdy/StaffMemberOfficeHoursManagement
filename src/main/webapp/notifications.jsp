@@ -10,12 +10,6 @@
 <head>
     <title>Title</title>
     <%@include file="layout/includes.html" %>
-    <script>
-        $(document).ready(function () {
-
-            $('.toast').toast('show')
-        })
-    </script>
 </head>
 <body>
 <%
@@ -26,11 +20,14 @@
 %>
 <%@include file="layout/navbar.jsp" %>
 <div class="px-5" style="margin-top: 100px">
-    <div class="alert alert-primary mb-3 d-flex flex-row align-items-center justify-content-between" role="alert">
-        <div>
-            A simple secondary alert—check it out!
+    <div class="alert alert-primary mb-3" role="alert">
+        <div class="d-flex flex-row align-items-center justify-content-between">
+            <div>
+                A simple secondary alert—check it out!
+            </div>
+            <div style="cursor: pointer">X</div>
         </div>
-        <div style="cursor: pointer">X</div>
+        <div class="text-right text-muted mt-1">2020-1-15 03:31</div>
     </div>
     <div class="alert alert-primary mb-3 d-flex flex-row align-items-center justify-content-between" role="alert">
         <div>
