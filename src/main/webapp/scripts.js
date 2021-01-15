@@ -242,14 +242,19 @@ function showStudent(studentId) {
 }
 
 function showStaffMembers(value) {
-    console.log("here")
     var table = $('#example1').DataTable()
     table.rows().remove().draw()
-    $('#card-header').html('Staff members teaching ' + value)
-    $("html, body").animate({scrollTop: $(document).height()}, "fast");
     var xhttp = new XMLHttpRequest()
+    $('#btn-text').addClass('d-none')
+    $('#show-btn').prop('disabled', true)
+    $('#spinner3').removeClass('d-none')
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
+            $('#card-header').html('Staff members teaching ' + value)
+            $("html, body").animate({scrollTop: $(document).height()}, "fast");
+            $('#btn-text').removeClass('d-none')
+            $('#show-btn').prop('disabled', false)
+            $('#spinner3').addClass('d-none')
             var json = JSON.parse(xhttp.responseText)
             for (var i = 0; i < json.length; i++) {
                 table.row.add([
@@ -486,7 +491,7 @@ function sendMessage() {
                         $('#btn-text').removeClass('d-none')
                         $('#img').addClass('d-none')
                         window.location.href = 'inbox.jsp'
-                    }, 1500)
+                    }, 1000)
 
                 } else if (xhttp.responseText == 'Cannot find this email!') {
                     $('#send-message-errors').html('Please enter a valid email!')

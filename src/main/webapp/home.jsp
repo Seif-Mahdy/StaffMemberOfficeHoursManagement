@@ -44,8 +44,15 @@
                     <td class="text-center"><%=course.getCourseName()%>
                     </td>
                     <td class="text-center">
-                        <button onclick="showStaffMembers('<%=course.getCourseName()%>')" class="btn btn-primary">Show
-                            staff members
+                        <button onclick="showStaffMembers('<%=course.getCourseName()%>')" class="btn btn-primary"
+                                id="show-btn" style="width: 172px;height: 38px">
+                            <div id="btn-text">
+                                Show staff members
+                            </div>
+                            <div class="spinner-border text-light spinner-border-sm d-none" role="status"
+                                 id="spinner3">
+                                <span class="d-none">Loading...</span>
+                            </div>
                         </button>
                     </td>
                 </tr>
