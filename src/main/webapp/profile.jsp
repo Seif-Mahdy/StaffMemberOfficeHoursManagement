@@ -18,7 +18,7 @@
     <title>Profile</title>
     <%@include file="layout/includes.html" %>
 </head>
-<body>
+<body style="overflow-x: hidden">
 <%
     String number = "";
     String password = "";

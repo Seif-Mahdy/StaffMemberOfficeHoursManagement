@@ -4,26 +4,24 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "appointment", schema = "officehoursmangementsystem")
+@Table(name = "appointment", schema = "officehoursmangementsystem", catalog = "")
 public class AppointmentEntity {
-    private Integer appointmentId;
+    private int appointmentId;
     private Integer officeHourId;
     private String studentId;
     private String staffId;
-    private Byte isCanceled;
+    private byte isNotified;
 
     @Id
-    @Column(name = "AppointmentId")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-
-    public Integer getAppointmentId() {
+    @Column(name = "AppointmentId", nullable = false)
+    public int getAppointmentId() {
         return appointmentId;
     }
 
-
-    private void setAppointmentId(Integer appointmentId) {
+    public void setAppointmentId(int appointmentId) {
         this.appointmentId = appointmentId;
     }
+
     @Basic
     @Column(name = "OfficeHourId", nullable = true)
     public Integer getOfficeHourId() {
@@ -54,26 +52,26 @@ public class AppointmentEntity {
         this.staffId = staffId;
     }
 
+    @Basic
+    @Column(name = "IsNotified", nullable = false)
+    public byte getIsNotified() {
+        return isNotified;
+    }
+
+    public void setIsNotified(byte isNotified) {
+        this.isNotified = isNotified;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AppointmentEntity that = (AppointmentEntity) o;
-        return Objects.equals(appointmentId, that.appointmentId);
+        return appointmentId == that.appointmentId && isNotified == that.isNotified && Objects.equals(officeHourId, that.officeHourId) && Objects.equals(studentId, that.studentId) && Objects.equals(staffId, that.staffId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(appointmentId);
-    }
-
-
-    public Byte getIsCanceled() {
-        return isCanceled;
-    }
-
-    public void setIsCanceled(Byte isCanceled) {
-        this.isCanceled = isCanceled;
+        return Objects.hash(appointmentId, officeHourId, studentId, staffId, isNotified);
     }
 }

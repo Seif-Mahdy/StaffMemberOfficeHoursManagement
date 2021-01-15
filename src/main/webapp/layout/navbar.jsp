@@ -1,5 +1,7 @@
 <%@ page import="java.util.List" %>
-<%@ page import="com.*" %><%--
+<%@ page import="com.*" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.HashMap" %><%--
 <%--
   Created by IntelliJ IDEA.
   User: seif
@@ -10,6 +12,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String url = request.getRequestURL().toString();
+    Map<String,String> att = new HashMap<>();
+    att.put("userId",request.getSession().getAttribute("id").toString());
+    List<NotificationEntity>notifications=NotificationCrud.findNotificationByAtt(att);
+    int notificationCounter=notifications.size();
 %>
 
 <nav class="navbar navbar-expand navbar-light bg-light fixed-top shadow rounded">
@@ -78,7 +84,7 @@
                 %>
                 <li class="nav-item rounded" style="background-color: lightgray">
                     <a class="nav-link active" aria-current="page" href="notifications.jsp">Notifications center
-                        <span class="ml-1 badge badge-pill badge-primary">3</span>
+                        <span class="ml-1 badge badge-pill badge-primary"><%=notificationCounter%></span>
                     </a>
                 </li>
                 <%
@@ -86,7 +92,7 @@
                 %>
                 <li class="nav-item rounded">
                     <a class="nav-link" aria-current="page" href="notifications.jsp">Notifications center
-                        <span class="ml-1 badge badge-pill badge-primary">3</span>
+                        <span class="ml-1 badge badge-pill badge-primary"><%=notificationCounter%></span>
                     </a>
                 </li>
                 <%
@@ -148,7 +154,7 @@
                 %>
                 <li class="nav-item rounded" style="background-color: lightgray">
                     <a class="nav-link active" aria-current="page" href="notifications.jsp">Notifications center
-                        <span class="ml-1 badge badge-pill badge-primary">3</span>
+                        <span class="ml-1 badge badge-pill badge-primary"><%=notificationCounter%></span>
                     </a>
                 </li>
                 <%
@@ -156,7 +162,7 @@
                 %>
                 <li class="nav-item rounded">
                     <a class="nav-link" aria-current="page" href="notifications.jsp">Notifications center
-                        <span class="ml-1 badge badge-pill badge-primary">3</span>
+                        <span class="ml-1 badge badge-pill badge-primary"><%=notificationCounter%></span>
                     </a>
                 </li>
                 <%

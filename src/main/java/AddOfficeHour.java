@@ -31,6 +31,7 @@ public class AddOfficeHour extends HttpServlet {
     slot.setLocation(location);
        if( OfficeHourCrud.addOfficeHour(slot))
        {
+           //TODO:lock add button
            out.print("success");
        }
        else

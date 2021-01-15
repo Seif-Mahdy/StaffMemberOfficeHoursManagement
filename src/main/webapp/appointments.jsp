@@ -63,7 +63,6 @@
 
                         Date date = new Date();
 
-                        long time = date.getTime();
                         DateTime dateTime = new DateTime(date);
                         org.joda.time.LocalDate local1 = fromDate.toLocalDate();
                         LocalDate local2 = dateTime.toLocalDate();

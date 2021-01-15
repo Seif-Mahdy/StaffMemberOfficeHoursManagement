@@ -1,7 +1,6 @@
 import com.AppointmentCrud;
 import com.AppointmentEntity;
 import com.OfficeHourCrud;
-import com.OfficehourEntity;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
@@ -37,7 +36,7 @@ public class DeleteSlots extends HttpServlet {
 
             if (local1.compareTo(local2) == 0) {
                 AppointmentEntity appointment = AppointmentCrud.findAppointment(appointments.get(i).getAppointmentId());
-                appointment.setIsCanceled((byte) 1);
+                appointment.setIsNotified((byte) 1);
                 if (!(AppointmentCrud.updateAppointment(appointment) && OfficeHourCrud.removeOfficeHourById(appointments.get(i).getOfficeHourId()))) {
                     isDeleted = false;
                 }

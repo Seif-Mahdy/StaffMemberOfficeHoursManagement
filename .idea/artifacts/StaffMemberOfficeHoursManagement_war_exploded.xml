@@ -43,8 +43,6 @@
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.11.2" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.11.2" />
           <element id="library" level="project" name="Maven: joda-time:joda-time:2.10.9" />
-          <element id="file-copy" path="$PROJECT_DIR$/../mail.jar" />
-          <element id="file-copy" path="$PROJECT_DIR$/../activation.jar" />
         </element>
       </element>
       <element id="directory" name="META-INF">

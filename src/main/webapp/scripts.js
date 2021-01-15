@@ -574,13 +574,21 @@ function sendMessageFromModal() {
 
 function removeNotification(id) {
     var xhttp = new XMLHttpRequest()
+    console.log(id)
     xhttp.onreadystatechange = function () {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
+            if(xhttp.responseText=="success")
+            {
+                window.location.href="notifications.jsp"
+            }
+            else
+            {
 
+            }
         }
     }
     //TODO:put the remove notification servlet here
-    xhttp.open("POST", "", true);
+    xhttp.open("POST", "DeleteNotification", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("notificationId=" + id);
 }

@@ -113,4 +113,5 @@ public class RegisterationMail {
         }
         return result;
     }
+
 }
