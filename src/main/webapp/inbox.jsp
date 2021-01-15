@@ -27,7 +27,7 @@
             Compose message
         </div>
         <div class="card-body">
-            <div class="text-danger" id="send-message-errors"></div>
+            <div class="text-danger mb-2" id="send-message-errors"></div>
             <form>
                 <div class="form-group mb-3">
                     <label class="mb-1" for="toEmail">To</label>
@@ -49,11 +49,14 @@
             <div class="d-flex flex-row float-right align-items-center">
                 <div class="spinner-border text-primary spinner-border-sm invisible" role="status"
                      id="spinner">
-                    <span class=invisible"">Loading...</span>
                 </div>
-                <button type="submit" class="btn btn-success ms-4"
-                        id="send-btn" onclick="sendMessage()">Send
-                </button>
+                <div>
+                    <button type="submit" class="btn btn-success ml-4"
+                            id="send-btn" onclick="sendMessage()">
+                        <img src="images/check.svg" width="30" height="30" class="d-none" id="img">
+                        <div id="btn-text">Send</div>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -66,59 +69,39 @@
         <div class="card-body">
             <ul class="list-group">
                 <%
-                    Key key=null;
-                    List<MessageEntity>chat=new ArrayList<>();
-                    String receiverName="";
+                    Key key = null;
+                    List<MessageEntity> chat = new ArrayList<>();
+                    String receiverName = "";
                     String[] initials;
                     String ini = "";
-                    Map<Key, List<MessageEntity>>myInbox =RegisterationMail.retrieveMessages(request.getSession().getAttribute("id").toString());
+                    Map<Key, List<MessageEntity>> myInbox = RegisterationMail.retrieveMessages(request.getSession().getAttribute("id").toString());
 
                     for (Map.Entry<Key, List<MessageEntity>> entry : myInbox.entrySet()) {
                         key = entry.getKey();
 
-                        chat=entry.getValue();
-                        List<StudentEntity> tempStudent=StudentCrud.findStudentByAtt("studentId",key.getReceiver());
-                        List<StaffmemberEntity> tempStuff=StaffMemberCrud.findStaffByAtt("staffId",key.getReceiver());
+                        chat = entry.getValue();
+                        List<StudentEntity> tempStudent = StudentCrud.findStudentByAtt("studentId", key.getReceiver());
+                        List<StaffmemberEntity> tempStuff = StaffMemberCrud.findStaffByAtt("staffId", key.getReceiver());
 
-                        if(tempStudent.size()>0)
-                        {
-                           receiverName=tempStudent.get(0).getStudentName();
-                           initials=receiverName.split(" ");
-                           if(initials.length>1) {
-                             ini = initials[0].charAt(0) + String.valueOf(initials[1].charAt(0));
-                               ini = ini.toUpperCase();
-                           }
-                           else
-                           {
-                               ini= String.valueOf(initials[0].charAt(0)+initials[0].charAt(1));
-                           }
-                        }
-                        else if(tempStuff.size()>0)
-                        {
-                            receiverName=tempStuff.get(0).getStaffName();
-                            initials=receiverName.split(" ");
-                            if(initials.length>1) {
+                        if (tempStudent.size() > 0) {
+                            receiverName = tempStudent.get(0).getStudentName();
+                            initials = receiverName.split(" ");
+                            if (initials.length > 1) {
                                 ini = initials[0].charAt(0) + String.valueOf(initials[1].charAt(0));
                                 ini = ini.toUpperCase();
+                            } else {
+                                ini = String.valueOf(initials[0].charAt(0) + initials[0].charAt(1));
                             }
-                            else
-                            {
-                                ini= String.valueOf(initials[0].charAt(0)+initials[0].charAt(1));
+                        } else if (tempStuff.size() > 0) {
+                            receiverName = tempStuff.get(0).getStaffName();
+                            initials = receiverName.split(" ");
+                            if (initials.length > 1) {
+                                ini = initials[0].charAt(0) + String.valueOf(initials[1].charAt(0));
+                                ini = ini.toUpperCase();
+                            } else {
+                                ini = String.valueOf(initials[0].charAt(0) + initials[0].charAt(1));
                             }
                         }
-
-       /* for(int i=0;i<chat.size();i++)
-        {
-            System.out.println("messageId: "+ chat.get(i).getMessageId());
-            System.out.println("messageSubject: "+ chat.get(i).getSubject());
-            System.out.println("messageContent :" + chat.get(i).getMessageContent());
-            System.out.println("messageReceive:" + chat.get(i).getReceiverId());
-            System.out.println("messageSender: "+chat.get(i).getSenderId());
-        }*/
-
-
-
-
                 %>
                 <li onclick="showChat(<%=key.getReceiver()%>,<%=key.getSender()%>)"
                     class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
@@ -126,10 +109,10 @@
                         <div class="avatar-circle mr-3">
                             <span class=" initials"><%=ini%></span>
                         </div>
-                       <%=receiverName%>
+                        <%=receiverName%>
                     </div>
                     <span class="badge badge-primary badge-pill"><%=chat.size()%></span>
-               <% } %>
+                        <% } %>
             </ul>
 
         </div>

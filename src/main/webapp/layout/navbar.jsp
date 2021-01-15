@@ -77,13 +77,17 @@
                     if (url.contains("notifications.jsp")) {
                 %>
                 <li class="nav-item rounded" style="background-color: lightgray">
-                    <a class="nav-link active" aria-current="page" href="notifications.jsp">Notifications center</a>
+                    <a class="nav-link active" aria-current="page" href="notifications.jsp">Notifications center
+                        <span class="ml-1 badge badge-pill badge-primary">3</span>
+                    </a>
                 </li>
                 <%
                 } else {
                 %>
                 <li class="nav-item rounded">
-                    <a class="nav-link" aria-current="page" href="notifications.jsp">Notifications center</a>
+                    <a class="nav-link" aria-current="page" href="notifications.jsp">Notifications center
+                        <span class="ml-1 badge badge-pill badge-primary">3</span>
+                    </a>
                 </li>
                 <%
                     }
@@ -143,13 +147,17 @@
                     if (url.contains("notifications.jsp")) {
                 %>
                 <li class="nav-item rounded" style="background-color: lightgray">
-                    <a class="nav-link active" aria-current="page" href="notifications.jsp">Notifications center</a>
+                    <a class="nav-link active" aria-current="page" href="notifications.jsp">Notifications center
+                        <span class="ml-1 badge badge-pill badge-primary">3</span>
+                    </a>
                 </li>
                 <%
                 } else {
                 %>
                 <li class="nav-item rounded">
-                    <a class="nav-link" aria-current="page" href="notifications.jsp">Notifications center</a>
+                    <a class="nav-link" aria-current="page" href="notifications.jsp">Notifications center
+                        <span class="ml-1 badge badge-pill badge-primary">3</span>
+                    </a>
                 </li>
                 <%
                         }

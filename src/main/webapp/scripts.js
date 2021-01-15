@@ -242,14 +242,15 @@ function showStudent(studentId) {
 }
 
 function showStaffMembers(value) {
+    console.log("here")
+    var table = $('#example1').DataTable()
+    table.rows().remove().draw()
     $('#card-header').html('Staff members teaching ' + value)
     $("html, body").animate({scrollTop: $(document).height()}, "fast");
     var xhttp = new XMLHttpRequest()
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var json = JSON.parse(xhttp.responseText)
-            var table = $('#example1').DataTable()
-            table.clear()
             for (var i = 0; i < json.length; i++) {
                 table.row.add([
                     json[i].staffId,
@@ -441,6 +442,7 @@ function showChat(receiverId, senderId) {
     var form = document.createElement('form')
     form.action = 'chat.jsp'
     form.method = 'post'
+    form.style.display = 'none'
     var senderInput = document.createElement('input')
     senderInput.value = senderId
     senderInput.name = 'senderId'
@@ -454,18 +456,41 @@ function showChat(receiverId, senderId) {
 }
 
 function sendMessage() {
-    console.log("enterr")
+    $('#send-btn').prop('disabled', true)
+    $('#spinner').removeClass('invisible')
+
     var toEmail = $('#toEmail').val()
     var subject = $('#subject').val()
     var message = $('#message').val()
 
     if (toEmail == '' && subject == '' && message == '') {
-        $('send-message-errors').html('Fields cannot be empty!')
+        $('#send-btn').prop('disabled', false)
+        $('#spinner').addClass('invisible')
+        $('#send-message-errors').html('Fields cannot be empty!')
     } else {
         var xhttp = new XMLHttpRequest()
         xhttp.onreadystatechange = function () {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
-//TODO:show proper response when mail is sent and when it is not
+                $('#send-btn').prop('disabled', false)
+                $('#spinner').addClass('invisible')
+                if (xhttp.responseText == 'success') {
+                    $('#send-btn').removeClass('btn-success')
+                    $('#send-btn').addClass('btn-light')
+                    $('#btn-text').addClass('d-none')
+                    $('#img').removeClass('d-none')
+
+                    setTimeout(function () {
+                        $('#send-btn').addClass('btn-success')
+                        $('#send-btn').removeClass('btn-light')
+                        $('#btn-text').removeClass('d-none')
+                        $('#img').addClass('d-none')
+                    }, 1000)
+
+                } else if (xhttp.responseText == 'Cannot find this email!') {
+                    $('#send-message-errors').html('Please enter a valid email!')
+                } else {
+                    $('#send-message-errors').html(xhttp.responseText)
+                }
             }
         }
 
@@ -473,4 +498,82 @@ function sendMessage() {
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("toEmail=" + toEmail + "&subject=" + subject + "&message=" + message);
     }
+}
+
+function extracted() {
+    $('#btn-text').addClass('d-none')
+    $('#send-message-btn').removeClass('btn-success')
+    $('#send-message-btn').addClass('btn-light')
+    $('#img').removeClass('d-none')
+
+    setTimeout(function () {
+        $('#btn-text').removeClass('d-none')
+        $('#send-message-btn').addClass('btn-success')
+        $('#send-message-btn').removeClass('btn-light')
+        $('#img').addClass('d-none')
+    }, 1000)
+    $('#btn-text3').addClass('d-none')
+    $('#send-message-btn2').removeClass('btn-success')
+    $('#send-message-btn2').addClass('btn-light')
+    $('#img2').removeClass('d-none')
+
+    setTimeout(function () {
+        $('#btn-text3').removeClass('d-none')
+        $('#send-message-btn2').addClass('btn-success')
+        $('#send-message-btn2').removeClass('btn-light')
+        $('#img2').addClass('d-none')
+    }, 1000)
+}
+
+function sendMessageFromModal() {
+    $('#send-btn').prop('disabled', true)
+    $('#btn-text2').addClass('d-none')
+    $('#spinner3').removeClass('d-none')
+
+    var toEmail = $('#toEmail').val()
+    var subject = $('#subject').val()
+    var message = $('#message').val()
+
+    if (subject == '' && message == '') {
+        $('#send-btn').prop('disabled', false)
+        $('#send-message-errors').html('Fields cannot be empty!')
+        $('#btn-text2').removeClass('d-none')
+        $('#spinner3').addClass('d-none')
+    } else {
+        var xhttp = new XMLHttpRequest()
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                $('#send-btn').prop('disabled', false)
+                $('#btn-text2').removeClass('d-none')
+                $('#spinner3').addClass('d-none')
+                if (xhttp.responseText == 'success') {
+                    $('#exampleModal1').modal('toggle')
+
+                    document.getElementById('send-message').reset()
+
+                    extracted();
+                }
+            } else if (xhttp.responseText == 'Cannot find this email!') {
+                $('#send-message-errors').html('Cannot find this email!')
+            } else {
+                $('#send-message-errors').html(xhttp.responseText)
+            }
+        }
+        xhttp.open("POST", "AddMessage", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("toEmail=" + toEmail + "&subject=" + subject + "&message=" + message);
+    }
+}
+
+function removeNotification(id) {
+    var xhttp = new XMLHttpRequest()
+    xhttp.onreadystatechange = function () {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+
+        }
+    }
+    //TODO:put the remove notification servlet here
+    xhttp.open("POST", "", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("notificationId=" + id);
 }

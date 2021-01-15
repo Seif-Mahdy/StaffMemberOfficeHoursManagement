@@ -13,7 +13,6 @@
 </head>
 <body>
 <%
-    //TODO:Determine which is the sender and which is the receiver , the chat page is the same for both
     if (request.getSession().getAttribute("id") == null) {
         response.sendRedirect("index.jsp");
     } else {
@@ -21,32 +20,45 @@
         System.out.println(request.getParameter("senderId"));
 %>
 <%@include file="layout/navbar.jsp" %>
-<%                    Map<Key, List<MessageEntity>> myInbox =RegisterationMail.retrieveMessages(request.getSession().getAttribute("id").toString());
-List<MessageEntity>chat=myInbox.get(new Key(request.getParameter("senderId"),request.getParameter("receiverId")));
+<%
+    Map<Key, List<MessageEntity>> myInbox = RegisterationMail.retrieveMessages(request.getSession().getAttribute("id").toString());
+    List<MessageEntity> chat = myInbox.get(new Key(request.getParameter("senderId"), request.getParameter("receiverId")));
 %>
 <div class="px-5" style="margin-top: 100px">
-    <ul class="list-group">
+    <div class="container-fluid list-group">
         <%
-        for(int i=0;i<chat.size();i++)
-        {
-
-
-
+            for (MessageEntity messageEntity : chat) {
+                if (messageEntity.getSenderId().equals(request.getParameter("senderId"))) {
         %>
-        <li class="list-group-item mb-4">
-            <div class="d-flex justify-content-between mb-2">
-                <div class="font-weight-bold h5"><%=chat.get(i).getSubject()%></div>
+        <div class="row">
+            <div class="col-6"></div>
+            <div class="list-group-item mb-4 border-top rounded col-6" style="background-color: rgba(0,255,81,0.27)">
+                <div class="font-weight-bold h5"><%=messageEntity.getSubject()%>
+                </div>
+                <div class="font-weight-lighter h6"><%=messageEntity.getMessageContent()%>
+                </div>
+                <div class="font-weight-lighter text-muted text-right"><%=messageEntity.getMessageDate()%>
+                </div>
             </div>
-            <div class="font-weight-lighter h6"><%=chat.get(i).getMessageContent()%>
+        </div>
+        <% } else {
+        %>
+        <div class="row">
+            <div class="list-group-item mb-4 border-top rounded col-6">
+                <div class="font-weight-bold h5"><%=messageEntity.getSubject()%>
+                </div>
+                <div class="font-weight-lighter h6"><%=messageEntity.getMessageContent()%>
+                </div>
+                <div class="font-weight-lighter text-muted text-right"><%=messageEntity.getMessageDate()%>
+                </div>
             </div>
-            <div class="font-weight-lighter text-muted float-right"><%=chat.get(i).getMessageDate()%></div>
-        </li>
-
-<% }
-
-%>
-
-    </ul>
+            <div class="col-6"></div>
+        </div>
+        <%
+                }
+            }
+        %>
+    </div>
 </div>
 <%
     }

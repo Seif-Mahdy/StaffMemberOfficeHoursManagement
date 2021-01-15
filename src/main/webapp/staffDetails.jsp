@@ -48,8 +48,12 @@
             </p>
         </div>
         <div class="card-footer text-muted">
-            <button class="btn btn-success d-flex float-right" data-toggle="modal" data-target="#exampleModal1">Send
-                message
+            <button class="btn btn-success d-flex float-right" data-toggle="modal" data-target="#exampleModal1"
+                    id="send-message-btn2">
+                <div id="btn-text3">
+                    Send message
+                </div>
+                <img src="images/check.svg" width="30" height="30" class="d-none" id="img2">
             </button>
         </div>
     </div>
@@ -158,8 +162,12 @@
             </p>
         </div>
         <div class="card-footer text-muted">
-            <button class="btn btn-success d-flex float-right" data-toggle="modal" data-target="#exampleModal1">Send
-                message
+            <button class="btn btn-success d-flex float-right" data-toggle="modal" data-target="#exampleModal1"
+                    id="send-message-btn">
+                <div id="btn-text">
+                    Send message
+                </div>
+                <img src="images/check.svg" width="30" height="30" class="d-none" id="img">
             </button>
         </div>
     </div>
@@ -215,8 +223,8 @@
                     <button type="button" class="btn btn-danger" data-dismiss="modal"
                             onclick="closeModal('send-message','form-msg2')">Close
                     </button>
-                    <button type="button" class="btn btn-success" onclick="sendMessage()"
-                            style="width: 64px;height: 38px" id="cancel-btn">
+                    <button type="button" class="btn btn-success" onclick="sendMessageFromModal()"
+                            style="width: 64px;height: 38px" id="send-btn">
                         <div class="spinner-border text-light spinner-border-sm d-none" role="status"
                              id="spinner3">
                             <span class="d-none">Loading...</span>
