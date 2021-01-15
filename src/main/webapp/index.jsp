@@ -5,9 +5,6 @@
   Time: 3:32 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="com.DbConnection" %>
-<%@ page import="java.io.PrintWriter" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -15,20 +12,28 @@
     <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+    <script
+            src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
             crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"
-            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
     <script src="scripts.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+
 </head>
 <body style="width: 100%;height: 100%;position: fixed">
 
 <%
-if(request.getSession().getAttribute("id")!=null)
-{
-    response.sendRedirect("home.jsp");
-}
+    if (request.getSession().getAttribute("id") != null) {
+        response.sendRedirect("home.jsp");
+    }
 %>
 <div class="container-fluid d-flex flex-column justify-content-center align-items-center"
      style="height: 100%;background-color:gainsboro">
@@ -36,14 +41,20 @@ if(request.getSession().getAttribute("id")!=null)
         if (request.getSession().getAttribute("success") != null) {
     %>
     <div class="alert alert-success" role="alert">
-        <%--        <%--%>
-        <%--            PrintWriter writer = response.getWriter();--%>
-        <%--            writer.print();--%>
-        <%--        %>--%>
         <%= request.getSession().getAttribute("success")%>
     </div>
     <%
             request.getSession().removeAttribute("success");
+        }
+    %>
+    <%
+        if (request.getSession().getAttribute("logged-out") != null) {
+    %>
+    <div class="alert alert-danger" role="alert">
+        <%= request.getSession().getAttribute("logged-out")%>
+    </div>
+    <%
+            request.getSession().removeAttribute("logged-out");
         }
     %>
     <div class="w-50 shadow p-5 bg-light rounded">
@@ -68,9 +79,9 @@ if(request.getSession().getAttribute("id")!=null)
                 <div class="d-flex flex-row align-items-center">
                     <button type="submit" class="btn btn-primary" onclick="loadLoginData()" id="login-btn">login
                     </button>
-                    <div class="spinner-border text-primary spinner-border-sm ms-4 visually-hidden" role="status"
+                    <div class="spinner-border text-primary spinner-border-sm ms-4 invisible" role="status"
                          id="spinner">
-                        <span class="visually-hidden">Loading...</span>
+                        <span class="invisible">Loading...</span>
                     </div>
                 </div>
                 <a href="register.jsp">Don't have an account?</a>

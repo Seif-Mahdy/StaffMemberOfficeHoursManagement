@@ -14,7 +14,6 @@ import java.util.List;
 
 @WebServlet(name = "UpdateProfile", value = "/UpdateProfile")
 public class UpdateProfile extends HttpServlet {
-    //TODO: add phone number validation
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         String username = request.getParameter("userName");
@@ -24,7 +23,7 @@ public class UpdateProfile extends HttpServlet {
         String loginType = request.getSession().getAttribute("loginType").toString();
         String userId = request.getSession().getAttribute("id").toString();
 
-        System.out.println(username + " " + password + " " + phoneNumber + " " + email + " " + loginType + " " + userId);
+        //System.out.println(username + " " + password + " " + phoneNumber + " " + email + " " + loginType + " " + userId);
 
         if (loginType.equals("student")) {
             //if email changed , check if there is exist another account with this mail
@@ -40,16 +39,25 @@ public class UpdateProfile extends HttpServlet {
                 }
 
             }
+            if (!student.getStudentNumber().equals(phoneNumber)) {
+                List<StudentEntity> students = StudentCrud.findStudentByAtt("studentNumber", phoneNumber);
+                if (students.size() > 0) {
+                    out.print("This number has been taken!");
+
+                } else {
+                    student.setStudentNumber(phoneNumber);
+                }
+            }
             student.setStudentPassword(password);
             student.setStudentName(username);
-            student.setStudentNumber(phoneNumber);
             StudentCrud.updateStudent(student);
-
+            request.getSession().setAttribute("profileUpdate","Profile updated successfully!");
+            out.print("success");
 
         } else if (loginType.equals("staff")) {
             StaffmemberEntity staff = StaffMemberCrud.findStaffMember(userId);
             if (!staff.getStaffEmail().equals(email)) {
-                List<StaffmemberEntity> staffs = StaffMemberCrud.findStaffByAtt("staffemail", email);
+                List<StaffmemberEntity> staffs = StaffMemberCrud.findStaffByAtt("staffEmail", email);
                 if (staffs.size() > 0) {
                     // out.print("email is exist");
                     out.print("This mail has been taken!");
@@ -57,12 +65,21 @@ public class UpdateProfile extends HttpServlet {
                     staff.setStaffEmail(email);
 
                 }
+                if (!staff.getStaffNumber().equals(phoneNumber)) {
+                    List<StaffmemberEntity> staffMembers = StaffMemberCrud.findStaffByAtt("staffNumber", phoneNumber);
+                    if (staffMembers.size() > 0) {
+                        out.print("This number has been taken!");
+                    } else {
+                        staff.setStaffNumber(phoneNumber);
+                    }
+                }
 
             }
             staff.setStaffPassword(password);
             staff.setStaffName(username);
             staff.setStaffNumber(phoneNumber);
             StaffMemberCrud.updateStaff(staff);
+            request.getSession().setAttribute("profileUpdate","Profile updated successfully!");
             out.print("success");
 
         }

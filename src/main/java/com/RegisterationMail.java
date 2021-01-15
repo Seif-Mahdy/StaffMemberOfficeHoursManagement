@@ -1,19 +1,21 @@
 package com;
 
 import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.util.Properties;
+import javax.mail.internet.*;
+import java.util.*;
+
 
 public class RegisterationMail {
-    public static boolean sendMail(String mail) {
-        System.out.println("inside");
+    public static boolean sendMail(String receiverMail, String senderMail, String subject, String messageContent) {
         //change accordingly
         String from = "officeHoursMangmentSystem@gmail.com"; //change accordingly
         String host = "smtp.gmail.com";//or IP address
         String password = "Office1212";
         boolean isSent = false;
         //Get the session object
+        if(senderMail!=null) {
+            messageContent = "This message is Sent by: " + senderMail + "\n" + messageContent;
+        }
         Properties properties = System.getProperties();
         properties.setProperty("mail.smtp.host", host);
         properties.put("mail.smtp.auth", "true");
@@ -30,9 +32,9 @@ public class RegisterationMail {
         try {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(from));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(mail));
-            message.setSubject("Registration Temporary password");
-            message.setText("Hello, this is your Account Temporary password (123456789) <\n> we advice you to change it  ");
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(receiverMail));
+            message.setSubject(subject);
+            message.setText(messageContent);
 
             // Send message
             Transport.send(message);
@@ -41,9 +43,75 @@ public class RegisterationMail {
 
         } catch (MessagingException mex) {
 
-            System.out.println("i'm here");
             mex.printStackTrace();
         }
         return isSent;
     }
+
+    public static Map<Key, List<MessageEntity>> retrieveMessages(String id) {
+        List<MessageEntity> myChat = new ArrayList<>();
+        List<MessageEntity> receivedMessages = new ArrayList<>();
+
+        List<String> receivers = new ArrayList<>();
+        Map<String, String> att= new HashMap<>();
+        att.put("receiverId",id);
+        receivedMessages=MessageCrud.findMessageByAtt(att);
+        att.remove("receiverId");
+        Map<Key,List<MessageEntity>>myInbox = new HashMap<>();
+        att.put("senderId",id);
+        myChat = MessageCrud.findMessageByAtt(att);
+        for (MessageEntity message :
+                myChat) {
+            if (!receivers.contains(message.getReceiverId())) {
+                receivers.add(message.getReceiverId());
+
+            }
+        }
+        for(int i=0;i<receivedMessages.size();i++)
+        {
+            if(!receivers.contains(receivedMessages.get(i).getSenderId()))
+            {
+                receivers.add(receivedMessages.get(i).getSenderId());
+            }
+        }
+
+
+        att.remove("senderId");
+        for ( String receiver:
+             receivers) {
+            att.put("senderId",id);
+            att.put("receiverId",receiver);
+        List<MessageEntity>senderMessages=MessageCrud.findMessageByAtt(att);
+        att.put("senderId",receiver);
+        att.put("receiverId",id);
+        List<MessageEntity>receiverMessages=MessageCrud.findMessageByAtt(att);
+
+       myInbox.put( new Key(id,receiver), mergeChat(senderMessages,receiverMessages));
+
+
+
+        }
+        return myInbox;
+
+
+    }
+    private static List<MessageEntity> mergeChat(List<MessageEntity>senderMessages,List<MessageEntity>receiverMessages)
+    {
+        List<MessageEntity> chat=new ArrayList<>();
+        chat.addAll(senderMessages);
+        chat.addAll(receiverMessages);
+        Collections.sort(chat);
+        return  chat;
+    }
+    public static boolean isValidEmailAddress(String email) {
+        boolean result = true;
+        try {
+            InternetAddress emailAddr = new InternetAddress(email);
+            emailAddr.validate();
+        } catch (AddressException ex) {
+            result = false;
+        }
+        return result;
+    }
+
 }

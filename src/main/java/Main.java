@@ -5,12 +5,16 @@ import org.hibernate.SessionFactory;
 
 import javax.mail.*;
 import javax.mail.internet.*;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Properties;
 
 import javax.activation.*;
 
 
 public class Main {
+
     public static void main(final String[] args) throws Exception {
 
 
@@ -48,7 +52,7 @@ public class Main {
 
      List<StudentEntity> student;
     student=StudentCrud.finStudentByAtt("studentEmail","body.hosny111@gmail.com");
-        System.out.println(student.get(0).getStudentId());*/
+        System.out.println(student.get(0).getStudentId());
         String to = "seifalaa143@gmail.com";//change accordingly
         String from = "officeHoursMangmentSystem@gmail.com"; //change accordingly
         String host = "smtp.gmail.com";//or IP address
@@ -80,7 +84,18 @@ public class Main {
 
         } catch (MessagingException mex) {
             mex.printStackTrace();
-        }
+        }*/
+      /*   SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        Timestamp stamp2= Timestamp.valueOf("2021-01-07 01:00:06.635");
+        System.out.println(timestamp);
+        OfficehourEntity slot = new OfficehourEntity();
+        slot.setLocation("home");
+        slot.setIsOffline((byte) 1);
+        slot.setFromDate(timestamp);
+        slot.setToDate(stamp2);
+        slot.setStaffId("20170000");
+        System.out.println(OfficeHourCrud.addOfficeHour(slot));*/
 
     }
 

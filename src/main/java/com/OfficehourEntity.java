@@ -2,44 +2,46 @@ package com;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Objects;
-
+//TODO: change prirmary keys
 @Entity
 @Table(name = "officehour", schema = "officehoursmangementsystem")
 public class OfficehourEntity {
     private Integer id;
-    private Date fromDate;
-    private Date toDate;
+    private Timestamp fromDate;
+    private Timestamp toDate;
     private Byte isOffline;
     private String location;
+    private String staffId;
 
     @Id
     @Column(name = "ID")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+
     public Integer getId() {
         return id;
     }
+    private void setId(int id){this.id=id;}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     @Basic
     @Column(name = "From_Date")
-    public Date getFromDate() {
+    public Timestamp getFromDate() {
         return fromDate;
     }
 
-    public void setFromDate(Date fromDate) {
+    public void setFromDate(Timestamp fromDate) {
         this.fromDate = fromDate;
     }
 
     @Basic
     @Column(name = "To_Date")
-    public Date getToDate() {
+    public Timestamp getToDate() {
         return toDate;
     }
 
-    public void setToDate(Date toDate) {
+    public void setToDate(Timestamp toDate) {
         this.toDate = toDate;
     }
 
@@ -62,6 +64,17 @@ public class OfficehourEntity {
     public void setLocation(String location) {
         this.location = location;
     }
+
+    @Basic
+    @Column(name = "StaffId")
+    public String getStaffId() {
+        return staffId;
+    }
+
+    public void setStaffId(String staffId) {
+        this.staffId = staffId;
+    }
+
 
     @Override
     public boolean equals(Object o) {

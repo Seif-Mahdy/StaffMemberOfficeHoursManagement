@@ -13,13 +13,17 @@
     <title>Register</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
             crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"
-            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
     <script src="scripts.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body style="width: 100%;height: 100%;position: fixed">
 
@@ -49,16 +53,20 @@
                 <input type="text" class="form-control" id="exampleInputSSN" name="ssn" oninput="showRegistrationType()"
                        required>
             </div>
-            <div class="input-group mb-5 visually-hidden" id="register-type">
+            <div class="input-group mb-3 visually-hidden" id="register-type">
                 <label class="input-group-text" for="inputGroupSelect02">Register as</label>
                 <select class="form-select" id="inputGroupSelect02" name="registerType" disabled>
                     <option value="Doctor">Doctor</option>
                     <option value="TA">TA</option>
                 </select>
             </div>
-<%--            <div class="g-recaptcha"--%>
-<%--                 data-sitekey="6LcIIR0aAAAAAA7Ebm5naPBBBBJh5DwBxBHN8dda"></div>--%>
-<%--            <input type="hidden" name="recaptchaResponse" value="" id="recaptchaResponse">--%>
+            <div class="d-flex justify-content-end">
+                <div class="g-recaptcha mb-5" data-sitekey="6LeQpSEaAAAAALZwnxT07Ha2Ddyzme37Fcj0t9dy"></div>
+
+            </div>
+            <%--            <div class="g-recaptcha"--%>
+            <%--                 data-sitekey="6LcIIR0aAAAAAA7Ebm5naPBBBBJh5DwBxBHN8dda"></div>--%>
+            <%--            <input type="hidden" name="recaptchaResponse" value="" id="recaptchaResponse">--%>
 
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex flex-row align-items-center">

@@ -12,7 +12,6 @@ import java.util.List;
 
 public class StudentCrud {
     public static List<StudentEntity> findStudentByAtt(String attribute, String attributeValue) {
-        StudentEntity student = null;
         SessionFactory sessionObj = HybernateUtil.getSessionFactory();
         List<StudentEntity> results = null;
 
@@ -24,6 +23,8 @@ public class StudentCrud {
             CriteriaQuery<StudentEntity> criteria = builder.createQuery(StudentEntity.class);
             Root<StudentEntity> root = criteria.from(StudentEntity.class);
             criteria.select(root).where(builder.like(root.get(attribute), attributeValue));
+           // criteria.select(root).where(builder.like(root.get("studentNumber"), "01018236359"));
+
             TypedQuery<StudentEntity> query = session.createQuery(criteria);
             results = query.getResultList();
 
@@ -126,8 +127,6 @@ public class StudentCrud {
         } catch (HibernateException e) {
             e.printStackTrace();
 
-        } finally {
-            sessionObj.close();
         }
 
         return isUpdated;
@@ -146,12 +145,34 @@ public class StudentCrud {
             isInsert = true;
         } catch (HibernateException e) {
             e.printStackTrace();
-        } finally {
-            sessionObj.close();
         }
         return isInsert;
     }
 
+    public static List<StudentEntity> selectAllStudents() {
+        List<StudentEntity>students = null;
+        SessionFactory sessionObj = HybernateUtil.getSessionFactory();
 
+        try  {
+            Session session = sessionObj.openSession();
+            session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+
+            CriteriaQuery<StudentEntity> criteria = builder.createQuery(StudentEntity.class);
+            Root<StudentEntity> root = criteria.from(StudentEntity.class);
+            TypedQuery<StudentEntity> query = session.createQuery(criteria);
+            students = query.getResultList();
+
+
+            session.getTransaction().commit();
+            session.close();
+
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+
+
+        return students;
+    }
 }
 

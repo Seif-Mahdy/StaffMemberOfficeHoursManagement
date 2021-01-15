@@ -4,6 +4,12 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.util.List;
+
 public class CourseCrud {
 
         public static CourseEntity findCourse(int courseId) {
@@ -25,8 +31,36 @@ public class CourseCrud {
 
             return course;
         }
+    public static List<CourseEntity> selectAllCourses() {
+         List<CourseEntity>courses = null;
+        SessionFactory sessionObj = HybernateUtil.getSessionFactory();
 
-        public static boolean addCourse(CourseEntity inputCourse) {
+        try  {
+            Session session = sessionObj.openSession();
+            session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+
+            CriteriaQuery<CourseEntity> criteria = builder.createQuery(CourseEntity.class);
+            Root<CourseEntity> root = criteria.from(CourseEntity.class);
+            TypedQuery<CourseEntity> query = session.createQuery(criteria);
+            courses = query.getResultList();
+
+
+            session.getTransaction().commit();
+            session.close();
+
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+
+
+        return courses;
+    }
+
+
+
+
+    public static boolean addCourse(CourseEntity inputCourse) {
             SessionFactory sessionObj = HybernateUtil.getSessionFactory();
             boolean isInsert = false;
 
@@ -39,8 +73,6 @@ public class CourseCrud {
                 isInsert = true;
             } catch (HibernateException e) {
                 e.printStackTrace();
-            }finally {
-                sessionObj.close();
             }
             return isInsert;
         }
@@ -60,8 +92,6 @@ public class CourseCrud {
 
             } catch (HibernateException e) {
                 e.printStackTrace();
-            }finally {
-                sessionObj.close();
             }
 
             return isDeleted;
@@ -92,12 +122,38 @@ public class CourseCrud {
             } catch (HibernateException e) {
                 e.printStackTrace();
 
-            }finally {
-                sessionObj.close();
             }
 
             return isUpdated;
         }
+    public static List<CourseEntity> findCourseByAtt(String attribute, String attributeValue) {
+        CourseEntity course = null;
+        SessionFactory sessionObj = HybernateUtil.getSessionFactory();
+        List<CourseEntity> results = null;
+
+        try {
+            Session session = sessionObj.openSession();
+            session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+
+            CriteriaQuery<CourseEntity> criteria = builder.createQuery(CourseEntity.class);
+            Root<CourseEntity> root = criteria.from(CourseEntity.class);
+            criteria.select(root).where(builder.like(root.get(attribute), attributeValue));
+            TypedQuery<CourseEntity> query = session.createQuery(criteria);
+            results = query.getResultList();
+
+
+            session.getTransaction().commit();
+            session.close();
+
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+
+
+        return results;
+
+    }
 
     }
 

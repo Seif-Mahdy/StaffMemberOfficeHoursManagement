@@ -1,21 +1,28 @@
 package com;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
 @Table(name = "message", schema = "officehoursmangementsystem")
-public class MessageEntity {
+public class MessageEntity implements Comparable<MessageEntity> {
     private Integer messageId;
     private String messageContent;
+    private String receiverId;
+    private String subject;
+    private String senderId;
+    private Timestamp messageDate;
 
     @Id
     @Column(name = "MessageID")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+
     public Integer getMessageId() {
         return messageId;
     }
 
-    public void setMessageId(Integer messageId) {
+    private void setMessageId(Integer messageId) {
         this.messageId = messageId;
     }
 
@@ -40,5 +47,47 @@ public class MessageEntity {
     @Override
     public int hashCode() {
         return Objects.hash(messageId, messageContent);
+    }
+
+    @Basic
+    @Column(name = "ReceiverId")
+    public String getReceiverId() {
+        return receiverId;
+    }
+
+    public void setReceiverId(String receiverId) {
+        this.receiverId = receiverId;
+    }
+    @Basic
+    @Column(name = "Subject")
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+    @Basic
+    @Column(name = "SenderId")
+    public String getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
+    }
+
+    @Override
+    public int compareTo(MessageEntity o) {
+        return this.getMessageId().compareTo(o.getMessageId());
+    }
+    @Basic
+    @Column(name = "MessageDate")
+    public Timestamp getMessageDate() {
+        return messageDate;
+    }
+
+    public void setMessageDate(Timestamp messageDate) {
+        this.messageDate = messageDate;
     }
 }
