@@ -11,37 +11,41 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
-@WebServlet(name = "AddMessage", value = "/AddMessage")
+@WebServlet(name = "AddMessage",value="/AddMessage")
 public class AddMessage extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+    String senderId=request.getSession().getAttribute("id").toString();
+        String senderEmail=null ;
         PrintWriter out = response.getWriter();
-        String senderId = request.getSession().getAttribute("id").toString();
-        String senderEmail = null;
-        if (request.getSession().getAttribute("loginType").toString().equals("student")) {
-            StudentEntity student = StudentCrud.findStudent(senderId);
-            senderEmail = student.getStudentEmail();
-        } else {
-            StaffmemberEntity staff = StaffMemberCrud.findStaffMember(senderId);
-            senderEmail = staff.getStaffEmail();
-        }
-        MessageEntity message = new MessageEntity();
 
-        String receiverMail = request.getParameter("toEmail");
-        List<StudentEntity> tempStudent = StudentCrud.findStudentByAtt("studentEmail", receiverMail);
-        List<StaffmemberEntity> tempStuff = StaffMemberCrud.findStaffByAtt("staffEmail", receiverMail);
-        boolean isValidDate = true;
-        if (tempStudent.size() > 0) {
-            message.setReceiverId(tempStudent.get(0).getStudentId());
-        } else if (tempStuff.size() > 0) {
-            message.setReceiverId(tempStuff.get(0).getStaffId());
-        }
-        else // receiver mail does not exist
-        {
-            out.print("Cannot find this email!");
-            isValidDate = false;
-        }
+        if(request.getSession().getAttribute("loginType").toString().equals("student"))
+    {
+        StudentEntity student= StudentCrud.findStudent(senderId);
+        senderEmail=student.getStudentEmail();
+    }
+    else
+    {
+        StaffmemberEntity staff= StaffMemberCrud.findStaffMember(senderId);
+        senderEmail=staff.getStaffEmail();
+    }
+        MessageEntity message=new MessageEntity();
 
+        String receiverMail=request.getParameter("toEmail");
+
+            List<StudentEntity> tempStudent = StudentCrud.findStudentByAtt("studentEmail", receiverMail);
+            List<StaffmemberEntity> tempStuff = StaffMemberCrud.findStaffByAtt("staffEmail", receiverMail);
+            boolean isValidDate = true;
+            if (tempStudent.size() > 0) {
+                message.setReceiverId(tempStudent.get(0).getStudentId());
+            } else if (tempStuff.size() > 0) {
+                message.setReceiverId(tempStuff.get(0).getStaffId());
+            } else // receiver mail does not exist
+            {
+
+                isValidDate = false;
+            }
+    if(isValidDate) {
         String messageContent = request.getParameter("message");
         String subject = request.getParameter("subject");
         message.setMessageContent(messageContent);
@@ -55,6 +59,13 @@ public class AddMessage extends HttpServlet {
         } else {
             out.print("Failed to send message");
         }
+
+    }
+    else
+    {
+        //TODO: decide how to handle this case , invalid receiver mail
+    }
+
 
 
     }
