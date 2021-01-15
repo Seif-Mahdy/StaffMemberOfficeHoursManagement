@@ -478,13 +478,15 @@ function sendMessage() {
                     $('#send-btn').addClass('btn-light')
                     $('#btn-text').addClass('d-none')
                     $('#img').removeClass('d-none')
+                    document.getElementById('send-message-form').reset()
 
                     setTimeout(function () {
                         $('#send-btn').addClass('btn-success')
                         $('#send-btn').removeClass('btn-light')
                         $('#btn-text').removeClass('d-none')
                         $('#img').addClass('d-none')
-                    }, 1000)
+                        window.location.href = 'inbox.jsp'
+                    }, 1500)
 
                 } else if (xhttp.responseText == 'Cannot find this email!') {
                     $('#send-message-errors').html('Please enter a valid email!')

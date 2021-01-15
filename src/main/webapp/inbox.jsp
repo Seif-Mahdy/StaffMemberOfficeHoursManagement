@@ -28,7 +28,7 @@
         </div>
         <div class="card-body">
             <div class="text-danger mb-2" id="send-message-errors"></div>
-            <form>
+            <form id="send-message-form">
                 <div class="form-group mb-3">
                     <label class="mb-1" for="toEmail">To</label>
                     <input type="email" class="form-control" id="toEmail"
